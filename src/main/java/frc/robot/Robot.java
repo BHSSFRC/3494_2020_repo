@@ -7,9 +7,14 @@
 
 package frc.robot;
 
+import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.TimedRobot;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
+import edu.wpi.first.wpilibj2.command.ScheduleCommand;
+import frc.robot.commands.Drive;
+import frc.robot.subsystems.DriveTrain;
 
 /**
  * The VM is configured to automatically run this class, and to call the
@@ -34,6 +39,14 @@ public class Robot extends TimedRobot
         // Instantiate our RobotContainer.  This will perform all our button bindings, and put our
         // autonomous chooser on the dashboard.
         robotContainer = new RobotContainer();
+        String[] SDDoubles = {"Left Y", "Shooter Max Power"};
+        for(String doubleName : SDDoubles){
+            if(!SmartDashboard.containsKey(doubleName)){
+                SmartDashboard.putNumber(doubleName, 1);
+                SmartDashboard.setPersistent(doubleName);
+            }
+        }
+
     }
 
     /**
@@ -51,6 +64,7 @@ public class Robot extends TimedRobot
         // and running subsystem periodic() methods.  This must be called from the robot's periodic
         // block in order for anything in the Command-based framework to work.
         CommandScheduler.getInstance().run();
+        CommandScheduler.getInstance().setDefaultCommand(DriveTrain.getInstance(), new Drive());
     }
 
     /**
@@ -100,6 +114,12 @@ public class Robot extends TimedRobot
         {
             autonomousCommand.cancel();
         }
+        //Command teleopCommand = robotContainer.getTeleopCommand();
+        //teleopCommand.schedule();
+        //new Drive();
+        //new ScheduleCommand(new Drive());
+        CommandScheduler.getInstance().schedule(new Drive());
+
     }
 
     /**
@@ -108,6 +128,7 @@ public class Robot extends TimedRobot
     @Override
     public void teleopPeriodic()
     {
+        //SmartDashboard.putNumber("Left Y", OI.getINSTANCE().getLeftY());
     }
 
     @Override

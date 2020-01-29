@@ -48,6 +48,12 @@ public class RobotContainer
         
     }
 
+    public Command getTeleopCommand()
+    {
+        // An ExampleCommand will run in autonomous
+        //return autonomousCommand;
+        return new Drive();
+    }
 
     /**
      * Use this to pass the autonomous command to the main {@link Robot} class.

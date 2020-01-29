@@ -3,25 +3,24 @@ package frc.robot.commands;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.OI;
-import frc.robot.subsystems.DriveTrain;
+import frc.robot.subsystems.Shooter;
 
 
-public class Drive extends CommandBase {
+public class Shoot extends CommandBase {
 
-    public Drive() {
-        addRequirements(DriveTrain.getInstance());
+    public Shoot() {
+        addRequirements(Shooter.getInstance());
     }
 
     @Override
     public void initialize() {
+
     }
 
     @Override
     public void execute() {
-        double leftPower = OI.getINSTANCE().getLeftY();
-        SmartDashboard.putNumber("Left Y", leftPower);
-        double rightPower = OI.getINSTANCE().getRightY();
-        DriveTrain.getInstance().tankDrive(leftPower, rightPower);
+        double power = OI.getINSTANCE().getXboxRightY() * SmartDashboard.getNumber("Shooter Max Power", 1);
+        Shooter.getInstance().shoot(power);
     }
 
     @Override
