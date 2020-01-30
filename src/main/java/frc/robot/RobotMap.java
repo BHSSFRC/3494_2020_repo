@@ -7,8 +7,10 @@ public class RobotMap {
         public static final int LEFT_SLAVE = 1;
         public static final int RIGHT_MASTER = 15;
         public static final int RIGHT_SLAVE = 14;
+        public static final int TEMP_SOLENOID = 6;//random number
 
         public static final int SHOOTER = 8;
+        public static final double MAX_TEMP = 60;
     }
 
     public static class SHOOTER {

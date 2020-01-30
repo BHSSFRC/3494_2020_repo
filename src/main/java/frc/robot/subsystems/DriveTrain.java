@@ -4,6 +4,7 @@ package frc.robot.subsystems;
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.can.TalonFX;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
+import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.OI;
@@ -19,6 +20,8 @@ public class DriveTrain extends SubsystemBase {
     private TalonFX leftSlave;
     private TalonFX rightMaster;
     private TalonFX rightSlave;
+
+    private Solenoid tempControl;
 
     private TalonSRX shooter;
 
@@ -47,8 +50,9 @@ public class DriveTrain extends SubsystemBase {
 
         this.leftSlave.follow(this.leftMaster);
         this.rightSlave.follow(this.rightMaster);
-
         this.shooter = new TalonSRX(RobotMap.DRIVETRAIN.SHOOTER);
+
+        this.tempControl = new Solenoid(RobotMap.DRIVETRAIN.TEMP_SOLENOID);
     }
 
     public void tankDrive(double leftPower, double rightPower){
@@ -61,6 +65,21 @@ public class DriveTrain extends SubsystemBase {
 
     public void initDefaultCommand(){
         setDefaultCommand(new Drive());
+    }
+
+    public boolean aboveMaxTemp(){
+        if(this.rightMaster.getTemperature() > RobotMap.DRIVETRAIN.MAX_TEMP ||
+            this.rightSlave.getTemperature() > RobotMap.DRIVETRAIN.MAX_TEMP ||
+            this.leftMaster.getTemperature() > RobotMap.DRIVETRAIN.MAX_TEMP ||
+            this.leftSlave.getTemperature() > RobotMap.DRIVETRAIN.MAX_TEMP) {
+            return true;
+        }else{
+            return false;
+        }
+    }
+
+    public void openTempSolenoid(){
+        this.tempControl.set(true);
     }
 
     /**public double getLeftMasterPosition(){

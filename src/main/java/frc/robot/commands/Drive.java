@@ -22,6 +22,11 @@ public class Drive extends CommandBase {
         SmartDashboard.putNumber("Left Y", leftPower);
         double rightPower = OI.getINSTANCE().getRightY();
         DriveTrain.getInstance().tankDrive(leftPower, rightPower);
+
+        if(DriveTrain.getInstance().aboveMaxTemp()){
+            //release solenoid to cool motors down
+            DriveTrain.getInstance().openTempSolenoid();
+        }
     }
 
     @Override
