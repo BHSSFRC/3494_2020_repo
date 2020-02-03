@@ -9,13 +9,16 @@ public class RobotMap {
         public static final int RIGHT_SLAVE = 14;
         public static final int TEMP_SOLENOID = 6;//random number
 
-        public static final int SHOOTER = 8;
         public static final double MAX_TEMP = 60;
     }
 
     public static class SHOOTER {
         public static final int TOP = 12;
         public static final int BOT = 13;
+    }
+
+    public static class INTAKE {
+        public static final int MOTOR = 8;
     }
 
     public static class OI {
