@@ -30,12 +30,13 @@ public class Shooter extends SubsystemBase {
         // TODO: Set the default command, if any, for this subsystem by calling setDefaultCommand(command)
         //       in the constructor or in the robot coordination class, such as RobotContainer.
         //       Also, you can call addChild(name, sendableChild) to associate sendables with the subsystem
-        //       such as SpeedControllers, Encoders, DigitalInputs, etc.
-        setDefaultCommand(new Shoot());
+        //       such as SpeedControllers, Encoders, DigitalInputs, etc
 
         this.top = new CANSparkMax(RobotMap.SHOOTER.TOP, CANSparkMaxLowLevel.MotorType.kBrushless);
         this.bot = new CANSparkMax(RobotMap.SHOOTER.BOT, CANSparkMaxLowLevel.MotorType.kBrushless);
         this.bot.follow(this.top);
+
+        setDefaultCommand(new Shoot());
     }
 
     public void shoot(double power){

@@ -50,6 +50,9 @@ public class Robot extends TimedRobot
             }
         }
 
+        CommandScheduler.getInstance().setDefaultCommand(DriveTrain.getInstance(), new Drive());
+        CommandScheduler.getInstance().setDefaultCommand(Shooter.getInstance(), new Shoot());
+
     }
 
     /**
@@ -67,8 +70,6 @@ public class Robot extends TimedRobot
         // and running subsystem periodic() methods.  This must be called from the robot's periodic
         // block in order for anything in the Command-based framework to work.
         CommandScheduler.getInstance().run();
-        CommandScheduler.getInstance().setDefaultCommand(DriveTrain.getInstance(), new Drive());
-        CommandScheduler.getInstance().setDefaultCommand(Shooter.getInstance(), new Shoot());
 
         //update SmartDash values
         SmartDashboard.putNumber("Distance Sensor", Distance2M.getInstance().getDist());
@@ -126,7 +127,7 @@ public class Robot extends TimedRobot
         //new Drive();
         //new ScheduleCommand(new Drive());
         CommandScheduler.getInstance().schedule(new Drive());
-
+        CommandScheduler.getInstance().schedule(new Shoot());
     }
 
     /**
