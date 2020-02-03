@@ -14,10 +14,10 @@ import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import edu.wpi.first.wpilibj2.command.ScheduleCommand;
 import frc.robot.commands.Drive;
-import frc.robot.commands.Shoot;
+import frc.robot.commands.RunIntake;
 import frc.robot.sensors.Distance2M;
 import frc.robot.subsystems.DriveTrain;
-import frc.robot.subsystems.Shooter;
+import frc.robot.subsystems.Intake;
 
 /**
  * The VM is configured to automatically run this class, and to call the
@@ -41,6 +41,8 @@ public class Robot extends TimedRobot
     {
         // Instantiate our RobotContainer.  This will perform all our button bindings, and put our
         // autonomous chooser on the dashboard.
+        Intake.getInstance();
+        DriveTrain.getInstance();
         robotContainer = new RobotContainer();
         String[] SDDoubles = {"Left Y", "Shooter Max Power", "Distance Sensor"};
         for(String doubleName : SDDoubles){
@@ -68,7 +70,8 @@ public class Robot extends TimedRobot
         // block in order for anything in the Command-based framework to work.
         CommandScheduler.getInstance().run();
         CommandScheduler.getInstance().setDefaultCommand(DriveTrain.getInstance(), new Drive());
-        CommandScheduler.getInstance().setDefaultCommand(Shooter.getInstance(), new Shoot());
+        CommandScheduler.getInstance().setDefaultCommand(Intake.getInstance(), new RunIntake());
+        // CommandScheduler.getInstance().setDefaultCommand(Shooter.getInstance(), new Shoot());
 
         //update SmartDash values
         SmartDashboard.putNumber("Distance Sensor", Distance2M.getInstance().getDist());
