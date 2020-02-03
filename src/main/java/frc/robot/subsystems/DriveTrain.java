@@ -23,7 +23,7 @@ public class DriveTrain extends SubsystemBase {
 
     private Solenoid tempControl;
 
-    private TalonSRX shooter;
+    //private TalonSRX shooter;
 
     /**
      * The Singleton instance of this DriveTrain. External classes should
@@ -50,7 +50,7 @@ public class DriveTrain extends SubsystemBase {
 
         this.leftSlave.follow(this.leftMaster);
         this.rightSlave.follow(this.rightMaster);
-        this.shooter = new TalonSRX(RobotMap.DRIVETRAIN.SHOOTER);
+        //this.shooter = new TalonSRX(RobotMap.DRIVETRAIN.SHOOTER);
 
         this.tempControl = new Solenoid(RobotMap.DRIVETRAIN.TEMP_SOLENOID);
     }
