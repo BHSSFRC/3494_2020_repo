@@ -84,6 +84,10 @@ public class DriveTrain extends SubsystemBase {
         //this.tempControl.set(true);
     }
 
+    public void stop(){
+        this.tankDrive(0,0);
+    }
+
     /**public double getLeftMasterPosition(){
         return this.leftMaster.getSelectedSensorPosition();
     }

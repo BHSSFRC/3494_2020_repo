@@ -12,6 +12,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import frc.robot.commands.Drive;
+import frc.robot.commands.drive.DriveStraight;
 import frc.robot.sensors.Distance2M;
 import frc.robot.subsystems.DriveTrain;
 import frc.robot.commands.RunIntake;
@@ -44,7 +45,7 @@ public class Robot extends TimedRobot
         Intake.getInstance();
         DriveTrain.getInstance();
         robotContainer = new RobotContainer();
-        String[] SDDoubles = {"Left Y", "Shooter Max Power", "Distance Sensor"};
+        String[] SDDoubles = {"Left Y", "Shooter Max Power", "Distance Sensor", "Tuning/PID P", "Tuning/PID I", "Tuning/PID D"};
         for(String doubleName : SDDoubles){
             if(!SmartDashboard.containsKey(doubleName)){
                 SmartDashboard.putNumber(doubleName, 1);
@@ -69,7 +70,7 @@ public class Robot extends TimedRobot
         // and running subsystem periodic() methods.  This must be called from the robot's periodic
         // block in order for anything in the Command-based framework to work.
         CommandScheduler.getInstance().run();
-        CommandScheduler.getInstance().setDefaultCommand(DriveTrain.getInstance(), new Drive());
+        CommandScheduler.getInstance().setDefaultCommand(DriveTrain.getInstance(), new DriveStraight());
         CommandScheduler.getInstance().setDefaultCommand(Intake.getInstance(), new RunIntake());
         // CommandScheduler.getInstance().setDefaultCommand(Shooter.getInstance(), new Shoot());
 
@@ -128,7 +129,7 @@ public class Robot extends TimedRobot
         //teleopCommand.schedule();
         //new Drive();
         //new ScheduleCommand(new Drive());
-        CommandScheduler.getInstance().schedule(new Drive());
+        CommandScheduler.getInstance().schedule(new DriveStraight());
 
     }
 
