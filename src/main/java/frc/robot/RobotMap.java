@@ -26,4 +26,8 @@ public class RobotMap {
         public static int RIGHT_FLIGHT = 1;
         public static int XBOX = 2;
     }
+
+    public static class SENSORS {
+        public static int IMU = 0;
+    }
 }
