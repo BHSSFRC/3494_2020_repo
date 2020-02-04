@@ -12,11 +12,8 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import frc.robot.commands.Drive;
-import frc.robot.sensors.Distance2M;
 import frc.robot.subsystems.DriveTrain;
 import frc.robot.commands.RunIntake;
-import frc.robot.sensors.Distance2M;
-import frc.robot.subsystems.DriveTrain;
 import frc.robot.subsystems.Intake;
 
 /**
@@ -74,8 +71,7 @@ public class Robot extends TimedRobot
         // CommandScheduler.getInstance().setDefaultCommand(Shooter.getInstance(), new Shoot());
 
         //update SmartDash values
-        SmartDashboard.putNumber("Distance Sensor", Distance2M.getInstance().getDist());
-    }
+        }
 
     /**
      * This method is called once each time the robot enters Disabled mode.
