@@ -22,6 +22,8 @@ public class DriveTrain extends SubsystemBase {
     private TalonFX rightMaster;
     private TalonFX rightSlave;
 
+    //private TalonSRX shooter;
+
     //private Solenoid tempControl;
 
     /**
@@ -53,6 +55,9 @@ public class DriveTrain extends SubsystemBase {
 
         this.leftSlave.follow(this.leftMaster);
         this.rightSlave.follow(this.rightMaster);
+
+        //this.shooter = new TalonSRX(RobotMap.DRIVETRAIN.SHOOTER);
+
 
         //this.tempControl = new Solenoid(RobotMap.DRIVETRAIN.TEMP_SOLENOID);
     }

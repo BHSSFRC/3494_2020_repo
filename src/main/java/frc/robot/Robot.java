@@ -7,15 +7,21 @@
 
 package frc.robot;
 
-import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
+<<<<<<< HEAD
 import edu.wpi.first.wpilibj2.command.ScheduleCommand;
 import frc.robot.commands.*;
 import frc.robot.sensors.*;
 import frc.robot.subsystems.*;
+=======
+import frc.robot.commands.Drive;
+import frc.robot.subsystems.DriveTrain;
+import frc.robot.commands.RunIntake;
+import frc.robot.subsystems.Intake;
+>>>>>>> 68d22bfb3b2850355c7ef19f6faa0958436e930f
 
 /**
  * The VM is configured to automatically run this class, and to call the
@@ -74,8 +80,7 @@ public class Robot extends TimedRobot
         // CommandScheduler.getInstance().setDefaultCommand(Shooter.getInstance(), new Shoot());
 
         //update SmartDash values
-        SmartDashboard.putNumber("Distance Sensor", Distance2M.getInstance().getDist());
-    }
+        }
 
     /**
      * This method is called once each time the robot enters Disabled mode.
