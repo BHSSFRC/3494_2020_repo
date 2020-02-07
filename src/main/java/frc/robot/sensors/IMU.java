@@ -1,17 +1,24 @@
 package frc.robot.sensors;
 
-import com.ctre.phoenix.sensors.PigeonIMU;
+
+import com.analog.adis16470.frc.ADIS16470_IMU;
 import frc.robot.RobotMap;
+//import com.analog.adis16470.*;
 
 public class IMU {
+    private static IMU  INSTANCE = new IMU();
+    private ADIS16470_IMU imu;
 
-    public PigeonIMU imu;
-    public IMU(){
-        this.imu = new PigeonIMU(RobotMap.SENSORS.IMU);
+    private IMU(){
+        imu = new ADIS16470_IMU();
     }
 
-    public double getFusedHeading(){
-        return this.imu.getFusedHeading();
+    public double getYaw(){
+        return this.imu.getAngle();
+    }
+
+    public static IMU getInstance(){
+        return INSTANCE;
     }
 
     /**public String getDataString(){

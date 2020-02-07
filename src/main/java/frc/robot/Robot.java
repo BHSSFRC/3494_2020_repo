@@ -12,6 +12,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import frc.robot.commands.Drive;
+import frc.robot.sensors.IMU;
 import frc.robot.subsystems.DriveTrain;
 import frc.robot.commands.RunIntake;
 import frc.robot.subsystems.Intake;
@@ -41,7 +42,7 @@ public class Robot extends TimedRobot
         Intake.getInstance();
         DriveTrain.getInstance();
         robotContainer = new RobotContainer();
-        String[] SDDoubles = {"Left Y", "Shooter Max Power", "Distance Sensor"};
+        String[] SDDoubles = {"Left Y", "Shooter Max Power", "Distance Sensor", "Angle"};
         for(String doubleName : SDDoubles){
             if(!SmartDashboard.containsKey(doubleName)){
                 SmartDashboard.putNumber(doubleName, 1);
@@ -135,6 +136,7 @@ public class Robot extends TimedRobot
     public void teleopPeriodic()
     {
         //SmartDashboard.putNumber("Left Y", OI.getINSTANCE().getLeftY());
+        SmartDashboard.putNumber("Angle", IMU.getInstance().getYaw());
     }
 
     @Override
