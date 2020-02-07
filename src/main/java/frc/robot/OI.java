@@ -33,6 +33,10 @@ public class OI {
         return this.xbox.getTriggerAxis(GenericHID.Hand.kRight);
     }
 
+    public boolean getXboxRightBumper(){
+        return this.xbox.getBumper(GenericHID.Hand.kRight);
+    }
+
     /**
      * Returns 0.0 if the given value is within the specified range around zero. The remaining range
      * between the deadband and 1.0 is scaled from 0.0 to 1.0.

@@ -7,6 +7,7 @@
 
 package frc.robot.subsystems;
 
+import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.commands.RunIntake;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
@@ -19,6 +20,9 @@ public class Intake extends SubsystemBase {
   	 */
 
     private TalonSRX motor;
+
+    private DoubleSolenoid LeftCylinder = new DoubleSolenoid(RobotMap.COMPRESSOR.PCM1, RobotMap.INTAKE.LEFT_CYLINDER_OUT, RobotMap.INTAKE.LEFT_CYLINDER_IN);
+    private DoubleSolenoid RightCylinder = new DoubleSolenoid(RobotMap.COMPRESSOR.PCM1, RobotMap.INTAKE.RIGHT_CYLINDER_OUT, RobotMap.INTAKE.RIGHT_CYLINDER_IN);
 
 
     private final static Intake INSTANCE = new Intake();
@@ -33,6 +37,17 @@ public class Intake extends SubsystemBase {
 
     public void runIntake(double power) {
         this.motor.set(ControlMode.PercentOutput, power);
+    }
+
+    public void setPosition(boolean deployed) {
+        if (deployed) {
+            this.LeftCylinder.set(DoubleSolenoid.Value.kForward);
+            this.RightCylinder.set(DoubleSolenoid.Value.kForward);
+        } else {
+            this.LeftCylinder.set(DoubleSolenoid.Value.kReverse);
+            this.RightCylinder.set(DoubleSolenoid.Value.kReverse);
+
+        }
     }
 	
   	@Override

@@ -19,11 +19,19 @@ public class RobotMap {
 
     public static class INTAKE {
         public static final int MOTOR = 8;
+        public static final int LEFT_CYLINDER_OUT = 0;
+        public static final int LEFT_CYLINDER_IN = 1;
+        public static final int RIGHT_CYLINDER_OUT = 2;
+        public static final int RIGHT_CYLINDER_IN = 3;
     }
 
     public static class OI {
         public static int LEFT_FLIGHT = 0;
         public static int RIGHT_FLIGHT = 1;
         public static int XBOX = 2;
+    }
+
+    public static class COMPRESSOR {
+        public static int PCM1 = 1;
     }
 }
