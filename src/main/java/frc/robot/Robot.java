@@ -13,7 +13,11 @@ import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import frc.robot.commands.CalibrateIMU;
 import frc.robot.commands.Drive;
+<<<<<<< HEAD
 import frc.robot.sensors.IMU;
+=======
+import frc.robot.sensors.Dist2m;
+>>>>>>> dist_sensor
 import frc.robot.subsystems.DriveTrain;
 import frc.robot.commands.RunIntake;
 import frc.robot.subsystems.Intake;
@@ -52,6 +56,14 @@ public class Robot extends TimedRobot
             }
         }
 
+        String[] SDBooleans = {"Dist Sensor Error"};
+        for (String booleanName: SDBooleans){
+            if(!SmartDashboard.containsKey(booleanName)){
+                SmartDashboard.putBoolean(booleanName, false);
+                SmartDashboard.setPersistent(booleanName);
+            }
+        }
+
     }
 
     /**
@@ -75,6 +87,7 @@ public class Robot extends TimedRobot
         // CommandScheduler.getInstance().setDefaultCommand(Shooter.getInstance(), new Shoot());
 
         //update SmartDash values
+        SmartDashboard.putBoolean("Dist Sensor Error", Dist2m.getInstance().isNotEnabled());
         }
 
     /**
@@ -140,6 +153,7 @@ public class Robot extends TimedRobot
     public void teleopPeriodic()
     {
         //SmartDashboard.putNumber("Left Y", OI.getINSTANCE().getLeftY());
+        SmartDashboard.putNumber("Distance Sensor", Dist2m.getInstance().getDist());
     }
 
     @Override
