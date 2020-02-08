@@ -65,7 +65,8 @@ public class DriveStraight extends CommandBase {
     public void execute() {
         double input = IMU.getInstance().getYaw();
         power = OI.getINSTANCE().getLeftY();
-        double output = this.pidController.calculate(input, this.timer.delta());
+        //double output = this.pidController.calculate(input, this.timer.delta());
+        double output = (input - this.initialYaw) * RobotConfig.DRIVE_STRAIGHT.kP_DUMB;
         //double output = this.pidController.calculate(this.initialYaw, this.timer.delta());
         SmartDashboard.putNumber("DriveStraight Offset", output);
         DriveTrain.getInstance().tankDrive(power - output, power + output);
