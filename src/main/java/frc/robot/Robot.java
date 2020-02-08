@@ -50,6 +50,14 @@ public class Robot extends TimedRobot
             }
         }
 
+        String[] SDBooleans = {"Dist Sensor Error"};
+        for (String booleanName: SDBooleans){
+            if(!SmartDashboard.containsKey(booleanName)){
+                SmartDashboard.putBoolean(booleanName, false);
+                SmartDashboard.setPersistent(booleanName);
+            }
+        }
+
     }
 
     /**
@@ -72,6 +80,7 @@ public class Robot extends TimedRobot
         // CommandScheduler.getInstance().setDefaultCommand(Shooter.getInstance(), new Shoot());
 
         //update SmartDash values
+        SmartDashboard.putBoolean("Dist Sensor Error", Dist2m.getInstance().isNotEnabled());
         }
 
     /**

@@ -9,13 +9,18 @@ public class Dist2m {
     public Dist2m() {
         distanceSensor = new Rev2mDistanceSensor(Rev2mDistanceSensor.Port.kOnboard);
         distanceSensor.setAutomaticMode(true);
+        distanceSensor.setDistanceUnits(Rev2mDistanceSensor.Unit.kInches);
     }
 
     public double getDist(){
         if(this.distanceSensor.isRangeValid()){
             return this.distanceSensor.getRange();
         }
-        return -1;
+        return Double.NaN;
+    }
+
+    public boolean isNotEnabled(){
+        return !this.distanceSensor.isEnabled();
     }
 
     public static Dist2m getInstance(){
