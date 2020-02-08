@@ -27,7 +27,8 @@ public class IMU {
     }
 
     public double getYaw(){
-        return (this.imu.getAngle() - this.initAngle) - this.timer.get() * RobotConfig.SENSORS.IMU_OFFSET_PER_SECOND_PHASE_ONE;
+        return (this.imu.getAngle() - this.initAngle) - this.timer.get() *
+                (RobotConfig.SENSORS.IMU_OFFSET_PER_SECOND_PHASE_ONE + RobotConfig.SENSORS.IMU_OFFSET_PER_SECOND_PHASE_TWO);
     }
 
     public static IMU getInstance(){

@@ -11,6 +11,7 @@ public class CalibrateIMU extends CommandBase {
     private double startDrift;
     private int secondsPassed;
     private boolean isPhaseTwo = false;
+    private boolean isFinished = false;
 
     public CalibrateIMU() {
         // If any subsystems are needed, you will need to pass them into the requires() method
@@ -30,20 +31,21 @@ public class CalibrateIMU extends CommandBase {
     public void execute() {
         if (!this.isPhaseTwo && this.timer.get() > RobotConfig.SENSORS.IMU_CALIBRATION_TIME / 2) {
             RobotConfig.SENSORS.IMU_OFFSET_PER_SECOND_PHASE_ONE = (IMU.getInstance().getYaw() - this.startDrift) / this.timer.delta();
-            SmartDashboard.putNumber("Calibrate", RobotConfig.SENSORS.IMU_OFFSET_PER_SECOND_PHASE_ONE);
+            SmartDashboard.putNumber("Calibrate1", RobotConfig.SENSORS.IMU_OFFSET_PER_SECOND_PHASE_ONE);
             IMU.getInstance().reset();
             this.startDrift = IMU.getInstance().getYaw();
             this.isPhaseTwo = true;
         }
         if (this.isPhaseTwo && this.timer.get() > RobotConfig.SENSORS.IMU_CALIBRATION_TIME){
             RobotConfig.SENSORS.IMU_OFFSET_PER_SECOND_PHASE_TWO = (IMU.getInstance().getYaw() - this.startDrift) / (this.timer.delta());
+            SmartDashboard.putNumber("Calibrate2", RobotConfig.SENSORS.IMU_OFFSET_PER_SECOND_PHASE_TWO);
+            this.isFinished = true;
         }
     }
 
     @Override
     public boolean isFinished() {
         // TODO: Make this return true when this Command no longer needs to run execute()
-
-        return false;
+        return this.isFinished;
     }
 }

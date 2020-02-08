@@ -50,7 +50,7 @@ public class Robot extends TimedRobot
         IMU.getInstance();
         Pneumatics.getInstance();
         robotContainer = new RobotContainer();
-        String[] SDDoubles = {"Left Y", "Shooter Max Power", "Distance Sensor", "Angle", "Calibrate"};
+        String[] SDDoubles = {"Left Y", "Shooter Max Power", "Distance Sensor", "Angle", "Calibrate1", "Calibrate2"};
         for(String doubleName : SDDoubles){
             if(!SmartDashboard.containsKey(doubleName)){
                 SmartDashboard.putNumber(doubleName, 1);
