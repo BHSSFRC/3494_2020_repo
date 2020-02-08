@@ -12,12 +12,13 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import frc.robot.commands.CalibrateIMU;
+import edu.wpi.first.wpilibj2.command.ScheduleCommand;
+import frc.robot.commands.*;
+import frc.robot.sensors.*;
+import frc.robot.subsystems.*;
 import frc.robot.commands.Drive;
-<<<<<<< HEAD
 import frc.robot.sensors.IMU;
-=======
 import frc.robot.sensors.Dist2m;
->>>>>>> dist_sensor
 import frc.robot.subsystems.DriveTrain;
 import frc.robot.commands.RunIntake;
 import frc.robot.subsystems.Intake;
@@ -47,6 +48,7 @@ public class Robot extends TimedRobot
         Intake.getInstance();
         DriveTrain.getInstance();
         IMU.getInstance();
+        Pneumatics.getInstance();
         robotContainer = new RobotContainer();
         String[] SDDoubles = {"Left Y", "Shooter Max Power", "Distance Sensor", "Angle", "Calibrate"};
         for(String doubleName : SDDoubles){
@@ -81,6 +83,7 @@ public class Robot extends TimedRobot
         // and running subsystem periodic() methods.  This must be called from the robot's periodic
         // block in order for anything in the Command-based framework to work.
         CommandScheduler.getInstance().run();
+        CommandScheduler.getInstance().setDefaultCommand(Pneumatics.getInstance(), new RunCompressor());
         CommandScheduler.getInstance().setDefaultCommand(DriveTrain.getInstance(), new Drive());
         CommandScheduler.getInstance().setDefaultCommand(Intake.getInstance(), new RunIntake());
         //SmartDashboard.putNumber("Angle", IMU.getInstance().getYaw());

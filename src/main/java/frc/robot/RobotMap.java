@@ -19,6 +19,8 @@ public class RobotMap {
 
     public static class INTAKE {
         public static final int MOTOR = 8;
+        public static final int CYLINDER_OUT = 0;
+        public static final int CYLINDER_IN = 1;
     }
 
     public static class OI {
@@ -29,5 +31,8 @@ public class RobotMap {
 
     public static class SENSORS {
         public static int IMU = 0;
+    }
+    public static class COMPRESSOR {
+        public static int PCM1 = 1;
     }
 }
