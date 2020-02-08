@@ -15,14 +15,14 @@ public class TurnDegrees extends CommandBase {
     //default constructor turns 0 degrees
     public TurnDegrees() {
         // If any subsystems are needed, you will need to pass them into the requires() method
-        addRequirements(DriveTrain.getInstance());
+        //addRequirements(DriveTrain.getInstance());
         this.turnDegrees = 90.0;
     }
 
     //should turn between -180 and 180 degrees, no more
     public TurnDegrees(double degrees) {
         // If any subsystems are needed, you will need to pass them into the requires() method
-        addRequirements(DriveTrain.getInstance());
+        //addRequirements(DriveTrain.getInstance());
         this.turnDegrees = degrees;
     }
 
@@ -45,7 +45,7 @@ public class TurnDegrees extends CommandBase {
 
         output *= RobotConfig.DRIVE_STRAIGHT.TURN_SPEED;
         SmartDashboard.putNumber("Turn Power", output);
-        //DriveTrain.getInstance().tankDrive(output, -output);
+        DriveTrain.getInstance().tankDrive(output, -output);
     }
 
     @Override
