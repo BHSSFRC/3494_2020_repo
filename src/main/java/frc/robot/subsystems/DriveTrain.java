@@ -2,6 +2,7 @@ package frc.robot.subsystems;
 
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
+import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.can.TalonFX;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 import edu.wpi.first.wpilibj.Solenoid;
@@ -21,9 +22,9 @@ public class DriveTrain extends SubsystemBase {
     private TalonFX rightMaster;
     private TalonFX rightSlave;
 
-    private Solenoid tempControl;
+    //private TalonSRX shooter;
 
-    private TalonSRX shooter;
+    //private Solenoid tempControl;
 
     /**
      * The Singleton instance of this DriveTrain. External classes should
@@ -42,17 +43,23 @@ public class DriveTrain extends SubsystemBase {
         //       Also, you can call addChild(name, sendableChild) to associate sendables with the subsystem
         //       such as SpeedControllers, Encoders, DigitalInputs, etc.
         this.leftMaster = new TalonFX(RobotMap.DRIVETRAIN.LEFT_MASTER);
+        this.leftMaster.setNeutralMode(NeutralMode.Brake);
         this.leftSlave = new TalonFX(RobotMap.DRIVETRAIN.LEFT_SLAVE);
+        this.leftSlave.setNeutralMode(NeutralMode.Brake);
         this.leftMaster.setInverted(true);
         this.leftSlave.setInverted(true);
         this.rightMaster = new TalonFX(RobotMap.DRIVETRAIN.RIGHT_MASTER);
+        this.rightMaster.setNeutralMode(NeutralMode.Brake);
         this.rightSlave = new TalonFX(RobotMap.DRIVETRAIN.RIGHT_SLAVE);
+        this.rightSlave.setNeutralMode(NeutralMode.Brake);
 
         this.leftSlave.follow(this.leftMaster);
         this.rightSlave.follow(this.rightMaster);
-        this.shooter = new TalonSRX(RobotMap.DRIVETRAIN.SHOOTER);
 
-        this.tempControl = new Solenoid(RobotMap.DRIVETRAIN.TEMP_SOLENOID);
+        //this.shooter = new TalonSRX(RobotMap.DRIVETRAIN.SHOOTER);
+
+
+        //this.tempControl = new Solenoid(RobotMap.DRIVETRAIN.TEMP_SOLENOID);
     }
 
     public void tankDrive(double leftPower, double rightPower){
@@ -79,7 +86,11 @@ public class DriveTrain extends SubsystemBase {
     }
 
     public void openTempSolenoid(){
-        this.tempControl.set(true);
+        //this.tempControl.set(true);
+    }
+
+    public void stop(){
+        this.tankDrive(0,0);
     }
 
     /**public double getLeftMasterPosition(){
