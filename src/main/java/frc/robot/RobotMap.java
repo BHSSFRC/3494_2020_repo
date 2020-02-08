@@ -29,6 +29,7 @@ public class RobotMap {
         public static int XBOX = 2;
 
         public static int DRIVE_STRAIGHT = 3;
+        public static int DRIVE_TURN = 1;
     }
 
     public static class SENSORS {
