@@ -6,6 +6,7 @@ import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import frc.robot.commands.Drive;
+import frc.robot.commands.drive.DistanceDrive;
 import frc.robot.commands.drive.DriveStraight;
 
 public class OI {
@@ -14,6 +15,7 @@ public class OI {
     private Joystick rightFlight;
     private XboxController xbox;
     private JoystickButton driveStraight;
+    private JoystickButton driveDistance;
 
     private OI(){
         leftFlight = new Joystick(RobotMap.OI.LEFT_FLIGHT);
@@ -23,6 +25,9 @@ public class OI {
         driveStraight = new JoystickButton(xbox, RobotMap.OI.DRIVE_STRAIGHT);
         driveStraight.whenPressed(new DriveStraight());
         driveStraight.whenReleased(new Drive());
+
+        driveDistance = new JoystickButton(xbox, RobotMap.OI.DRIVE_DISTANCE);
+        driveDistance.whenPressed(new DistanceDrive(1)).can
     }
 
     public double getLeftY(){

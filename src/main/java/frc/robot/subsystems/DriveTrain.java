@@ -94,6 +94,10 @@ public class DriveTrain extends SubsystemBase {
         return (this.rightMaster.getSelectedSensorPosition() + this.rightSlave.getSelectedSensorPosition()) / 2;
     }
 
+    public double getEncoderPosition(){
+        return (this.getLeftEncoderPosition() + this.getRightEncoderPosition()) / 2;
+    }
+
     public void openTempSolenoid(){
         //this.tempControl.set(true);
     }

@@ -56,7 +56,7 @@ public class Robot extends TimedRobot
         robotContainer = new RobotContainer();
 
         String[] SDDoubles = {"Left Y", "Shooter Max Power", "Distance Sensor", "Angle", "Calibrate1", "Calibrate2",
-                "Tuning/PID P", "Tuning/PID I", "Tuning/PID D", "DriveStraight Offset"};
+                "Tuning/PID P", "Tuning/PID I", "Tuning/PID D", "DriveStraight Offset", "Encoder Distance"};
 
         for(String doubleName : SDDoubles){
             if(!SmartDashboard.containsKey(doubleName)){
@@ -100,6 +100,7 @@ public class Robot extends TimedRobot
         //update SmartDash values
         //SmartDashboard.putNumber("Distance Sensor", Distance2M.getInstance().getDist());
         SmartDashboard.putBoolean("Dist Sensor Error", Dist2m.getInstance().isNotEnabled());
+        SmartDashboard.putNumber("Encoder Distance", DriveTrain.getInstance().getEncoderPosition());
         }
 
     /**
