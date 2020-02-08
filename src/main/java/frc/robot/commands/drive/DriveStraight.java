@@ -18,6 +18,7 @@ public class DriveStraight extends CommandBase {
     private QuadTimer timer;
     private SynchronousPIDF pidController;
     private double power;
+    private double initialYaw;
 
     public DriveStraight() {
         //super(new PIDController());
@@ -55,7 +56,8 @@ public class DriveStraight extends CommandBase {
     @Override
     public void initialize() {
         this.timer.start();
-        pidController.setSetpoint(IMU.getInstance().getYaw());
+        this.initialYaw = IMU.getInstance().getYaw();
+        pidController.setSetpoint(this.initialYaw);
         SmartDashboard.putBoolean("DriveStraight?", true);
     }
 
@@ -64,17 +66,9 @@ public class DriveStraight extends CommandBase {
         double input = IMU.getInstance().getYaw();
         power = OI.getINSTANCE().getLeftY();
         double output = this.pidController.calculate(input, this.timer.delta());
+        //double output = this.pidController.calculate(this.initialYaw, this.timer.delta());
         SmartDashboard.putNumber("DriveStraight Offset", output);
-        DriveTrain.getInstance().tankDrive(power + output, power - output);
-    }
-
-    protected double returnPIDInput() {
-        return 0;
-        // returns the sensor value that is providing the feedback for the system
-    }
-
-    protected void usePIDOutput(double output) {
-        // this is where the computed output value fromthe PIDController is applied to the motor
+        DriveTrain.getInstance().tankDrive(power - output, power + output);
     }
 
     @Override

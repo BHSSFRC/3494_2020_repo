@@ -94,7 +94,7 @@ public class Robot extends TimedRobot
         CommandScheduler.getInstance().setDefaultCommand(Pneumatics.getInstance(), new RunCompressor());
         //CommandScheduler.getInstance().setDefaultCommand(DriveTrain.getInstance(), new Drive());
         CommandScheduler.getInstance().setDefaultCommand(Intake.getInstance(), new RunIntake());
-        //SmartDashboard.putNumber("Angle", IMU.getInstance().getYaw());
+        SmartDashboard.putNumber("Angle", IMU.getInstance().getYaw());
         // CommandScheduler.getInstance().setDefaultCommand(Shooter.getInstance(), new Shoot());
 
         //update SmartDash values

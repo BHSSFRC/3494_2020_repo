@@ -20,7 +20,6 @@ public class Drive extends CommandBase {
 
     @Override
     public void execute() {
-        SmartDashboard.putNumber("Angle", IMU.getInstance().getYaw());
         double leftPower = OI.getINSTANCE().getLeftY();
         SmartDashboard.putNumber("Left Y", leftPower);
         double rightPower = OI.getINSTANCE().getRightY();
