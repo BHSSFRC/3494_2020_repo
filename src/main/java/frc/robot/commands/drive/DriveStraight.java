@@ -19,6 +19,7 @@ public class DriveStraight extends CommandBase {
     private SynchronousPIDF pidController;
     private double power;
     private double initialYaw;
+    private boolean steadyPower;
 
     public DriveStraight() {
         //super(new PIDController());
@@ -28,6 +29,18 @@ public class DriveStraight extends CommandBase {
         this.timer = new QuadTimer();
         this.initializePID();
         this.power = 0;
+        this.steadyPower = false;
+    }
+
+    public DriveStraight(double power) {
+        //super(new PIDController());
+        //super(1.0,1.0,1.0);
+        // If any subsystems are needed, you will need to pass them into the requires() method
+        addRequirements(DriveTrain.getInstance());
+        this.timer = new QuadTimer();
+        this.initializePID();
+        this.power = power;
+        this.steadyPower = true;
     }
 
     private void initializePID(){
@@ -64,7 +77,9 @@ public class DriveStraight extends CommandBase {
     @Override
     public void execute() {
         double input = IMU.getInstance().getYaw();
-        power = OI.getINSTANCE().getLeftY();
+        if(!this.steadyPower){
+            power = OI.getINSTANCE().getLeftY();
+        }
         //double output = this.pidController.calculate(input, this.timer.delta());
         double output = (input - this.initialYaw) * RobotConfig.DRIVE_STRAIGHT.kP_DUMB;
         //double output = this.pidController.calculate(this.initialYaw, this.timer.delta());

@@ -4,8 +4,10 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
 
 
 public class DistanceDrive extends CommandBase {
+    private double dist;
 
-    public DistanceDrive() {
+    public DistanceDrive(double distance) {
+        this.dist = distance;
     }
 
     @Override
