@@ -15,6 +15,7 @@ public class Drive extends CommandBase {
 
     @Override
     public void initialize() {
+        SmartDashboard.putBoolean("DriveStraight?", false);
     }
 
     @Override

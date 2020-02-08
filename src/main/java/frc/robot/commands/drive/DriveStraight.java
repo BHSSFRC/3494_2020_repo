@@ -12,13 +12,15 @@ import frc.robot.commands.Drive;
 import frc.robot.sensors.IMU;
 import frc.robot.subsystems.DriveTrain;
 import frc.robot.util.QuadTimer;
+import frc.robot.util.SynchronousPIDF;
 
 public class DriveStraight extends CommandBase {
     private QuadTimer timer;
-    private PIDController pidController;
+    private SynchronousPIDF pidController;
     private double power;
 
     public DriveStraight() {
+        //super(new PIDController());
         //super(1.0,1.0,1.0);
         // If any subsystems are needed, you will need to pass them into the requires() method
         addRequirements(DriveTrain.getInstance());
@@ -42,15 +44,12 @@ public class DriveStraight extends CommandBase {
             ki = RobotConfig.DRIVE_STRAIGHT.kI;
             kd = RobotConfig.DRIVE_STRAIGHT.kD;
         }
-        this.pidController = new PIDController(kp, ki, kd);
-        pidController.setPID(kp, ki, kd);
-        pidController.enableContinuousInput(0, 2 * Math.PI);
-        //pidController.setSetpoint(); set to current heading
-    }
 
-    public double returnPIDInput(){
-        return 0.0;
-        //TODO: should return the current angle of the robot
+        this.pidController = new SynchronousPIDF(kp, ki, kd);
+        pidController.setPID(kp, ki, kd);
+        pidController.setInputRange(0, 360);
+        pidController.setContinuous(true);
+        pidController.setOutputRange(-1, 1);
     }
 
     @Override
@@ -62,12 +61,20 @@ public class DriveStraight extends CommandBase {
 
     @Override
     public void execute() {
+        double input = IMU.getInstance().getYaw();
         power = OI.getINSTANCE().getLeftY();
-        //heading should equal the gyro readout
-        double heading = IMU.getInstance().getYaw();
-        double output = this.pidController.calculate(heading);
+        double output = this.pidController.calculate(input, this.timer.delta());
         SmartDashboard.putNumber("DriveStraight Offset", output);
         DriveTrain.getInstance().tankDrive(power + output, power - output);
+    }
+
+    protected double returnPIDInput() {
+        return 0;
+        // returns the sensor value that is providing the feedback for the system
+    }
+
+    protected void usePIDOutput(double output) {
+        // this is where the computed output value fromthe PIDController is applied to the motor
     }
 
     @Override

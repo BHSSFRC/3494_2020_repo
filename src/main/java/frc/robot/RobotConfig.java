@@ -26,8 +26,8 @@ public final class RobotConfig
         public static final int kD = 0;
     }
     public static class SENSORS {
-        public static double IMU_OFFSET_PER_SECOND_PHASE_ONE = 0;
-        public static double IMU_OFFSET_PER_SECOND_PHASE_TWO = 0;
+        public static double IMU_OFFSET_PER_SECOND_PHASE_ONE = -0.794775;
+        public static double IMU_OFFSET_PER_SECOND_PHASE_TWO = 0.985840;
         public static double IMU_CALIBRATION_TIME = 60;
     }
 }

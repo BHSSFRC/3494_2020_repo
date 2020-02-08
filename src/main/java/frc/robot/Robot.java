@@ -65,7 +65,7 @@ public class Robot extends TimedRobot
             }
         }
 
-        String[] SDBooleans = {"Dist Sensor Error", "DriveStraight?"};
+        String[] SDBooleans = {"Dist Sensor Error", "DriveStraight?", "Calibrate IMU?"};
         for (String booleanName: SDBooleans){
             if(!SmartDashboard.containsKey(booleanName)){
                 SmartDashboard.putBoolean(booleanName, false);
@@ -155,7 +155,9 @@ public class Robot extends TimedRobot
         //new ScheduleCommand(new Drive());
         CommandScheduler.getInstance().schedule(new Drive());
         //CommandScheduler.getInstance().schedule(new Drive());
-        CommandScheduler.getInstance().schedule(new CalibrateIMU());
+        if (SmartDashboard.getBoolean("Calibrate IMU?", false)){
+            CommandScheduler.getInstance().schedule(new CalibrateIMU());
+        }
 
     }
 
