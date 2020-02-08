@@ -19,6 +19,7 @@ public class TurnDegrees extends CommandBase {
         this.turnDegrees = 90.0;
     }
 
+    //should turn between -180 and 180 degrees, no more
     public TurnDegrees(double degrees) {
         // If any subsystems are needed, you will need to pass them into the requires() method
         addRequirements(DriveTrain.getInstance());
@@ -26,47 +27,30 @@ public class TurnDegrees extends CommandBase {
     }
 
     @Override
-    protected void initialize() {
-        this.initialYaw = IMU.getInstance().getYaw();
+    public void initialize() {
+        IMU.getInstance().reset();
+        //IMU should reset yaw to 0, now set initial yaw to 180
+        this.initialYaw = IMU.getInstance().getYaw() + 180;
         this.setpoint = this.initialYaw + this.turnDegrees;
-        if(this.setpoint > 360){
-            this.setpoint %= 360;
-        }
-        if(this.setpoint < 0){
-            this.setpoint += 360;
-        }
     }
 
     @Override
-    protected void execute() {
-        this.currentDegrees = IMU.getInstance().getYaw();
+    public void execute() {
+        this.currentDegrees = IMU.getInstance().getYaw() + 180;
         double delta = this.currentDegrees - this.setpoint;
         SmartDashboard.putNumber("DriveTurn Offset", delta);
-        if(delta > 180){
-            delta = (360 - delta) * -1;
-        }
 
         //should be between -1 and 1
         double output = delta / 180;
 
         output *= RobotConfig.DRIVE_STRAIGHT.TURN_SPEED;
         SmartDashboard.putNumber("Turn Power", output);
-        DriveTrain.getInstance().tankDrive(output, -output);
+        //DriveTrain.getInstance().tankDrive(output, -output);
     }
 
     @Override
-    protected boolean isFinished() {
+    public boolean isFinished() {
         // TODO: Make this return true when this Command no longer needs to run execute()
         return Math.abs(this.currentDegrees - this.setpoint) < 5;
-    }
-
-    @Override
-    protected void end() {
-        DriveTrain.getInstance().stop();
-    }
-
-    @Override
-    protected void interrupted() {
-
     }
 }
