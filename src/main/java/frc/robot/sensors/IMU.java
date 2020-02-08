@@ -2,9 +2,7 @@ package frc.robot.sensors;
 
 
 import com.analog.adis16470.frc.ADIS16470_IMU;
-import frc.robot.Robot;
 import frc.robot.RobotConfig;
-import frc.robot.RobotMap;
 import frc.robot.util.QuadTimer;
 //import com.analog.adis16470.*;
 
@@ -25,10 +23,12 @@ public class IMU {
 
     public void reset(){
         this.initAngle = this.imu.getAngle();
+        this.timer.reset();
     }
 
     public double getYaw(){
-        return (this.imu.getAngle() - this.initAngle) - this.timer.get() * RobotConfig.SENSORS.IMU_OFFSET_PER_SECOND;
+        return (this.imu.getAngle() - this.initAngle) - this.timer.get() *
+                (RobotConfig.SENSORS.IMU_OFFSET_PER_SECOND_PHASE_ONE + RobotConfig.SENSORS.IMU_OFFSET_PER_SECOND_PHASE_TWO);
     }
 
     public static IMU getInstance(){

@@ -55,7 +55,8 @@ public class Robot extends TimedRobot
         Pneumatics.getInstance();
         robotContainer = new RobotContainer();
 
-        String[] SDDoubles = {"Left Y", "Shooter Max Power", "Distance Sensor", "Angle", "Calibrate", "Tuning/PID P", "Tuning/PID I", "Tuning/PID D"};
+        String[] SDDoubles = {"Left Y", "Shooter Max Power", "Distance Sensor", "Angle", "Calibrate1", "Calibrate2",
+                "Tuning/PID P", "Tuning/PID I", "Tuning/PID D"};
 
         for(String doubleName : SDDoubles){
             if(!SmartDashboard.containsKey(doubleName)){
