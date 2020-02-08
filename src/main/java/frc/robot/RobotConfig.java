@@ -19,9 +19,13 @@ package frc.robot;
 //this class store software variables such as PID constants that change from time to time
 public final class RobotConfig
 {
-    public class DRIVE_STRAIGHT {
+
+    public static class DRIVE_STRAIGHT {
         public static final int kP = 1;
         public static final int kI = 0;
         public static final int kD = 0;
+    }
+    public static class SENSORS {
+        public static double IMU_OFFSET_PER_SECOND = 0;
     }
 }

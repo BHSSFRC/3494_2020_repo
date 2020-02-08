@@ -3,6 +3,7 @@ package frc.robot.commands;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.OI;
+import frc.robot.sensors.IMU;
 import frc.robot.subsystems.DriveTrain;
 
 
@@ -18,6 +19,7 @@ public class Drive extends CommandBase {
 
     @Override
     public void execute() {
+        SmartDashboard.putNumber("Angle", IMU.getInstance().getYaw());
         double leftPower = OI.getINSTANCE().getLeftY();
         SmartDashboard.putNumber("Left Y", leftPower);
         double rightPower = OI.getINSTANCE().getRightY();

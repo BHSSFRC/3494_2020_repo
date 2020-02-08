@@ -11,7 +11,18 @@ import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
+
 import frc.robot.commands.drive.DriveStraight;
+
+import frc.robot.commands.CalibrateIMU;
+import edu.wpi.first.wpilibj2.command.ScheduleCommand;
+import frc.robot.commands.*;
+import frc.robot.sensors.*;
+import frc.robot.subsystems.*;
+import frc.robot.commands.Drive;
+import frc.robot.sensors.IMU;
+import frc.robot.sensors.Dist2m;
+
 import frc.robot.subsystems.DriveTrain;
 import frc.robot.commands.RunIntake;
 import frc.robot.subsystems.Intake;
@@ -40,12 +51,24 @@ public class Robot extends TimedRobot
         // autonomous chooser on the dashboard.
         Intake.getInstance();
         DriveTrain.getInstance();
+        IMU.getInstance();
+        Pneumatics.getInstance();
         robotContainer = new RobotContainer();
-        String[] SDDoubles = {"Left Y", "Shooter Max Power", "Distance Sensor", "Tuning/PID P", "Tuning/PID I", "Tuning/PID D"};
+
+        String[] SDDoubles = {"Left Y", "Shooter Max Power", "Distance Sensor", "Angle", "Calibrate", "Tuning/PID P", "Tuning/PID I", "Tuning/PID D"};
+
         for(String doubleName : SDDoubles){
             if(!SmartDashboard.containsKey(doubleName)){
                 SmartDashboard.putNumber(doubleName, 1);
                 SmartDashboard.setPersistent(doubleName);
+            }
+        }
+
+        String[] SDBooleans = {"Dist Sensor Error"};
+        for (String booleanName: SDBooleans){
+            if(!SmartDashboard.containsKey(booleanName)){
+                SmartDashboard.putBoolean(booleanName, false);
+                SmartDashboard.setPersistent(booleanName);
             }
         }
 
@@ -67,12 +90,16 @@ public class Robot extends TimedRobot
         // block in order for anything in the Command-based framework to work.
         CommandScheduler.getInstance().run();
         CommandScheduler.getInstance().setDefaultCommand(DriveTrain.getInstance(), new DriveStraight());
+        CommandScheduler.getInstance().setDefaultCommand(Pneumatics.getInstance(), new RunCompressor());
+        //CommandScheduler.getInstance().setDefaultCommand(DriveTrain.getInstance(), new Drive());
         CommandScheduler.getInstance().setDefaultCommand(Intake.getInstance(), new RunIntake());
+        //SmartDashboard.putNumber("Angle", IMU.getInstance().getYaw());
         // CommandScheduler.getInstance().setDefaultCommand(Shooter.getInstance(), new Shoot());
 
         //update SmartDash values
         //SmartDashboard.putNumber("Distance Sensor", Distance2M.getInstance().getDist());
-    }
+        SmartDashboard.putBoolean("Dist Sensor Error", Dist2m.getInstance().isNotEnabled());
+        }
 
     /**
      * This method is called once each time the robot enters Disabled mode.
@@ -126,6 +153,8 @@ public class Robot extends TimedRobot
         //new Drive();
         //new ScheduleCommand(new Drive());
         CommandScheduler.getInstance().schedule(new DriveStraight());
+        //CommandScheduler.getInstance().schedule(new Drive());
+        CommandScheduler.getInstance().schedule(new CalibrateIMU());
 
     }
 
@@ -136,6 +165,7 @@ public class Robot extends TimedRobot
     public void teleopPeriodic()
     {
         //SmartDashboard.putNumber("Left Y", OI.getINSTANCE().getLeftY());
+        SmartDashboard.putNumber("Distance Sensor", Dist2m.getInstance().getDist());
     }
 
     @Override
