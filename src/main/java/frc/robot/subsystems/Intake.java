@@ -21,8 +21,7 @@ public class Intake extends SubsystemBase {
 
     private TalonSRX motor;
 
-    private DoubleSolenoid LeftCylinder = new DoubleSolenoid(RobotMap.COMPRESSOR.PCM1, RobotMap.INTAKE.LEFT_CYLINDER_OUT, RobotMap.INTAKE.LEFT_CYLINDER_IN);
-    private DoubleSolenoid RightCylinder = new DoubleSolenoid(RobotMap.COMPRESSOR.PCM1, RobotMap.INTAKE.RIGHT_CYLINDER_OUT, RobotMap.INTAKE.RIGHT_CYLINDER_IN);
+    private DoubleSolenoid cylinder = new DoubleSolenoid(RobotMap.COMPRESSOR.PCM1, RobotMap.INTAKE.CYLINDER_OUT, RobotMap.INTAKE.CYLINDER_IN);
 
 
     private final static Intake INSTANCE = new Intake();
@@ -41,12 +40,9 @@ public class Intake extends SubsystemBase {
 
     public void setPosition(boolean deployed) {
         if (deployed) {
-            this.LeftCylinder.set(DoubleSolenoid.Value.kForward);
-            this.RightCylinder.set(DoubleSolenoid.Value.kForward);
+            this.cylinder.set(DoubleSolenoid.Value.kForward);
         } else {
-            this.LeftCylinder.set(DoubleSolenoid.Value.kReverse);
-            this.RightCylinder.set(DoubleSolenoid.Value.kReverse);
-
+            this.cylinder.set(DoubleSolenoid.Value.kReverse);
         }
     }
 	

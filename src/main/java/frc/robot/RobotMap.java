@@ -19,10 +19,8 @@ public class RobotMap {
 
     public static class INTAKE {
         public static final int MOTOR = 8;
-        public static final int LEFT_CYLINDER_OUT = 0;
-        public static final int LEFT_CYLINDER_IN = 1;
-        public static final int RIGHT_CYLINDER_OUT = 2;
-        public static final int RIGHT_CYLINDER_IN = 3;
+        public static final int CYLINDER_OUT = 0;
+        public static final int CYLINDER_IN = 1;
     }
 
     public static class OI {
