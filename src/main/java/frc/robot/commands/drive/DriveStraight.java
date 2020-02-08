@@ -32,7 +32,8 @@ public class DriveStraight extends CommandBase {
         double kp;
         double ki;
         double kd;
-        if (SmartDashboard.containsKey("Display Drivetrain data?")) {
+        //if (SmartDashboard.containsKey("Display Drivetrain data?")) {
+        if(true){
             kp = SmartDashboard.getNumber("Tuning/PID P", 0.9);
             ki = SmartDashboard.getNumber("Tuning/PID I", 0.0);
             kd = SmartDashboard.getNumber("Tuning/PID D", 0.0);
