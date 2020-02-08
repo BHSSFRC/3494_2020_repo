@@ -9,6 +9,7 @@ import frc.robot.OI;
 import frc.robot.RobotConfig;
 import frc.robot.RobotMap;
 import frc.robot.commands.Drive;
+import frc.robot.sensors.IMU;
 import frc.robot.subsystems.DriveTrain;
 import frc.robot.util.QuadTimer;
 
@@ -43,7 +44,6 @@ public class DriveStraight extends CommandBase {
         this.pidController = new PIDController(kp, ki, kd);
         pidController.setPID(kp, ki, kd);
         pidController.enableContinuousInput(0, 2 * Math.PI);
-        pidController.setSetpoint(0);
         //pidController.setSetpoint(); set to current heading
     }
 
@@ -55,14 +55,17 @@ public class DriveStraight extends CommandBase {
     @Override
     public void initialize() {
         this.timer.start();
+        pidController.setSetpoint(IMU.getInstance().getYaw());
+        SmartDashboard.putBoolean("DriveStraight?", true);
     }
 
     @Override
     public void execute() {
         power = OI.getINSTANCE().getLeftY();
         //heading should equal the gyro readout
-        double heading = 0;
+        double heading = IMU.getInstance().getYaw();
         double output = this.pidController.calculate(heading);
+        SmartDashboard.putNumber("DriveStraight Offset", output);
         DriveTrain.getInstance().tankDrive(power + output, power - output);
     }
 
@@ -73,6 +76,7 @@ public class DriveStraight extends CommandBase {
     }
 
     public void end() {
+        SmartDashboard.putBoolean("DriveStraight?", false);
         DriveTrain.getInstance().stop();
     }
 

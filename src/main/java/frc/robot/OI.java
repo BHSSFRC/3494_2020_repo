@@ -4,17 +4,25 @@ import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import edu.wpi.first.wpilibj2.command.button.JoystickButton;
+import frc.robot.commands.Drive;
+import frc.robot.commands.drive.DriveStraight;
 
 public class OI {
     private static OI INSTANCE = new OI();
     private Joystick leftFlight;
     private Joystick rightFlight;
     private XboxController xbox;
+    private JoystickButton driveStraight;
 
     private OI(){
         leftFlight = new Joystick(RobotMap.OI.LEFT_FLIGHT);
         rightFlight = new Joystick(RobotMap.OI.RIGHT_FLIGHT);
         xbox = new XboxController(RobotMap.OI.XBOX);
+
+        driveStraight = new JoystickButton(xbox, RobotMap.OI.DRIVE_STRAIGHT);
+        driveStraight.whenPressed(new DriveStraight());
+        driveStraight.whenReleased(new Drive());
     }
 
     public double getLeftY(){

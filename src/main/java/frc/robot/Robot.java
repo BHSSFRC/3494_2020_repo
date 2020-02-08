@@ -56,7 +56,7 @@ public class Robot extends TimedRobot
         robotContainer = new RobotContainer();
 
         String[] SDDoubles = {"Left Y", "Shooter Max Power", "Distance Sensor", "Angle", "Calibrate1", "Calibrate2",
-                "Tuning/PID P", "Tuning/PID I", "Tuning/PID D"};
+                "Tuning/PID P", "Tuning/PID I", "Tuning/PID D", "DriveStraight Offset"};
 
         for(String doubleName : SDDoubles){
             if(!SmartDashboard.containsKey(doubleName)){
@@ -65,7 +65,7 @@ public class Robot extends TimedRobot
             }
         }
 
-        String[] SDBooleans = {"Dist Sensor Error"};
+        String[] SDBooleans = {"Dist Sensor Error", "DriveStraight?"};
         for (String booleanName: SDBooleans){
             if(!SmartDashboard.containsKey(booleanName)){
                 SmartDashboard.putBoolean(booleanName, false);
@@ -153,7 +153,7 @@ public class Robot extends TimedRobot
         //teleopCommand.schedule();
         //new Drive();
         //new ScheduleCommand(new Drive());
-        CommandScheduler.getInstance().schedule(new DriveStraight());
+        CommandScheduler.getInstance().schedule(new Drive());
         //CommandScheduler.getInstance().schedule(new Drive());
         CommandScheduler.getInstance().schedule(new CalibrateIMU());
 
