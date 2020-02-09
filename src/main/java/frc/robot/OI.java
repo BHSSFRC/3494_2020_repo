@@ -27,8 +27,7 @@ public class OI {
         driveStraight.whenReleased(new Drive());
 
         driveDistance = new JoystickButton(xbox, RobotMap.OI.DRIVE_DISTANCE);
-        driveDistance.whenPressed(new DistanceDrive(SmartDashboard.getNumber("Inches to Drive", 0)));
-        driveDistance.whenReleased(new Drive());
+        driveDistance.whenPressed(new DistanceDrive(SmartDashboard.getNumber("Inches to Drive", 0)).andThen(new Drive()));
     }
 
     public double getLeftY(){

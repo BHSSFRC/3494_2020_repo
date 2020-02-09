@@ -14,10 +14,12 @@ public class DistanceDrive extends CommandBase {
     private double speed;
 
     public DistanceDrive(double distance) {
+        addRequirements(DriveTrain.getInstance());
         this.dist = distance;
         this.distEncoderInitial = DriveTrain.getInstance().getEncoderPosition();
         this.distEncoderGoal = this.dist * RobotConfig.DRIVE_STRAIGHT.ENCODER_TICKS_PER_INCH;
         this.speed = .2;
+        this.distEncoderTraveled = 0;
         SmartDashboard.putBoolean("DriveDistance?", true);
     }
 

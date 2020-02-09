@@ -28,8 +28,8 @@ public class RobotMap {
         public static int RIGHT_FLIGHT = 1;
         public static int XBOX = 2;
 
-        public static int DRIVE_STRAIGHT = 3;
-        public static int DRIVE_DISTANCE = 4;
+        public static int DRIVE_STRAIGHT = 4;
+        public static int DRIVE_DISTANCE = 3;
     }
 
     public static class SENSORS {

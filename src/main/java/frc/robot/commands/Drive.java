@@ -41,6 +41,6 @@ public class Drive extends CommandBase {
 
     @Override
     public void end(boolean interrupted) {
-        SmartDashboard.putBoolean("Drive?", true);
+        SmartDashboard.putBoolean("Drive?", false);
     }
 }
