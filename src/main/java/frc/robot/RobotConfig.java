@@ -27,7 +27,7 @@ public final class RobotConfig
 
         public static final double kP_DUMB = 5 / 360;
 
-        public static final double ENCODER_TICKS_TO_INCHES = 1;
+        public static final double ENCODER_TICKS_PER_INCH = 793.7;
     }
     public static class SENSORS {
         public static double IMU_OFFSET_PER_SECOND_PHASE_ONE = -0.794775;

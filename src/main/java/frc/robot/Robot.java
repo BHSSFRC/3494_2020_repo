@@ -56,7 +56,7 @@ public class Robot extends TimedRobot
         robotContainer = new RobotContainer();
 
         String[] SDDoubles = {"Left Y", "Shooter Max Power", "Distance Sensor", "Angle", "Calibrate1", "Calibrate2",
-                "Tuning/PID P", "Tuning/PID I", "Tuning/PID D", "DriveStraight Offset", "Encoder Distance"};
+                "Tuning/PID P", "Tuning/PID I", "Tuning/PID D", "DriveStraight Offset", "Encoder Distance", "Inches to Drive"};
 
         for(String doubleName : SDDoubles){
             if(!SmartDashboard.containsKey(doubleName)){
@@ -65,7 +65,7 @@ public class Robot extends TimedRobot
             }
         }
 
-        String[] SDBooleans = {"Dist Sensor Error", "DriveStraight?", "Calibrate IMU?"};
+        String[] SDBooleans = {"Dist Sensor Error", "DriveStraight?", "Calibrate IMU?", "DriveDistance?", "Drive?"};
         for (String booleanName: SDBooleans){
             if(!SmartDashboard.containsKey(booleanName)){
                 SmartDashboard.putBoolean(booleanName, false);

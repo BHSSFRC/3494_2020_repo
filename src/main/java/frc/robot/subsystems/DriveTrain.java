@@ -8,6 +8,7 @@ import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.OI;
 import frc.robot.RobotMap;
@@ -58,7 +59,7 @@ public class DriveTrain extends SubsystemBase {
         this.rightSlave.follow(this.rightMaster);
 
         //this.shooter = new TalonSRX(RobotMap.DRIVETRAIN.SHOOTER);
-
+        //setDefaultCommand(new Drive());
 
         //this.tempControl = new Solenoid(RobotMap.DRIVETRAIN.TEMP_SOLENOID);
     }
