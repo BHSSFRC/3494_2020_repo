@@ -74,6 +74,11 @@ public class Robot extends TimedRobot
 
         CommandScheduler.getInstance().setDefaultCommand(DriveTrain.getInstance(), new Drive());
         CommandScheduler.getInstance().setDefaultCommand(Shooter.getInstance(), new Shoot());
+        CommandScheduler.getInstance().setDefaultCommand(Pneumatics.getInstance(), new RunCompressor());
+        CommandScheduler.getInstance().setDefaultCommand(Intake.getInstance(), new RunIntake());
+
+        SmartDashboard.putNumber("Angle", IMU.getInstance().getYaw());
+
         for (String booleanName: SDBooleans){
             if(!SmartDashboard.containsKey(booleanName)){
                 SmartDashboard.putBoolean(booleanName, false);
@@ -99,14 +104,6 @@ public class Robot extends TimedRobot
         // block in order for anything in the Command-based framework to work.
         CommandScheduler.getInstance().run();
 
-        //update SmartDash values
-
-        CommandScheduler.getInstance().setDefaultCommand(DriveTrain.getInstance(), new Drive());
-        CommandScheduler.getInstance().setDefaultCommand(Pneumatics.getInstance(), new RunCompressor());
-        //CommandScheduler.getInstance().setDefaultCommand(DriveTrain.getInstance(), new Drive());
-        CommandScheduler.getInstance().setDefaultCommand(Intake.getInstance(), new RunIntake());
-        SmartDashboard.putNumber("Angle", IMU.getInstance().getYaw());
-        CommandScheduler.getInstance().setDefaultCommand(Shooter.getInstance(), new Shoot());
 
         //update SmartDash values
         //SmartDashboard.putNumber("Distance Sensor", Distance2M.getInstance().getDist());
