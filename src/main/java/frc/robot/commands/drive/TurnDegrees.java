@@ -1,6 +1,5 @@
 package frc.robot.commands.drive;
 
-import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.RobotConfig;
@@ -53,5 +52,10 @@ public class TurnDegrees extends CommandBase {
     public boolean isFinished() {
         // TODO: Make this return true when this Command no longer needs to run execute()
         return Math.abs(this.currentDegrees - this.setpoint) < 5;
+    }
+
+    @Override
+    public void end(boolean interrupted){
+        DriveTrain.getInstance().stop();
     }
 }

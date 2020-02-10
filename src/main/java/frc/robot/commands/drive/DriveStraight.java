@@ -78,12 +78,9 @@ public class DriveStraight extends CommandBase {
         return false;
     }
 
-    public void end() {
+    @Override
+    public void end(boolean interrupted) {
         SmartDashboard.putBoolean("DriveStraight?", false);
         DriveTrain.getInstance().stop();
-    }
-
-    public void interrupted() {
-
     }
 }
