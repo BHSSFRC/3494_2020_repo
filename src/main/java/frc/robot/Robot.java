@@ -11,21 +11,23 @@ import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
+import frc.robot.commands.Drive;
+import frc.robot.commands.Shoot;
+import frc.robot.subsystems.DriveTrain;
+
 
 import frc.robot.commands.drive.DriveStraight;
 
 import frc.robot.commands.CalibrateIMU;
-import edu.wpi.first.wpilibj2.command.ScheduleCommand;
 import frc.robot.commands.*;
-import frc.robot.sensors.*;
 import frc.robot.subsystems.*;
-import frc.robot.commands.Drive;
 import frc.robot.sensors.IMU;
 import frc.robot.sensors.Dist2m;
 
-import frc.robot.subsystems.DriveTrain;
+
 import frc.robot.commands.RunIntake;
 import frc.robot.subsystems.Intake;
+
 
 /**
  * The VM is configured to automatically run this class, and to call the
@@ -34,8 +36,7 @@ import frc.robot.subsystems.Intake;
  * creating this project, you must also update the build.gradle file in the
  * project.
  */
-public class Robot extends TimedRobot
-{
+public class Robot extends TimedRobot {
     private Command autonomousCommand;
 
     private RobotContainer robotContainer;
@@ -45,8 +46,7 @@ public class Robot extends TimedRobot
      * initialization code.
      */
     @Override
-    public void robotInit()
-    {
+    public void robotInit() {
         // Instantiate our RobotContainer.  This will perform all our button bindings, and put our
         // autonomous chooser on the dashboard.
         Intake.getInstance();
@@ -56,23 +56,27 @@ public class Robot extends TimedRobot
         robotContainer = new RobotContainer();
 
         String[] SDDoubles = {"Left Y", "Shooter Max Power", "Distance Sensor", "Angle", "Calibrate1", "Calibrate2",
-                "Tuning/PID P", "Tuning/PID I", "Tuning/PID D", "DriveStraight Offset", "DriveTurn Offset", "Turn Power"};
+        "Tuning/PID P", "Tuning/PID I", "Tuning/PID D", "DriveStraight Offset", "DriveTurn Offset", "Turn Power", "XboxLeftTrigger"};
 
-        for(String doubleName : SDDoubles){
-            if(!SmartDashboard.containsKey(doubleName)){
+        for(String doubleName :SDDoubles)
+        {
+            if (!SmartDashboard.containsKey(doubleName)) {
                 SmartDashboard.putNumber(doubleName, 1);
                 SmartDashboard.setPersistent(doubleName);
             }
         }
 
-        String[] SDBooleans = {"Dist Sensor Error", "DriveStraight?", "Calibrate IMU?"};
-        for (String booleanName: SDBooleans){
-            if(!SmartDashboard.containsKey(booleanName)){
+
+        CommandScheduler.getInstance().setDefaultCommand(DriveTrain.getInstance(), new Drive());
+        CommandScheduler.getInstance().setDefaultCommand(Shooter.getInstance(), new Shoot());
+        String[] SDBooleans = {"Dist Sensor Error", "DriveStraight?", "Calibrate IMU?", "Shoot?"};
+        for(String booleanName: SDBooleans)
+        {
+            if (!SmartDashboard.containsKey(booleanName)) {
                 SmartDashboard.putBoolean(booleanName, false);
                 SmartDashboard.setPersistent(booleanName);
             }
         }
-
     }
 
     /**
@@ -83,49 +87,48 @@ public class Robot extends TimedRobot
      * LiveWindow and SmartDashboard integrated updating.
      */
     @Override
-    public void robotPeriodic()
-    {
+    public void robotPeriodic() {
         // Runs the Scheduler.  This is responsible for polling buttons, adding newly-scheduled
         // commands, running already-scheduled commands, removing finished or interrupted commands,
         // and running subsystem periodic() methods.  This must be called from the robot's periodic
         // block in order for anything in the Command-based framework to work.
         CommandScheduler.getInstance().run();
+
+        //update SmartDash values
+
         CommandScheduler.getInstance().setDefaultCommand(DriveTrain.getInstance(), new Drive());
         CommandScheduler.getInstance().setDefaultCommand(Pneumatics.getInstance(), new RunCompressor());
         //CommandScheduler.getInstance().setDefaultCommand(DriveTrain.getInstance(), new Drive());
         CommandScheduler.getInstance().setDefaultCommand(Intake.getInstance(), new RunIntake());
         SmartDashboard.putNumber("Angle", IMU.getInstance().getYaw());
-        // CommandScheduler.getInstance().setDefaultCommand(Shooter.getInstance(), new Shoot());
+        CommandScheduler.getInstance().setDefaultCommand(Shooter.getInstance(), new Shoot());
 
         //update SmartDash values
         //SmartDashboard.putNumber("Distance Sensor", Distance2M.getInstance().getDist());
         SmartDashboard.putBoolean("Dist Sensor Error", Dist2m.getInstance().isNotEnabled());
-        }
+    }
+
 
     /**
      * This method is called once each time the robot enters Disabled mode.
      */
     @Override
-    public void disabledInit()
-    {
+    public void disabledInit() {
     }
 
     @Override
-    public void disabledPeriodic()
-    {
+    public void disabledPeriodic() {
     }
 
     /**
      * This autonomous runs the autonomous command selected by your {@link RobotContainer} class.
      */
     @Override
-    public void autonomousInit()
-    {
+    public void autonomousInit() {
         autonomousCommand = robotContainer.getAutonomousCommand();
 
         // schedule the autonomous command (example)
-        if (autonomousCommand != null)
-        {
+        if (autonomousCommand != null) {
             autonomousCommand.schedule();
         }
     }
@@ -134,19 +137,16 @@ public class Robot extends TimedRobot
      * This method is called periodically during autonomous.
      */
     @Override
-    public void autonomousPeriodic()
-    {
+    public void autonomousPeriodic() {
     }
 
     @Override
-    public void teleopInit()
-    {
+    public void teleopInit() {
         // This makes sure that the autonomous stops running when
         // teleop starts running. If you want the autonomous to
         // continue until interrupted by another command, remove
         // this line or comment it out.
-        if (autonomousCommand != null)
-        {
+        if (autonomousCommand != null) {
             autonomousCommand.cancel();
         }
         //Command teleopCommand = robotContainer.getTeleopCommand();
@@ -154,26 +154,25 @@ public class Robot extends TimedRobot
         //new Drive();
         //new ScheduleCommand(new Drive());
         CommandScheduler.getInstance().schedule(new Drive());
+        CommandScheduler.getInstance().schedule(new Shoot());
         //CommandScheduler.getInstance().schedule(new Drive());
-        if (SmartDashboard.getBoolean("Calibrate IMU?", false)){
+        if (SmartDashboard.getBoolean("Calibrate IMU?", false)) {
             CommandScheduler.getInstance().schedule(new CalibrateIMU());
         }
-
     }
 
     /**
      * This method is called periodically during operator control.
      */
     @Override
-    public void teleopPeriodic()
-    {
+    public void teleopPeriodic() {
         //SmartDashboard.putNumber("Left Y", OI.getINSTANCE().getLeftY());
         SmartDashboard.putNumber("Distance Sensor", Dist2m.getInstance().getDist());
+        SmartDashboard.putNumber("XboxLeftTrigger", OI.getINSTANCE().getXboxLeftTrigger());
     }
 
     @Override
-    public void testInit()
-    {
+    public void testInit() {
         // Cancels all running commands at the start of test mode.
         CommandScheduler.getInstance().cancelAll();
     }
@@ -182,7 +181,6 @@ public class Robot extends TimedRobot
      * This method is called periodically during test mode.
      */
     @Override
-    public void testPeriodic()
-    {
+    public void testPeriodic() {
     }
 }
