@@ -10,7 +10,6 @@ package frc.robot;
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.Command;
-import frc.robot.commands.Drive;
 
 /**
  * This class is where the bulk of the robot should be declared.  Since Command-based is a
@@ -50,7 +49,8 @@ public class RobotContainer
     {
         // An ExampleCommand will run in autonomous
         //return autonomousCommand;
-        return new Drive();
+        //return new Drive();
+        return null;
     }
 
     /**
@@ -62,6 +62,7 @@ public class RobotContainer
     {
         // An ExampleCommand will run in autonomous
         //return autonomousCommand;
-        return new Drive();
+        return null;
+        //return new Drive();
     }
 }

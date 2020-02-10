@@ -61,7 +61,8 @@ public class Robot extends TimedRobot
         robotContainer = new RobotContainer();
 
         String[] SDDoubles = {"Left Y", "Shooter Max Power", "Distance Sensor", "Angle", "Calibrate1", "Calibrate2",
-                "Tuning/PID P", "Tuning/PID I", "Tuning/PID D", "DriveStraight Offset", "Encoder Distance", "Inches to Drive", "XboxLeftTrigger"};
+                "Tuning/PID P", "Tuning/PID I", "Tuning/PID D", "DriveStraight Offset", "Encoder Distance", "Inches to Drive", "XboxLeftTrigger",
+                "DD traveled", "DD goal"};
 
         for(String doubleName : SDDoubles){
             if(!SmartDashboard.containsKey(doubleName)){
@@ -70,14 +71,14 @@ public class Robot extends TimedRobot
             }
         }
 
-        String[] SDBooleans = {"Dist Sensor Error", "DriveStraight?", "Calibrate IMU?", "DriveDistance?", "Drive?", "Shoot?"};
+        String[] SDBooleans = {"Dist Sensor Error", "DriveStraight?", "Calibrate IMU?", "DriveDistance?", "Drive?", "Shoot?",
+                                "Distance Drive done?"};
 
         CommandScheduler.getInstance().setDefaultCommand(DriveTrain.getInstance(), new Drive());
         CommandScheduler.getInstance().setDefaultCommand(Shooter.getInstance(), new Shoot());
         CommandScheduler.getInstance().setDefaultCommand(Pneumatics.getInstance(), new RunCompressor());
         CommandScheduler.getInstance().setDefaultCommand(Intake.getInstance(), new RunIntake());
 
-        SmartDashboard.putNumber("Angle", IMU.getInstance().getYaw());
 
         for (String booleanName: SDBooleans){
             if(!SmartDashboard.containsKey(booleanName)){
@@ -163,7 +164,7 @@ public class Robot extends TimedRobot
         //teleopCommand.schedule();
         //new Drive();
         //new ScheduleCommand(new Drive());
-        CommandScheduler.getInstance().schedule(new Drive());
+        //CommandScheduler.getInstance().schedule(new Drive());
         CommandScheduler.getInstance().schedule(new Shoot());
         //CommandScheduler.getInstance().schedule(new Drive());
         if (SmartDashboard.getBoolean("Calibrate IMU?", false)){

@@ -41,6 +41,9 @@ public class DistanceDrive extends CommandBase {
 
     @Override
     public void end(boolean interrupted) {
+        if(interrupted){
+            System.out.println("Distance Drive interrupted");
+        }
         SmartDashboard.putBoolean("DriveStraight?", false);
         DriveTrain.getInstance().stop();
     }
