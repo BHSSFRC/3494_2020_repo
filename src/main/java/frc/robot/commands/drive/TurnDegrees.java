@@ -5,6 +5,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.RobotConfig;
 import frc.robot.sensors.IMU;
+import frc.robot.subsystems.DriveTrain;
 
 public class TurnDegrees extends CommandBase {
     private double setpoint;
