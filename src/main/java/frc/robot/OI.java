@@ -44,8 +44,16 @@ public class OI {
         return this.xbox.getY(GenericHID.Hand.kRight);
     }
 
+    public double getXboxRightX() {
+        return this.xbox.getX(GenericHID.Hand.kRight);
+    }
+
     public double getXboxRightTrigger(){
         return this.xbox.getTriggerAxis(GenericHID.Hand.kRight);
+    }
+
+    public double getXboxLeftTrigger(){
+        return this.xbox.getTriggerAxis(GenericHID.Hand.kLeft);
     }
 
     public boolean getXboxRightBumper(){

@@ -11,6 +11,10 @@ import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
+import frc.robot.commands.Drive;
+import frc.robot.commands.Shoot;
+import frc.robot.subsystems.DriveTrain;
+
 
 import frc.robot.commands.drive.DriveStraight;
 
@@ -26,6 +30,7 @@ import frc.robot.sensors.Dist2m;
 import frc.robot.subsystems.DriveTrain;
 import frc.robot.commands.RunIntake;
 import frc.robot.subsystems.Intake;
+
 
 /**
  * The VM is configured to automatically run this class, and to call the
@@ -56,7 +61,7 @@ public class Robot extends TimedRobot
         robotContainer = new RobotContainer();
 
         String[] SDDoubles = {"Left Y", "Shooter Max Power", "Distance Sensor", "Angle", "Calibrate1", "Calibrate2",
-                "Tuning/PID P", "Tuning/PID I", "Tuning/PID D", "DriveStraight Offset", "Encoder Distance", "Inches to Drive"};
+                "Tuning/PID P", "Tuning/PID I", "Tuning/PID D", "DriveStraight Offset", "Encoder Distance", "Inches to Drive", "XboxLeftTrigger"};
 
         for(String doubleName : SDDoubles){
             if(!SmartDashboard.containsKey(doubleName)){
@@ -65,7 +70,10 @@ public class Robot extends TimedRobot
             }
         }
 
-        String[] SDBooleans = {"Dist Sensor Error", "DriveStraight?", "Calibrate IMU?", "DriveDistance?", "Drive?"};
+        String[] SDBooleans = {"Dist Sensor Error", "DriveStraight?", "Calibrate IMU?", "DriveDistance?", "Drive?", "Shoot?"};
+
+        CommandScheduler.getInstance().setDefaultCommand(DriveTrain.getInstance(), new Drive());
+        CommandScheduler.getInstance().setDefaultCommand(Shooter.getInstance(), new Shoot());
         for (String booleanName: SDBooleans){
             if(!SmartDashboard.containsKey(booleanName)){
                 SmartDashboard.putBoolean(booleanName, false);
@@ -90,18 +98,22 @@ public class Robot extends TimedRobot
         // and running subsystem periodic() methods.  This must be called from the robot's periodic
         // block in order for anything in the Command-based framework to work.
         CommandScheduler.getInstance().run();
+
+        //update SmartDash values
+
         CommandScheduler.getInstance().setDefaultCommand(DriveTrain.getInstance(), new Drive());
         CommandScheduler.getInstance().setDefaultCommand(Pneumatics.getInstance(), new RunCompressor());
         //CommandScheduler.getInstance().setDefaultCommand(DriveTrain.getInstance(), new Drive());
         CommandScheduler.getInstance().setDefaultCommand(Intake.getInstance(), new RunIntake());
         SmartDashboard.putNumber("Angle", IMU.getInstance().getYaw());
-        // CommandScheduler.getInstance().setDefaultCommand(Shooter.getInstance(), new Shoot());
+        CommandScheduler.getInstance().setDefaultCommand(Shooter.getInstance(), new Shoot());
 
         //update SmartDash values
         //SmartDashboard.putNumber("Distance Sensor", Distance2M.getInstance().getDist());
         SmartDashboard.putBoolean("Dist Sensor Error", Dist2m.getInstance().isNotEnabled());
         SmartDashboard.putNumber("Encoder Distance", DriveTrain.getInstance().getEncoderPosition());
-        }
+    }
+
 
     /**
      * This method is called once each time the robot enters Disabled mode.
@@ -155,11 +167,11 @@ public class Robot extends TimedRobot
         //new Drive();
         //new ScheduleCommand(new Drive());
         CommandScheduler.getInstance().schedule(new Drive());
+        CommandScheduler.getInstance().schedule(new Shoot());
         //CommandScheduler.getInstance().schedule(new Drive());
         if (SmartDashboard.getBoolean("Calibrate IMU?", false)){
             CommandScheduler.getInstance().schedule(new CalibrateIMU());
         }
-
     }
 
     /**
@@ -170,6 +182,7 @@ public class Robot extends TimedRobot
     {
         //SmartDashboard.putNumber("Left Y", OI.getINSTANCE().getLeftY());
         SmartDashboard.putNumber("Distance Sensor", Dist2m.getInstance().getDist());
+        SmartDashboard.putNumber("XboxLeftTrigger", OI.getINSTANCE().getXboxLeftTrigger());
     }
 
     @Override
