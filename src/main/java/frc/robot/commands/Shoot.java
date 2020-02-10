@@ -15,12 +15,12 @@ public class Shoot extends CommandBase {
 
     @Override
     public void initialize() {
-
+        SmartDashboard.putBoolean("Shoot?", true);
     }
 
     @Override
     public void execute() {
-        Shooter.getInstance().shoot(OI.getINSTANCE().getXboxRightX() * SmartDashboard.getNumber("Shooter Max Power", 1));
+        Shooter.getInstance().shoot(OI.getINSTANCE().getXboxLeftTrigger() * SmartDashboard.getNumber("Shooter Max Power", 1));
     }
 
     @Override
@@ -28,4 +28,10 @@ public class Shoot extends CommandBase {
         // TODO: Make this return true when this Command no longer needs to run execute()
         return false;
     }
+
+    /**@Override
+    public void end(){
+        SmartDashboard.putBoolean("Shoot?", false);
+        Shooter.getInstance().shoot(0);
+    }*/
 }

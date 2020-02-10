@@ -4,7 +4,7 @@ package frc.robot.subsystems;
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkMaxLowLevel;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
-import frc.robot.RobotMap;
+//import frc.robot.RobotMap;
 import frc.robot.commands.Shoot;
 
 public class Shooter extends SubsystemBase {
@@ -32,15 +32,21 @@ public class Shooter extends SubsystemBase {
         //       Also, you can call addChild(name, sendableChild) to associate sendables with the subsystem
         //       such as SpeedControllers, Encoders, DigitalInputs, etc
 
-        this.top = new CANSparkMax(RobotMap.SHOOTER.TOP, CANSparkMaxLowLevel.MotorType.kBrushless);
-        this.bot = new CANSparkMax(RobotMap.SHOOTER.BOT, CANSparkMaxLowLevel.MotorType.kBrushless);
-        this.bot.follow(this.top);
+        //this.top = new CANSparkMax(RobotMap.SHOOTER.TOP, CANSparkMaxLowLevel.MotorType.kBrushless);
+        //this.bot = new CANSparkMax(RobotMap.SHOOTER.BOT, CANSparkMaxLowLevel.MotorType.kBrushless);
+        this.top = new CANSparkMax(12, CANSparkMaxLowLevel.MotorType.kBrushless);
+        this.bot = new CANSparkMax(13, CANSparkMaxLowLevel.MotorType.kBrushless);
+        //this.bot.setInverted(false);
+        //this.bot.follow(this.top);
+    }
 
+    public void initDefaultCommand(){
         setDefaultCommand(new Shoot());
     }
 
     public void shoot(double power){
-        this.top.set(power);
+        this.top.set(-power);
+        this.bot.set(-power);
     }
 
     /**

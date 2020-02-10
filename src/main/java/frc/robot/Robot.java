@@ -61,7 +61,7 @@ public class Robot extends TimedRobot
         robotContainer = new RobotContainer();
 
         String[] SDDoubles = {"Left Y", "Shooter Max Power", "Distance Sensor", "Angle", "Calibrate1", "Calibrate2",
-                "Tuning/PID P", "Tuning/PID I", "Tuning/PID D", "DriveStraight Offset"};
+                "Tuning/PID P", "Tuning/PID I", "Tuning/PID D", "DriveStraight Offset", "XboxLeftTrigger"};
 
         for(String doubleName : SDDoubles){
             if(!SmartDashboard.containsKey(doubleName)){
@@ -73,7 +73,7 @@ public class Robot extends TimedRobot
 
         CommandScheduler.getInstance().setDefaultCommand(DriveTrain.getInstance(), new Drive());
         CommandScheduler.getInstance().setDefaultCommand(Shooter.getInstance(), new Shoot());
-        String[] SDBooleans = {"Dist Sensor Error", "DriveStraight?", "Calibrate IMU?"};
+        String[] SDBooleans = {"Dist Sensor Error", "DriveStraight?", "Calibrate IMU?", "Shoot?"};
         for (String booleanName: SDBooleans){
             if(!SmartDashboard.containsKey(booleanName)){
                 SmartDashboard.putBoolean(booleanName, false);
@@ -181,6 +181,7 @@ public class Robot extends TimedRobot
     {
         //SmartDashboard.putNumber("Left Y", OI.getINSTANCE().getLeftY());
         SmartDashboard.putNumber("Distance Sensor", Dist2m.getInstance().getDist());
+        SmartDashboard.putNumber("XboxLeftTrigger", OI.getINSTANCE().getXboxLeftTrigger());
     }
 
     @Override
