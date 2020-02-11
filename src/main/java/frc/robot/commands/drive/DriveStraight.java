@@ -93,10 +93,7 @@ public class DriveStraight extends CommandBase {
         return false;
     }
 
-<<<<<<< HEAD
     @Override
-=======
->>>>>>> develop
     public void end(boolean interrupted) {
         SmartDashboard.putBoolean("DriveStraight?", false);
         DriveTrain.getInstance().stop();

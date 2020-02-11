@@ -11,6 +11,7 @@ public class TurnDegrees extends CommandBase {
     private double initialYaw;
     private double turnDegrees;
     private double currentDegrees;
+    private double delta;
 
     //default constructor turns 0 degrees
     public TurnDegrees() {
@@ -30,20 +31,27 @@ public class TurnDegrees extends CommandBase {
     public void initialize() {
         IMU.getInstance().reset();
         //IMU should reset yaw to 0, now set initial yaw to 180
+        System.out.println("Yaw initial: " + IMU.getInstance().getYaw());
         this.initialYaw = IMU.getInstance().getYaw() + 180;
         this.setpoint = this.initialYaw + this.turnDegrees;
+        this.delta = this.setpoint;
     }
 
     @Override
     public void execute() {
         this.currentDegrees = IMU.getInstance().getYaw() + 180;
-        double delta = this.currentDegrees - this.setpoint;
+        this.delta = (this.currentDegrees - this.setpoint) % 360;
         SmartDashboard.putNumber("DriveTurn Offset", delta);
 
+        double output = this.delta / 360;
         //should be between -1 and 1
-        double output = delta / 180;
-
+        if(output < 0){
+            output = Math.min(output, -.2);
+        }else{
+            output = Math.max(output, .2);
+        }
         output *= RobotConfig.DRIVE_STRAIGHT.TURN_SPEED;
+
         SmartDashboard.putNumber("Turn Power", output);
         DriveTrain.getInstance().tankDrive(output, -output);
     }
@@ -51,7 +59,7 @@ public class TurnDegrees extends CommandBase {
     @Override
     public boolean isFinished() {
         // TODO: Make this return true when this Command no longer needs to run execute()
-        return Math.abs(this.currentDegrees - this.setpoint) < 5;
+        return Math.abs(this.delta) < 5;
     }
 
     @Override

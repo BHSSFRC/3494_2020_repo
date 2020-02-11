@@ -57,7 +57,7 @@ public class Robot extends TimedRobot {
 
         String[] SDDoubles = {"Left Y", "Shooter Max Power", "Distance Sensor", "Angle", "Calibrate1", "Calibrate2",
         "Tuning/PID P", "Tuning/PID I", "Tuning/PID D", "DriveStraight Offset", "DriveTurn Offset", "Turn Power", "XboxLeftTrigger",
-                "Encoder Distance", "Inches to Drive"};
+                "Encoder Distance", "Inches to Drive", "Rotation(degrees)"};
 
         for(String doubleName :SDDoubles)
         {
@@ -67,16 +67,14 @@ public class Robot extends TimedRobot {
             }
         }
 
-        String[] SDBooleans = {"Dist Sensor Error", "DriveStraight?", "Calibrate IMU?", "DriveDistance?", "Drive?", "Shoot?",
-                                "Distance Drive done?"};
-
         CommandScheduler.getInstance().setDefaultCommand(DriveTrain.getInstance(), new Drive());
         CommandScheduler.getInstance().setDefaultCommand(Shooter.getInstance(), new Shoot());
 
         CommandScheduler.getInstance().setDefaultCommand(Pneumatics.getInstance(), new RunCompressor());
         CommandScheduler.getInstance().setDefaultCommand(Intake.getInstance(), new RunIntake());
 
-        String[] SDBooleans = {"Dist Sensor Error", "DriveStraight?", "Calibrate IMU?", "Shoot?"};
+        String[] SDBooleans = {"Dist Sensor Error", "DriveStraight?", "Calibrate IMU?", "DriveDistance?", "Drive?", "Shoot?",
+                "Distance Drive done?"};
 
         for (String booleanName: SDBooleans){
             if(!SmartDashboard.containsKey(booleanName)){

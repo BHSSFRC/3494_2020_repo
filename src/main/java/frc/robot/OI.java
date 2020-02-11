@@ -29,7 +29,7 @@ public class OI {
         driveStraight.whenReleased(new Drive());
 
         driveTurn = new JoystickButton(xbox, RobotMap.OI.DRIVE_TURN);
-        driveTurn.whenPressed(new TurnDegrees(90));
+        driveTurn.whenPressed(new TurnDegrees(SmartDashboard.getNumber("Rotation(degrees)", 0)));
 
         driveDistance = new JoystickButton(xbox, RobotMap.OI.DRIVE_DISTANCE);
         //driveDistance.whenPressed(() -> SmartDashboard.putBoolean())
