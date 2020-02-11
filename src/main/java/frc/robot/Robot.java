@@ -56,7 +56,8 @@ public class Robot extends TimedRobot {
         robotContainer = new RobotContainer();
 
         String[] SDDoubles = {"Left Y", "Shooter Max Power", "Distance Sensor", "Angle", "Calibrate1", "Calibrate2",
-        "Tuning/PID P", "Tuning/PID I", "Tuning/PID D", "DriveStraight Offset", "DriveTurn Offset", "Turn Power", "XboxLeftTrigger"};
+        "Tuning/PID P", "Tuning/PID I", "Tuning/PID D", "DriveStraight Offset", "DriveTurn Offset", "Turn Power", "XboxLeftTrigger",
+                "Encoder Distance", "Inches to Drive"};
 
         for(String doubleName :SDDoubles)
         {
@@ -66,13 +67,19 @@ public class Robot extends TimedRobot {
             }
         }
 
+        String[] SDBooleans = {"Dist Sensor Error", "DriveStraight?", "Calibrate IMU?", "DriveDistance?", "Drive?", "Shoot?",
+                                "Distance Drive done?"};
 
         CommandScheduler.getInstance().setDefaultCommand(DriveTrain.getInstance(), new Drive());
         CommandScheduler.getInstance().setDefaultCommand(Shooter.getInstance(), new Shoot());
+
+        CommandScheduler.getInstance().setDefaultCommand(Pneumatics.getInstance(), new RunCompressor());
+        CommandScheduler.getInstance().setDefaultCommand(Intake.getInstance(), new RunIntake());
+
         String[] SDBooleans = {"Dist Sensor Error", "DriveStraight?", "Calibrate IMU?", "Shoot?"};
-        for(String booleanName: SDBooleans)
-        {
-            if (!SmartDashboard.containsKey(booleanName)) {
+
+        for (String booleanName: SDBooleans){
+            if(!SmartDashboard.containsKey(booleanName)){
                 SmartDashboard.putBoolean(booleanName, false);
                 SmartDashboard.setPersistent(booleanName);
             }
@@ -94,18 +101,11 @@ public class Robot extends TimedRobot {
         // block in order for anything in the Command-based framework to work.
         CommandScheduler.getInstance().run();
 
-        //update SmartDash values
-
-        CommandScheduler.getInstance().setDefaultCommand(DriveTrain.getInstance(), new Drive());
-        CommandScheduler.getInstance().setDefaultCommand(Pneumatics.getInstance(), new RunCompressor());
-        //CommandScheduler.getInstance().setDefaultCommand(DriveTrain.getInstance(), new Drive());
-        CommandScheduler.getInstance().setDefaultCommand(Intake.getInstance(), new RunIntake());
-        SmartDashboard.putNumber("Angle", IMU.getInstance().getYaw());
-        CommandScheduler.getInstance().setDefaultCommand(Shooter.getInstance(), new Shoot());
 
         //update SmartDash values
         //SmartDashboard.putNumber("Distance Sensor", Distance2M.getInstance().getDist());
         SmartDashboard.putBoolean("Dist Sensor Error", Dist2m.getInstance().isNotEnabled());
+        SmartDashboard.putNumber("Encoder Distance", DriveTrain.getInstance().getEncoderPosition());
     }
 
 
@@ -153,7 +153,7 @@ public class Robot extends TimedRobot {
         //teleopCommand.schedule();
         //new Drive();
         //new ScheduleCommand(new Drive());
-        CommandScheduler.getInstance().schedule(new Drive());
+        //CommandScheduler.getInstance().schedule(new Drive());
         CommandScheduler.getInstance().schedule(new Shoot());
         //CommandScheduler.getInstance().schedule(new Drive());
         if (SmartDashboard.getBoolean("Calibrate IMU?", false)) {

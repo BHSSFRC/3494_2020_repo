@@ -15,7 +15,9 @@ public class Drive extends CommandBase {
 
     @Override
     public void initialize() {
-        SmartDashboard.putBoolean("DriveStraight?", false);
+        //SmartDashboard.putBoolean("DriveStraight?", false);
+        //SmartDashboard.putBoolean("DriveDistance?", false);
+        SmartDashboard.putBoolean("Drive?", true);
     }
 
     @Override
@@ -39,6 +41,6 @@ public class Drive extends CommandBase {
 
     @Override
     public void end(boolean interrupted) {
-
+        SmartDashboard.putBoolean("Drive?", false);
     }
 }

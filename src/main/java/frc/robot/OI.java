@@ -4,9 +4,9 @@ import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import frc.robot.commands.Drive;
+import frc.robot.commands.drive.DistanceDrive;
 import frc.robot.commands.drive.DriveStraight;
 import frc.robot.commands.drive.TurnDegrees;
 
@@ -17,6 +17,7 @@ public class OI {
     private XboxController xbox;
     private JoystickButton driveStraight;
     private JoystickButton driveTurn;
+    private JoystickButton driveDistance;
 
     private OI(){
         leftFlight = new Joystick(RobotMap.OI.LEFT_FLIGHT);
@@ -29,6 +30,10 @@ public class OI {
 
         driveTurn = new JoystickButton(xbox, RobotMap.OI.DRIVE_TURN);
         driveTurn.whenPressed(new TurnDegrees(90));
+
+        driveDistance = new JoystickButton(xbox, RobotMap.OI.DRIVE_DISTANCE);
+        //driveDistance.whenPressed(() -> SmartDashboard.putBoolean())
+        driveDistance.whenPressed(new DistanceDrive(SmartDashboard.getNumber("Inches to Drive", 0)), false);
     }
 
     public double getLeftY(){
