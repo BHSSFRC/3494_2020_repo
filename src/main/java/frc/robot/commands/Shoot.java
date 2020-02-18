@@ -1,6 +1,5 @@
 package frc.robot.commands;
 
-import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.OI;
@@ -29,9 +28,9 @@ public class Shoot extends CommandBase {
         return false;
     }
 
-    /**@Override
-    public void end(){
+    @Override
+    public void end(boolean interrupted){
         SmartDashboard.putBoolean("Shoot?", false);
         Shooter.getInstance().shoot(0);
-    }*/
+    }
 }

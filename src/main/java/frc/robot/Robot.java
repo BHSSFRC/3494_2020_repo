@@ -103,7 +103,7 @@ public class Robot extends TimedRobot {
         //update SmartDash values
         //SmartDashboard.putNumber("Distance Sensor", Distance2M.getInstance().getDist());
         SmartDashboard.putBoolean("Dist Sensor Error", Dist2m.getInstance().isNotEnabled());
-        SmartDashboard.putNumber("Encoder Distance", DriveTrain.getInstance().getEncoderPosition());
+        //SmartDashboard.putNumber("Encoder Distance", DriveTrain.getInstance().getEncoderPosition());
     }
 
 
@@ -165,7 +165,7 @@ public class Robot extends TimedRobot {
     @Override
     public void teleopPeriodic() {
         //SmartDashboard.putNumber("Left Y", OI.getINSTANCE().getLeftY());
-        SmartDashboard.putNumber("Distance Sensor", Dist2m.getInstance().getDist());
+        //SmartDashboard.putNumber("Distance Sensor", Dist2m.getInstance().getDist());
         SmartDashboard.putNumber("XboxLeftTrigger", OI.getINSTANCE().getXboxLeftTrigger());
     }
 

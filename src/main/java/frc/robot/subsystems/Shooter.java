@@ -3,6 +3,7 @@ package frc.robot.subsystems;
 
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkMaxLowLevel;
+import edu.wpi.first.wpilibj.Servo;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 //import frc.robot.RobotMap;
 import frc.robot.commands.Shoot;
@@ -21,6 +22,8 @@ public class Shooter extends SubsystemBase {
     private CANSparkMax top;
     private CANSparkMax bot;
 
+    private Servo hood;
+
     /**
      * Creates a new instance of this Shooter.
      * This constructor is private since this class is a Singleton. External classes
@@ -38,6 +41,8 @@ public class Shooter extends SubsystemBase {
         this.bot = new CANSparkMax(13, CANSparkMaxLowLevel.MotorType.kBrushless);
         //this.bot.setInverted(false);
         //this.bot.follow(this.top);
+
+        this.hood = new Servo(8);
     }
 
     public void initDefaultCommand(){
@@ -45,8 +50,8 @@ public class Shooter extends SubsystemBase {
     }
 
     public void shoot(double power){
-        this.top.set(-power);
-        this.bot.set(-power);
+        this.top.set(power);
+        this.bot.set(power);
     }
 
     /**

@@ -76,16 +76,15 @@ public class DriveTrain extends SubsystemBase {
         setDefaultCommand(new Drive());
     }
 
-    public boolean aboveMaxTemp(){
-        if(this.rightMaster.getTemperature() > RobotMap.DRIVETRAIN.MAX_TEMP ||
-            this.rightSlave.getTemperature() > RobotMap.DRIVETRAIN.MAX_TEMP ||
-            this.leftMaster.getTemperature() > RobotMap.DRIVETRAIN.MAX_TEMP ||
-            this.leftSlave.getTemperature() > RobotMap.DRIVETRAIN.MAX_TEMP) {
+    /**public boolean aboveMaxTemp(){
+        if (this.rightMaster.getTemperature() > RobotMap.DRIVETRAIN.MAX_TEMP) {
             return true;
-        }else{
+        } else if (this.rightSlave.getTemperature() > RobotMap.DRIVETRAIN.MAX_TEMP || this.leftMaster.getTemperature() > RobotMap.DRIVETRAIN.MAX_TEMP || this.leftSlave.getTemperature() > RobotMap.DRIVETRAIN.MAX_TEMP) {
+            return true;
+        } else {
             return false;
         }
-    }
+    }*/
 
     public double getLeftEncoderPosition(){
         return (this.leftMaster.getSelectedSensorPosition() + this.leftSlave.getSelectedSensorPosition()) / 2;
