@@ -11,7 +11,7 @@ public class Music extends CommandBase {
 
     @Override
     public void initialize() {
-        DriveTrain.getInstance().beepBoop("mbk.chrp");
+        DriveTrain.getInstance().beepBoop();
     }
 
     @Override

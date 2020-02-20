@@ -33,11 +33,11 @@ public class DriveTrain extends SubsystemBase {
         }
 
         orchestra = new Orchestra(instruments);
+        orchestra.loadMusic("mbk.chrp");
     }
 
-    public void beepBoop(String song) {
+    public void beepBoop() {
         if (!orchestra.isPlaying()) {
-            orchestra.loadMusic("mbk.chrp");
             orchestra.play();
         }
     }
