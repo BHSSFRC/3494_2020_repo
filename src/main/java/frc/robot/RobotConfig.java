@@ -36,6 +36,6 @@ public final class RobotConfig
         public static double IMU_CALIBRATION_TIME = 60;
     }
     public static class TURRET {
-
+        public static double DEFAULT_SPIN_POWER = 0.3;
     }
 }

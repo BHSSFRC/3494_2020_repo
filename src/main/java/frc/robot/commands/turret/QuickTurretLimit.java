@@ -1,8 +1,8 @@
 package frc.robot.commands.turret;
 
-import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
+import frc.robot.RobotConfig;
 import frc.robot.subsystems.Turret;
 
 public class QuickTurretLimit extends CommandBase {
@@ -19,7 +19,7 @@ public class QuickTurretLimit extends CommandBase {
 
     @Override
     public void execute() {
-        Turret.getInstance().spin(.3);
+        Turret.getInstance().spin(RobotConfig.TURRET.DEFAULT_SPIN_POWER);
     }
 
     @Override

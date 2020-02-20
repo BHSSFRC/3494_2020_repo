@@ -2,6 +2,7 @@ package frc.robot.commands.turret;
 
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
+import frc.robot.RobotConfig;
 import frc.robot.subsystems.Turret;
 
 public class AimBot extends CommandBase {
@@ -11,7 +12,7 @@ public class AimBot extends CommandBase {
     public AimBot() {
         // If any subsystems are needed, you will need to pass them into the requires() method
         addRequirements(Turret.getInstance());
-        this.power = 0.2;
+        this.power = RobotConfig.TURRET.DEFAULT_SPIN_POWER;
         this.targetOffset = 0;
     }
 

@@ -23,7 +23,7 @@ public class RobotMap {
         public static final int CYLINDER_IN = 1;
     }
 
-    public static class TURRET {
+    public static final class TURRET {
         public static final int MOTOR = 3;
 
         public static final int ENCODER_CHANNEL_A = 2;
