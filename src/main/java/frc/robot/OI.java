@@ -9,6 +9,8 @@ import frc.robot.commands.drive.DistanceDrive;
 import frc.robot.commands.drive.Drive;
 import frc.robot.commands.drive.DriveStraight;
 import frc.robot.commands.drive.TurnDegrees;
+import frc.robot.commands.turret.AimBot;
+import frc.robot.commands.turret.QuickTurretLimit;
 
 public class OI {
     private static OI INSTANCE = new OI();
@@ -18,6 +20,9 @@ public class OI {
     private JoystickButton driveStraight;
     private JoystickButton driveTurn;
     private JoystickButton driveDistance;
+
+    private JoystickButton turretLimits;
+    private JoystickButton turretToSetpoint;
 
     private OI(){
         leftFlight = new Joystick(RobotMap.OI.LEFT_FLIGHT);
@@ -34,6 +39,12 @@ public class OI {
         driveDistance = new JoystickButton(xbox, RobotMap.OI.DRIVE_DISTANCE);
         //driveDistance.whenPressed(() -> SmartDashboard.putBoolean())
         driveDistance.whenPressed(new DistanceDrive(SmartDashboard.getNumber("Inches to Drive", 0)), false);
+
+        this.turretLimits = new JoystickButton(xbox, 3);
+        this.turretLimits.whenPressed(new QuickTurretLimit());
+
+        this.turretToSetpoint = new JoystickButton(xbox, 4);
+        this.turretToSetpoint.toggleWhenPressed(new AimBot());
     }
 
     public double getLeftY(){
