@@ -23,6 +23,18 @@ public class RobotMap {
         public static final int CYLINDER_IN = 1;
     }
 
+    public static class TURRET {
+        public static final int MOTOR = 3;
+
+        public static final int ENCODER_CHANNEL_A = 2;
+        public static final int ENCODER_CHANNEL_B = 3;
+        public static final int LIMIT_SWITCH_BACK = 0;
+        public static final int LIMIT_SWITCH_FRONT = 1;
+
+        public static final double RANGE_OF_MOTION = 260;
+        public static final double ENCODER_COUNTS_PER_DEGREE = 10.65;
+    }
+
     public static class OI {
         public static int LEFT_FLIGHT = 0;
         public static int RIGHT_FLIGHT = 1;
@@ -35,6 +47,7 @@ public class RobotMap {
 
     public static class SENSORS {
         public static int IMU = 0;
+        
     }
     public static class COMPRESSOR {
         public static int PCM1 = 1;
