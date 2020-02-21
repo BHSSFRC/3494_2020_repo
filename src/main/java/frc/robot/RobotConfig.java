@@ -38,4 +38,8 @@ public final class RobotConfig
         public static double IMU_OFFSET_PER_SECOND_PHASE_TWO = 0.985840;
         public static double IMU_CALIBRATION_TIME = 60;
     }
+
+    public static class MAGAZINE {
+        public static double MOTOR_DEFAULT_POWER = 0.5;
+    }
 }

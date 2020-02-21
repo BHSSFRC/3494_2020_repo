@@ -5,8 +5,9 @@ import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkMaxLowLevel;
 import edu.wpi.first.wpilibj.Servo;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
-//import frc.robot.RobotMap;
 import frc.robot.commands.Shoot;
+
+//import frc.robot.RobotMap;
 
 public class Shooter extends SubsystemBase {
 

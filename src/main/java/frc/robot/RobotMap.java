@@ -23,6 +23,16 @@ public class RobotMap {
         public static final int CYLINDER_IN = 1;
     }
 
+    public static class HOPPER {
+        public static final int MOTOR = 9;
+    }
+
+    public static class MAGAZINE {
+        public static final int FRONT = 10;
+        public static final int BOTTOM = 11;
+        public static final int TOP = 12;
+    }
+
     public static class OI {
         public static int LEFT_FLIGHT = 0;
         public static int RIGHT_FLIGHT = 1;
