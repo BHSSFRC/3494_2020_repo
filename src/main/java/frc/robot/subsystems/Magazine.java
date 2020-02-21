@@ -18,6 +18,14 @@ public class Magazine extends SubsystemBase {
     private TalonSRX top;
 
     /**
+     * TODO: create teleop routine
+     * 1 Intake balls: Hopper on, front on, bottom and top off
+     * 2 When Sensor 1 sees balls: Hopper on, front and bottom on, top off
+     * 3 When Sensor 2 sees balls: Hopper on, front on, bottom and top off
+     * 4 Once Sensor 1 sees balls, Magazine is full: Hopper and magazine motors off
+     */
+
+    /**
      * The Singleton instance of this Magazine. External classes should
      * use the {@link #getInstance()} method to get the instance.
      */
