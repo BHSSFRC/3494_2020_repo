@@ -40,6 +40,6 @@ public final class RobotConfig
     }
 
     public static class MAGAZINE {
-        public static double MOTOR_DEFAULT_POWER = 0.5;
+        public static double MOTOR_DEFAULT_POWER = 0.3;
     }
 }

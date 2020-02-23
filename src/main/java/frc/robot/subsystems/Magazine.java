@@ -43,6 +43,7 @@ public class Magazine extends SubsystemBase {
         //       such as SpeedControllers, Encoders, DigitalInputs, etc.
         this.front = new TalonSRX(RobotMap.MAGAZINE.FRONT);
         this.bottom = new TalonSRX(RobotMap.MAGAZINE.BOTTOM);
+        this.bottom.setInverted(true);
         this.top = new TalonSRX(RobotMap.MAGAZINE.TOP);
     }
 
@@ -64,7 +65,7 @@ public class Magazine extends SubsystemBase {
 
     public void runTop(boolean on){
         if(on){
-            this.top.set(ControlMode.PercentOutput, RobotConfig.MAGAZINE.MOTOR_DEFAULT_POWER);
+            this.top.set(ControlMode.PercentOutput, 0.1);
         }else{
             this.top.set(ControlMode.PercentOutput, 0);
         }

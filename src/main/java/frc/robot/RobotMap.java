@@ -24,13 +24,13 @@ public class RobotMap {
     }
 
     public static class HOPPER {
-        public static final int MOTOR = 9;
+        public static final int MOTOR = 7;
     }
 
     public static class MAGAZINE {
         public static final int FRONT = 10;
         public static final int BOTTOM = 9;
-        public static final int TOP = 8;
+        public static final int TOP = 4;
     }
 
     public static class OI {
