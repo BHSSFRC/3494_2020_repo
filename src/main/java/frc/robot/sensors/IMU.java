@@ -13,7 +13,6 @@ public class IMU {
     private double initAngle = 0;
 
     private IMU(){
-
         this.timer = new QuadTimer();
         this.timer.start();
         imu = new ADIS16470_IMU();
@@ -40,6 +39,11 @@ public class IMU {
             yaw = yaw % 360;
         }
         return yaw;
+    }
+
+    //should return angle showing whether robot is tipping forward or backward
+    public double getPitch(){
+        return this.imu.getGyroInstantY() % 360;//maybe the right one?
     }
 
     public static IMU getInstance(){

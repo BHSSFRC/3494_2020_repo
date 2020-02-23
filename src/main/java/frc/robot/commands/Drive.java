@@ -4,6 +4,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.OI;
 import frc.robot.RobotConfig;
+import frc.robot.sensors.IMU;
 import frc.robot.subsystems.DriveTrain;
 
 
@@ -25,6 +26,11 @@ public class Drive extends CommandBase {
         double leftPower = powerCurve(OI.getINSTANCE().getLeftY());
         SmartDashboard.putNumber("Left Y", leftPower);
         double rightPower = powerCurve(OI.getINSTANCE().getRightY());
+        if(Math.abs(IMU.getInstance().getPitch()) > 5){
+            double correction = Math.min(IMU.getInstance().getPitch() / 10, 0.5);
+            leftPower -= correction;
+            rightPower -= correction;
+        }
         DriveTrain.getInstance().tankDrive(leftPower, rightPower);
 
         /**if(DriveTrain.getInstance().aboveMaxTemp()){
