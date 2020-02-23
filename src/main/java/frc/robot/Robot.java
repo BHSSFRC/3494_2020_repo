@@ -59,6 +59,7 @@ public class Robot extends TimedRobot {
         DriveTrain.getInstance();
         IMU.getInstance();
         Pneumatics.getInstance();
+        Magazine.getInstance();
         robotContainer = new RobotContainer();
 
         bottom = new Linebreaker(RobotMap.SENSORS.LINEBREAK_BOT);
@@ -79,10 +80,13 @@ public class Robot extends TimedRobot {
         CommandScheduler.getInstance().setDefaultCommand(DriveTrain.getInstance(), new Drive());
 <<<<<<< Updated upstream
         CommandScheduler.getInstance().setDefaultCommand(Shooter.getInstance(), new Shoot());
+<<<<<<< HEAD
 =======
         //CommandScheduler.getInstance().setDefaultCommand(Shooter.getInstance(), new Shoot());
         CommandScheduler.getInstance().setDefaultCommand(Magazine.getInstance(), new RunMagazine());
 >>>>>>> Stashed changes
+=======
+        CommandScheduler.getInstance().setDefaultCommand(Magazine.getInstance(), new RunMagazine());
 
         CommandScheduler.getInstance().setDefaultCommand(Pneumatics.getInstance(), new RunCompressor());
         CommandScheduler.getInstance().setDefaultCommand(Intake.getInstance(), new RunIntake());
