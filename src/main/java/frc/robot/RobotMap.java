@@ -29,8 +29,8 @@ public class RobotMap {
 
     public static class MAGAZINE {
         public static final int FRONT = 10;
-        public static final int BOTTOM = 11;
-        public static final int TOP = 12;
+        public static final int BOTTOM = 9;
+        public static final int TOP = 8;
     }
 
     public static class OI {

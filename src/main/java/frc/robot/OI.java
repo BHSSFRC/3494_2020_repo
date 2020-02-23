@@ -21,8 +21,6 @@ public class OI {
     private JoystickButton driveDistance;
     private JoystickButton runMagazine;
 
-    private JoystickButton
-
     private OI(){
         leftFlight = new Joystick(RobotMap.OI.LEFT_FLIGHT);
         rightFlight = new Joystick(RobotMap.OI.RIGHT_FLIGHT);
