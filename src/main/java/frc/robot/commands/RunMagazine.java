@@ -10,10 +10,14 @@ public class RunMagazine extends CommandBase {
     private boolean runTop;
 
     public RunMagazine() {
+        this(false, false, false);
     }
 
     public RunMagazine(boolean front, boolean bottom, boolean top){
         addRequirements(Magazine.getInstance());
+        this.runFront = front;
+        this.runBottom = bottom;
+        this.runTop = top;
     }
 
     @Override
