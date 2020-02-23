@@ -24,6 +24,7 @@ public class Shooter extends SubsystemBase {
 
     private Servo hood;
 
+
     /**
      * Creates a new instance of this Shooter.
      * This constructor is private since this class is a Singleton. External classes
