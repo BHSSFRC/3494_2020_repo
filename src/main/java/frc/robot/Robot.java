@@ -29,6 +29,8 @@ import frc.robot.sensors.Dist2m;
 import frc.robot.commands.RunIntake;
 import frc.robot.subsystems.Intake;
 
+import javax.sound.sampled.Line;
+
 
 /**
  * The VM is configured to automatically run this class, and to call the
@@ -41,6 +43,9 @@ public class Robot extends TimedRobot {
     private Command autonomousCommand;
 
     private RobotContainer robotContainer;
+
+    private static Linebreaker bottom;
+    private static Linebreaker top;
 
     /**
      * This method is run when the robot is first started up and should be used for any
@@ -55,6 +60,9 @@ public class Robot extends TimedRobot {
         IMU.getInstance();
         Pneumatics.getInstance();
         robotContainer = new RobotContainer();
+
+        bottom = new Linebreaker(RobotMap.SENSORS.LINEBREAK_BOT);
+        top = new Linebreaker(RobotMap.SENSORS.LINEBREAK_TOP);
 
         String[] SDDoubles = {"Left Y", "Shooter Max Power", "Distance Sensor", "Angle", "Calibrate1", "Calibrate2",
         "Tuning/PID P", "Tuning/PID I", "Tuning/PID D", "DriveStraight Offset", "DriveTurn Offset", "Turn Power", "XboxLeftTrigger",
@@ -181,5 +189,13 @@ public class Robot extends TimedRobot {
      */
     @Override
     public void testPeriodic() {
+    }
+
+    public static Linebreaker getLinebreakBottom(){
+        return bottom;
+    }
+
+    public static Linebreaker getLinebreakTop(){
+        return top;
     }
 }
