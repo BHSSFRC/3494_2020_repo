@@ -1,15 +1,15 @@
 package frc.robot.sensors;
 
-import edu.wpi.first.wpilibj.AnalogInput;
+import edu.wpi.first.wpilibj.DigitalInput;
 
 public class Linebreaker {
-    private AnalogInput ai;
+    private DigitalInput di;
 
     public Linebreaker(int port) {
-        this.ai = new AnalogInput(port);
+        this.di = new DigitalInput(port);
     }
 
     public boolean lineBroken() {
-        return this.ai.getVoltage() > 1.0D;
+        return !this.di.get();
     }
 }
