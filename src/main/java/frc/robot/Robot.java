@@ -16,15 +16,12 @@ import frc.robot.commands.Shoot;
 import frc.robot.sensors.Linebreaker;
 import frc.robot.subsystems.DriveTrain;
 
-
-import frc.robot.commands.drive.DriveStraight;
-
 import frc.robot.commands.CalibrateIMU;
+import frc.robot.commands.drive.*;
 import frc.robot.commands.*;
 import frc.robot.subsystems.*;
 import frc.robot.sensors.IMU;
 import frc.robot.sensors.Dist2m;
-
 
 import frc.robot.commands.RunIntake;
 import frc.robot.subsystems.Intake;
@@ -60,6 +57,7 @@ public class Robot extends TimedRobot {
         IMU.getInstance();
         Pneumatics.getInstance();
         Magazine.getInstance();
+        Climber.getInstance();
         robotContainer = new RobotContainer();
 
         bottom = new Linebreaker(RobotMap.SENSORS.LINEBREAK_BOT);
@@ -83,6 +81,7 @@ public class Robot extends TimedRobot {
 
         CommandScheduler.getInstance().setDefaultCommand(Pneumatics.getInstance(), new RunCompressor());
         CommandScheduler.getInstance().setDefaultCommand(Intake.getInstance(), new RunIntake());
+        CommandScheduler.getInstance().setDefaultCommand(Climber.getInstance(), new Climb());
 
         String[] SDBooleans = {"Dist Sensor Error", "DriveStraight?", "Calibrate IMU?", "DriveDistance?", "Drive?", "Shoot?",
                 "Distance Drive done?", "Linebreak1", "Linebreak2"};

@@ -21,7 +21,7 @@ public class Intake extends SubsystemBase {
 
     private TalonSRX motor;
 
-    private DoubleSolenoid cylinder = new DoubleSolenoid(RobotMap.COMPRESSOR.PCM1, RobotMap.INTAKE.CYLINDER_OUT, RobotMap.INTAKE.CYLINDER_IN);
+    private DoubleSolenoid cylinder = new DoubleSolenoid(RobotMap.COMPRESSOR.PCM1, RobotMap.INTAKE.CYLINDER_IN, RobotMap.INTAKE.CYLINDER_OUT);
 
 
     private final static Intake INSTANCE = new Intake();

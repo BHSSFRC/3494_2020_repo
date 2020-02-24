@@ -15,6 +15,10 @@ public class RobotMap {
     public static class SHOOTER {
         public static final int TOP = 12;
         public static final int BOT = 13;
+        public static final int HOOD_MAIN_UP = 4;
+        public static final int HOOD_MAIN_DOWN = 5;
+        public static final int HOOD_LIMIT_UP = 2;
+        public static final int HOOD_LIMIT_DOWN = 3;
     }
 
     public static class INTAKE {
@@ -45,12 +49,18 @@ public class RobotMap {
         public static int RUN_MAGAZINE = 2;
     }
 
+    public static class CLIMBER {
+        public static int PANCAKE = 6;
+        public static int WHEEL_OF_FORTUNE = 7;
+    }
+
     public static class SENSORS {
         public static int IMU = 0;
 
         public static int LINEBREAK_BOT = 6;
         public static int LINEBREAK_TOP = 5;
     }
+    
     public static class COMPRESSOR {
         public static int PCM1 = 1;
     }
