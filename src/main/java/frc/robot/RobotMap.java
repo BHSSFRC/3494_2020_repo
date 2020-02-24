@@ -23,8 +23,8 @@ public class RobotMap {
 
     public static class INTAKE {
         public static final int MOTOR = 8;
-        public static final int CYLINDER_OUT = 0;
-        public static final int CYLINDER_IN = 1;
+        public static final int CYLINDER_OUT = 1;
+        public static final int CYLINDER_IN = 0;
     }
 
     public static class HOPPER {
@@ -49,9 +49,15 @@ public class RobotMap {
         public static int RUN_MAGAZINE = 2;
     }
 
+    public static class CLIMBER {
+        public static int PANCAKE = 6;
+        public static int WHEEL_OF_FORTUNE = 7;
+    }
+
     public static class SENSORS {
         public static int IMU = 0;
     }
+    
     public static class COMPRESSOR {
         public static int PCM1 = 1;
     }

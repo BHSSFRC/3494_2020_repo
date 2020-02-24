@@ -72,6 +72,10 @@ public class OI {
         return this.xbox.getBumper(GenericHID.Hand.kRight);
     }
 
+    public boolean getXboxLeftBumper(){
+        return this.xbox.getBumper(GenericHID.Hand.kLeft);
+    }
+
     public boolean getXboxDpadUp(){
         return this.xbox.getPOV() == 0;
     }

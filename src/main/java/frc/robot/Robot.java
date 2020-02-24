@@ -11,22 +11,11 @@ import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
-import frc.robot.commands.Drive;
-import frc.robot.commands.Shoot;
-import frc.robot.subsystems.DriveTrain;
-
-
-import frc.robot.commands.drive.DriveStraight;
-
-import frc.robot.commands.CalibrateIMU;
+import frc.robot.commands.drive.*;
 import frc.robot.commands.*;
 import frc.robot.subsystems.*;
 import frc.robot.sensors.IMU;
 import frc.robot.sensors.Dist2m;
-
-
-import frc.robot.commands.RunIntake;
-import frc.robot.subsystems.Intake;
 
 
 /**
@@ -54,6 +43,7 @@ public class Robot extends TimedRobot {
         IMU.getInstance();
         Pneumatics.getInstance();
         Magazine.getInstance();
+        Climber.getInstance();
         robotContainer = new RobotContainer();
 
         String[] SDDoubles = {"Left Y", "Shooter Max Power", "Distance Sensor", "Angle", "Calibrate1", "Calibrate2",
@@ -74,6 +64,7 @@ public class Robot extends TimedRobot {
 
         CommandScheduler.getInstance().setDefaultCommand(Pneumatics.getInstance(), new RunCompressor());
         CommandScheduler.getInstance().setDefaultCommand(Intake.getInstance(), new RunIntake());
+        CommandScheduler.getInstance().setDefaultCommand(Climber.getInstance(), new Climb());
 
         String[] SDBooleans = {"Dist Sensor Error", "DriveStraight?", "Calibrate IMU?", "DriveDistance?", "Drive?", "Shoot?",
                 "Distance Drive done?"};
