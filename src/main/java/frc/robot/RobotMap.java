@@ -23,30 +23,16 @@ public class RobotMap {
         public static final int CYLINDER_IN = 0;
     }
 
-<<<<<<< HEAD
-<<<<<<< Updated upstream
-=======
     public static class HOPPER {
         public static final int MOTOR = 7;
-=======
-    public static class HOPPER {
-        public static final int MOTOR = 9;
->>>>>>> hopper_magazine
     }
 
     public static class MAGAZINE {
         public static final int FRONT = 10;
         public static final int BOTTOM = 9;
-<<<<<<< HEAD
         public static final int TOP = 4;
     }
 
->>>>>>> Stashed changes
-=======
-        public static final int TOP = 8;
-    }
-
->>>>>>> hopper_magazine
     public static class OI {
         public static int LEFT_FLIGHT = 0;
         public static int RIGHT_FLIGHT = 1;

@@ -40,6 +40,8 @@ public class OI {
         runMagazine = new JoystickButton(xbox, RobotMap.OI.RUN_MAGAZINE);
         runMagazine.whenPressed(new RunMagazine(true, true, true));
         runMagazine.whenReleased(new RunMagazine(false, false, false));
+        //runMagazine.whenPressed(new RunHopper());
+        //runMagazine.whenReleased(new InstantCommand(() -> Hopper.getInstance().stop()));
     }
 
     public double getLeftY(){
