@@ -37,7 +37,7 @@ public class Climber extends SubsystemBase {
 		this.right.set(ControlMode.PercentOutput, power);
 	}
 
-	public void pancake(boolean out) {
+	public void extendClimber(boolean out) {
 		this.climberSolenoid.set(out);
 	}
 

@@ -27,7 +27,7 @@ public class Climb extends CommandBase {
 	// Called every time the scheduler runs while the command is scheduled.
 	@Override
 	public void execute() {
-		Climber.getInstance().pancake(OI.getINSTANCE().getXboxLeftBumper());
+		Climber.getInstance().extendClimber(OI.getINSTANCE().getXboxLeftBumper());
 	}
 
 	// Called once the command ends or is interrupted.
