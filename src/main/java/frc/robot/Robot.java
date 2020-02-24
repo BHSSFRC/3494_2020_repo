@@ -53,6 +53,7 @@ public class Robot extends TimedRobot {
         DriveTrain.getInstance();
         IMU.getInstance();
         Pneumatics.getInstance();
+        Magazine.getInstance();
         robotContainer = new RobotContainer();
 
         String[] SDDoubles = {"Left Y", "Shooter Max Power", "Distance Sensor", "Angle", "Calibrate1", "Calibrate2",
@@ -69,6 +70,7 @@ public class Robot extends TimedRobot {
 
         CommandScheduler.getInstance().setDefaultCommand(DriveTrain.getInstance(), new Drive());
         CommandScheduler.getInstance().setDefaultCommand(Shooter.getInstance(), new Shoot());
+        CommandScheduler.getInstance().setDefaultCommand(Magazine.getInstance(), new RunMagazine());
 
         CommandScheduler.getInstance().setDefaultCommand(Pneumatics.getInstance(), new RunCompressor());
         CommandScheduler.getInstance().setDefaultCommand(Intake.getInstance(), new RunIntake());
