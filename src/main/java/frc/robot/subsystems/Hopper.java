@@ -11,7 +11,7 @@ public class Hopper extends SubsystemBase {
     private TalonSRX motor;
 
     private final static Hopper INSTANCE = new Hopper();
-    
+
     private Hopper() {
         this.motor = new TalonSRX(RobotMap.HOPPER.MOTOR);
         this.motor.configOpenloopRamp(1);

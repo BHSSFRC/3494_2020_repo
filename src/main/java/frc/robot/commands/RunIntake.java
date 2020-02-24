@@ -30,7 +30,7 @@ public class RunIntake extends CommandBase {
 	@Override
 	public void execute() {
 		Intake.getInstance().runIntake(OI.getINSTANCE().getXboxRightTrigger());
-		Intake.getInstance().setPosition(OI.getINSTANCE().getXboxRightBumper());
+		Intake.getInstance().setDeployed(OI.getINSTANCE().getXboxRightBumper());
 	}
 
 	// Called once the command ends or is interrupted.
