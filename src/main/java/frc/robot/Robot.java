@@ -85,7 +85,7 @@ public class Robot extends TimedRobot {
         CommandScheduler.getInstance().setDefaultCommand(Intake.getInstance(), new RunIntake());
 
         String[] SDBooleans = {"Dist Sensor Error", "DriveStraight?", "Calibrate IMU?", "DriveDistance?", "Drive?", "Shoot?",
-                "Distance Drive done?"};
+                "Distance Drive done?", "Linebreak1", "Linebreak2"};
 
         for (String booleanName: SDBooleans){
             if(!SmartDashboard.containsKey(booleanName)){
@@ -178,6 +178,8 @@ public class Robot extends TimedRobot {
         //SmartDashboard.putNumber("Left Y", OI.getINSTANCE().getLeftY());
         //SmartDashboard.putNumber("Distance Sensor", Dist2m.getInstance().getDist());
         SmartDashboard.putNumber("XboxLeftTrigger", OI.getINSTANCE().getXboxLeftTrigger());
+        SmartDashboard.putBoolean("Linebreak1", getLinebreakBottom().lineBroken());
+        SmartDashboard.putBoolean("Linebreak2", getLinebreakBottom().lineBroken());
     }
 
     @Override
