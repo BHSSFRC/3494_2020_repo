@@ -64,6 +64,14 @@ public class OI {
         return this.xbox.getBumper(GenericHID.Hand.kRight);
     }
 
+    public boolean getXboxDpadUp(){
+        return this.xbox.getPOV() == 0;
+    }
+
+    public boolean getXboxDpadDown(){
+        return this.xbox.getPOV() == 180;
+    }
+
     /**
      * Returns 0.0 if the given value is within the specified range around zero. The remaining range
      * between the deadband and 1.0 is scaled from 0.0 to 1.0.
