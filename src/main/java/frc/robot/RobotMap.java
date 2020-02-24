@@ -48,8 +48,8 @@ public class RobotMap {
     public static class SENSORS {
         public static int IMU = 0;
 
-        public static int LINEBREAK_BOT = 6;//magic number
-        public static int LINEBREAK_TOP = 5;//magic number
+        public static int LINEBREAK_BOT = 6;
+        public static int LINEBREAK_TOP = 5;
     }
     public static class COMPRESSOR {
         public static int PCM1 = 1;

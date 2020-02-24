@@ -78,14 +78,7 @@ public class Robot extends TimedRobot {
         }
 
         CommandScheduler.getInstance().setDefaultCommand(DriveTrain.getInstance(), new Drive());
-<<<<<<< Updated upstream
-        CommandScheduler.getInstance().setDefaultCommand(Shooter.getInstance(), new Shoot());
-<<<<<<< HEAD
-=======
         //CommandScheduler.getInstance().setDefaultCommand(Shooter.getInstance(), new Shoot());
-        CommandScheduler.getInstance().setDefaultCommand(Magazine.getInstance(), new RunMagazine());
->>>>>>> Stashed changes
-=======
         CommandScheduler.getInstance().setDefaultCommand(Magazine.getInstance(), new RunMagazine());
 
         CommandScheduler.getInstance().setDefaultCommand(Pneumatics.getInstance(), new RunCompressor());
