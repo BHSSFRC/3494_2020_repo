@@ -50,8 +50,15 @@ public class RobotMap {
     }
 
     public static class CLIMBER {
-        public static int PANCAKE = 6;
+        public static int CLIMBER_SOLENOID = 6;
         public static int WHEEL_OF_FORTUNE = 7;
+
+        public static int RIGHT = 2;
+        public static int LEFT = 3;
+    }
+
+    public static class CONTROL_PANEL {
+        public static int WHEEL = 6;
     }
 
     public static class SENSORS {

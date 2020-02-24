@@ -7,14 +7,18 @@
 
 package frc.robot.subsystems;
 
-import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import com.ctre.phoenix.motorcontrol.ControlMode;
+import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 import edu.wpi.first.wpilibj.Solenoid;
+import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.RobotMap;
 
 public class Climber extends SubsystemBase {
 
-	private Solenoid pancake;
+	private Solenoid climberSolenoid;
 	private Solenoid wheelOfFortune;
+	private TalonSRX left;
+	private TalonSRX right;
 
 	/**
 	 * Creates a new Climber.
@@ -22,12 +26,19 @@ public class Climber extends SubsystemBase {
 	private final static Climber INSTANCE = new Climber();
 	
 	public Climber() {
-		pancake = new Solenoid(RobotMap.COMPRESSOR.PCM1, RobotMap.CLIMBER.PANCAKE);
-		wheelOfFortune = new Solenoid(RobotMap.COMPRESSOR.PCM1, RobotMap.CLIMBER.WHEEL_OF_FORTUNE);
+		this.climberSolenoid = new Solenoid(RobotMap.COMPRESSOR.PCM1, RobotMap.CLIMBER.CLIMBER_SOLENOID);
+		this.wheelOfFortune = new Solenoid(RobotMap.COMPRESSOR.PCM1, RobotMap.CLIMBER.WHEEL_OF_FORTUNE);
+		this.left = new TalonSRX(RobotMap.CLIMBER.LEFT);
+		this.right = new TalonSRX(RobotMap.CLIMBER.RIGHT);
+	}
+
+	public void spin(double power) {
+		this.left.set(ControlMode.PercentOutput, power);
+		this.right.set(ControlMode.PercentOutput, power);
 	}
 
 	public void pancake(boolean out) {
-		pancake.set(out);
+		this.climberSolenoid.set(out);
 	}
 
 	@Override
