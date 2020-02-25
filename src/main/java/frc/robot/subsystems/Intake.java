@@ -34,6 +34,10 @@ public class Intake extends SubsystemBase {
         this.motor.set(ControlMode.PercentOutput, power);
     }
 
+    public void stop(){
+  	    this.runIntake(0);
+    }
+
     public void setDeployed(boolean deployed) {
         if (deployed) {
             this.cylinder.set(DoubleSolenoid.Value.kForward);

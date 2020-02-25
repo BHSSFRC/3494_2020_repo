@@ -12,17 +12,8 @@ public class RunHopper extends CommandBase {
     }
 
     @Override
-    public void initialize() {
-    }
-
-    @Override
     public void execute() {
         Hopper.getInstance().spin(RobotConfig.MAGAZINE.MOTOR_DEFAULT_POWER);//should be given its own non hopper power
-    }
-
-    @Override
-    public boolean isFinished() {
-        return false;
     }
 
     @Override
