@@ -12,30 +12,23 @@ import frc.robot.OI;
 import frc.robot.subsystems.Climber;
 
 public class Climb extends CommandBase {
-	/**
-   * Creates a new Climber.
-   */
   public Climb() {
       addRequirements(Climber.getInstance());
   }
 
-	// Called when the command is initially scheduled.
 	@Override
 	public void initialize() {
 	}
 
-	// Called every time the scheduler runs while the command is scheduled.
 	@Override
 	public void execute() {
 		Climber.getInstance().pancake(OI.getINSTANCE().getXboxLeftBumper());
 	}
 
-	// Called once the command ends or is interrupted.
 	@Override
 	public void end(boolean interrupted) {
 	}
 
-	// Returns true when the command should end.
 	@Override
 	public boolean isFinished() {
 		return false;

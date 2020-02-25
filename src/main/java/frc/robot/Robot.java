@@ -11,11 +11,12 @@ import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
-import frc.robot.commands.drive.*;
+import edu.wpi.first.wpilibj2.command.InstantCommand;
 import frc.robot.commands.*;
-import frc.robot.subsystems.*;
-import frc.robot.sensors.IMU;
 import frc.robot.sensors.Dist2m;
+import frc.robot.sensors.IMU;
+import frc.robot.sensors.Linebreaker;
+import frc.robot.subsystems.*;
 
 
 /**
@@ -29,6 +30,9 @@ public class Robot extends TimedRobot {
     private Command autonomousCommand;
 
     private RobotContainer robotContainer;
+
+    private static Linebreaker bottom;
+    private static Linebreaker top;
 
     /**
      * This method is run when the robot is first started up and should be used for any
@@ -46,6 +50,9 @@ public class Robot extends TimedRobot {
         Climber.getInstance();
         robotContainer = new RobotContainer();
 
+        bottom = new Linebreaker(RobotMap.SENSORS.LINEBREAK_BOT);
+        top = new Linebreaker(RobotMap.SENSORS.LINEBREAK_TOP);
+
         String[] SDDoubles = {"Left Y", "Shooter Max Power", "Distance Sensor", "Angle", "Calibrate1", "Calibrate2",
         "Tuning/PID P", "Tuning/PID I", "Tuning/PID D", "DriveStraight Offset", "DriveTurn Offset", "Turn Power", "XboxLeftTrigger",
                 "Encoder Distance", "Inches to Drive", "Rotation(degrees)"};
@@ -59,12 +66,13 @@ public class Robot extends TimedRobot {
         }
 
         CommandScheduler.getInstance().setDefaultCommand(DriveTrain.getInstance(), new Drive());
-        CommandScheduler.getInstance().setDefaultCommand(Shooter.getInstance(), new Shoot());
+        //CommandScheduler.getInstance().setDefaultCommand(Shooter.getInstance(), new Shoot());
         CommandScheduler.getInstance().setDefaultCommand(Magazine.getInstance(), new RunMagazine());
 
-        CommandScheduler.getInstance().setDefaultCommand(Pneumatics.getInstance(), new RunCompressor());
         CommandScheduler.getInstance().setDefaultCommand(Intake.getInstance(), new RunIntake());
         CommandScheduler.getInstance().setDefaultCommand(Climber.getInstance(), new Climb());
+
+        CommandScheduler.getInstance().schedule(new InstantCommand(Pneumatics.getInstance()::startCompressor));
 
         String[] SDBooleans = {"Dist Sensor Error", "DriveStraight?", "Calibrate IMU?", "DriveDistance?", "Drive?", "Shoot?",
                 "Distance Drive done?"};
@@ -173,5 +181,13 @@ public class Robot extends TimedRobot {
      */
     @Override
     public void testPeriodic() {
+    }
+
+    public static Linebreaker getLinebreakBottom(){
+        return bottom;
+    }
+
+    public static Linebreaker getLinebreakTop(){
+        return top;
     }
 }

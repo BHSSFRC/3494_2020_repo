@@ -7,12 +7,7 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.RobotConfig;
 import frc.robot.RobotMap;
 
-import java.awt.*;
-
 public class Magazine extends SubsystemBase {
-
-// Any variables/fields used in the constructor must appear before the "INSTANCE" variable
-// so that they are initialized before the constructor is called.
     private TalonSRX front;
     private TalonSRX bottom;
     private TalonSRX top;
@@ -25,22 +20,9 @@ public class Magazine extends SubsystemBase {
      * 4 Once Sensor 1 sees balls, Magazine is full: Hopper and magazine motors off
      */
 
-    /**
-     * The Singleton instance of this Magazine. External classes should
-     * use the {@link #getInstance()} method to get the instance.
-     */
     private final static Magazine INSTANCE = new Magazine();
 
-    /**
-     * Creates a new instance of this Magazine.
-     * This constructor is private since this class is a Singleton. External classes
-     * should use the {@link #getInstance()} method to get the instance.
-     */
     private Magazine() {
-        // TODO: Set the default command, if any, for this subsystem by calling setDefaultCommand(command)
-        //       in the constructor or in the robot coordination class, such as RobotContainer.
-        //       Also, you can call addChild(name, sendableChild) to associate sendables with the subsystem
-        //       such as SpeedControllers, Encoders, DigitalInputs, etc.
         this.front = new TalonSRX(RobotMap.MAGAZINE.FRONT);
         this.bottom = new TalonSRX(RobotMap.MAGAZINE.BOTTOM);
         this.bottom.setInverted(true);
@@ -77,11 +59,6 @@ public class Magazine extends SubsystemBase {
         this.runTop(false);
     }
 
-    /**
-     * Returns the Singleton instance of this Magazine. This static method
-     * should be used -- {@code Magazine.getInstance();} -- by external
-     * classes, rather than the constructor to get the instance of this class.
-     */
     public static Magazine getInstance() {
         return INSTANCE;
     }
