@@ -12,7 +12,9 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 
+import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.Solenoid;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.RobotMap;
 
 public class Climber extends SubsystemBase {
@@ -21,6 +23,7 @@ public class Climber extends SubsystemBase {
 	private Solenoid wheelOfFortune;
 	private TalonSRX motor1;
 	private TalonSRX motor2;
+	//private Encoder encoder;
 
 	/**
 	 * Creates a new Climber.
@@ -32,6 +35,8 @@ public class Climber extends SubsystemBase {
 		wheelOfFortune = new Solenoid(RobotMap.COMPRESSOR.PCM1, RobotMap.CLIMBER.WHEEL_OF_FORTUNE);
 		motor1 = new TalonSRX(RobotMap.CLIMBER.MOTOR1);
 		motor2 = new TalonSRX(RobotMap.CLIMBER.MOTOR2);
+		motor1.configClosedloopRamp(RobotMap.CLIMBER.CLIMB_UP_RAMPRATE);
+		motor2.configClosedloopRamp(RobotMap.CLIMBER.CLIMB_UP_RAMPRATE);
 	}
 
 	public void pancake(boolean out) {
@@ -43,9 +48,14 @@ public class Climber extends SubsystemBase {
 		motor2.set(ControlMode.PercentOutput, power);
 	}
 
+	public void stop() {
+		motor1.set(ControlMode.PercentOutput, 0);
+		motor2.set(ControlMode.PercentOutput, 0);
+	}
+
 	@Override
 	public void periodic() {
-		// This method will be called once per scheduler run
+		//SmartDashboard.putNumber();
 	}
 
 	public static Climber getInstance() {

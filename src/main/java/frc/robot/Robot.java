@@ -70,7 +70,6 @@ public class Robot extends TimedRobot {
         CommandScheduler.getInstance().setDefaultCommand(Magazine.getInstance(), new RunMagazine());
 
         CommandScheduler.getInstance().setDefaultCommand(Intake.getInstance(), new RunIntake());
-        CommandScheduler.getInstance().setDefaultCommand(Climber.getInstance(), new Climb());
 
         CommandScheduler.getInstance().schedule(new InstantCommand(Pneumatics.getInstance()::startCompressor));
 

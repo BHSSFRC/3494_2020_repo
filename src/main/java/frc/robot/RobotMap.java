@@ -54,6 +54,11 @@ public class RobotMap {
         public static int WHEEL_OF_FORTUNE = 7;
         public static int MOTOR1 = 2;
         public static int MOTOR2 = 3;
+        public static int RELEASE_BUTTON = 3;
+        public static int DRIVE_BUTTON = 1;
+        public static int REVERSE_BUTTON = 4;
+        public static double CLIMB_UP_POWER = 1;
+        public static double CLIMB_UP_RAMPRATE = 0.5;
     }
 
     public static class SENSORS {
