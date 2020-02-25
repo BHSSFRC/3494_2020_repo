@@ -12,35 +12,29 @@ import frc.robot.OI;
 import frc.robot.subsystems.Intake;
 
 public class RunIntake extends CommandBase {
-	/**
-	 * Creates a new RunIntake.
-	 */
-	public RunIntake() {
-	  // Use addRequirements() here to declare subsystem dependencies.
-	  	addRequirements(Intake.getInstance());
-	}
 
-	// Called when the command is initially scheduled.
-	@Override
-	public void initialize() {
-		Intake.getInstance().runIntake(0);
-	}
+    public RunIntake() {
+        addRequirements(Intake.getInstance());
+    }
 
-	// Called every time the scheduler runs while the command is scheduled.
-	@Override
-	public void execute() {
-		Intake.getInstance().runIntake(OI.getINSTANCE().getXboxRightTrigger());
-		Intake.getInstance().setPosition(OI.getINSTANCE().getXboxRightBumper());
-	}
+    @Override
+    public void initialize() {
+        Intake.getInstance().runIntake(0);
+    }
 
-	// Called once the command ends or is interrupted.
-	@Override
-	public void end(boolean interrupted) {
-	}
+    @Override
+    public void execute() {
+        Intake.getInstance().runIntake(OI.getINSTANCE().getXboxRightTrigger());
+        Intake.getInstance().setDeployed(OI.getINSTANCE().getXboxRightBumper());
+    }
 
-	// Returns true when the command should end.
-	@Override
-	public boolean isFinished() {
-	  	return false;
-	}
+    @Override
+    public void end(boolean interrupted) {
+        Intake.getInstance().stop();
+    }
+
+    @Override
+    public boolean isFinished() {
+        return false;
+    }
 }

@@ -14,7 +14,6 @@ public class CalibrateIMU extends CommandBase {
     private boolean isFinished = false;
 
     public CalibrateIMU() {
-        // If any subsystems are needed, you will need to pass them into the requires() method
         this.timer = new QuadTimer();
     }
 
@@ -45,7 +44,6 @@ public class CalibrateIMU extends CommandBase {
 
     @Override
     public boolean isFinished() {
-        // TODO: Make this return true when this Command no longer needs to run execute()
         return this.isFinished;
     }
 }
