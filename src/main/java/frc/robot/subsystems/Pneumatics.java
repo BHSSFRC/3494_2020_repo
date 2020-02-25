@@ -34,10 +34,6 @@ public class Pneumatics extends SubsystemBase {
 	public void periodic() {
 	}
 
-	public void initDefaultCommand() {
-		setDefaultCommand(new RunCompressor());
-	}
-
 	public static Pneumatics getInstance() {
 		return INSTANCE;
 	}
