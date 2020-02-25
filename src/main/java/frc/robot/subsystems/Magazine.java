@@ -58,7 +58,7 @@ public class Magazine extends SubsystemBase {
         this.runBottom(false);
         this.runTop(false);
     }
-    
+
     public static Magazine getInstance() {
         return INSTANCE;
     }

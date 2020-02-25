@@ -9,16 +9,14 @@ package frc.robot.subsystems;
 
 import edu.wpi.first.wpilibj.Compressor;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
-import frc.robot.OI;
 import frc.robot.RobotMap;
 import frc.robot.commands.RunCompressor;
 
 public class Pneumatics extends SubsystemBase {
 
+	//only existing pcm
 	private Compressor pcm1;
-	/**
-	 * Creates a new Compressor.
-	 */
+
 	private final static Pneumatics INSTANCE = new Pneumatics();
 
 	public Pneumatics() {
@@ -35,7 +33,6 @@ public class Pneumatics extends SubsystemBase {
 
 	@Override
 	public void periodic() {
-		// This method will be called once per scheduler run
 	}
 
 	public void initDefaultCommand() {
