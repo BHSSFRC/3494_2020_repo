@@ -19,10 +19,7 @@ public class Climber extends SubsystemBase {
 	private Solenoid wheelOfFortune;
 	private TalonSRX left;
 	private TalonSRX right;
-
-	/**
-	 * Creates a new Climber.
-	 */
+	
 	private final static Climber INSTANCE = new Climber();
 	
 	public Climber() {
@@ -30,6 +27,7 @@ public class Climber extends SubsystemBase {
 		this.wheelOfFortune = new Solenoid(RobotMap.COMPRESSOR.PCM1, RobotMap.CLIMBER.WHEEL_OF_FORTUNE);
 		this.left = new TalonSRX(RobotMap.CLIMBER.LEFT);
 		this.right = new TalonSRX(RobotMap.CLIMBER.RIGHT);
+		this.resetEncoder();
 	}
 
 	public void spin(double power) {
@@ -41,9 +39,16 @@ public class Climber extends SubsystemBase {
 		this.climberSolenoid.set(out);
 	}
 
+	public double getEncoderPosition(){
+		return this.left.getSensorCollection().getQuadraturePosition();
+	}
+
+	public void resetEncoder(){
+		this.left.getSensorCollection().setQuadraturePosition(0, 10);
+	}
+
 	@Override
 	public void periodic() {
-		// This method will be called once per scheduler run
 	}
 
 	public static Climber getInstance() {
