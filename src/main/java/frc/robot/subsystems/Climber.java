@@ -19,7 +19,7 @@ public class Climber extends SubsystemBase {
 	private Solenoid wheelOfFortune;
 	private TalonSRX left;
 	private TalonSRX right;
-	
+
 	private final static Climber INSTANCE = new Climber();
 	
 	public Climber() {
@@ -41,6 +41,10 @@ public class Climber extends SubsystemBase {
 
 	public double getEncoderPosition(){
 		return this.left.getSensorCollection().getQuadraturePosition();
+	}
+
+	public double getEncoderPositionInches(){
+		return this.getEncoderPosition() * RobotMap.CLIMBER.INCHES_PER_ENCODER_ROTATION;
 	}
 
 	public void resetEncoder(){

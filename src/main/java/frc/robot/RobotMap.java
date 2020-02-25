@@ -55,6 +55,10 @@ public class RobotMap {
 
         public static int RIGHT = 2;
         public static int LEFT = 3;
+
+        //max radius: 0.535, min radius: 0.275
+        //so mean radius is halfway between, mean radius = 0.405
+        public static double INCHES_PER_ENCODER_ROTATION = 0.405 * 2 * Math.PI;
     }
 
     public static class CONTROL_PANEL {
