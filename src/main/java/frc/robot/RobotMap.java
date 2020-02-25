@@ -52,6 +52,8 @@ public class RobotMap {
     public static class CLIMBER {
         public static int PANCAKE = 6;
         public static int WHEEL_OF_FORTUNE = 7;
+        public static int MOTOR1 = 2;
+        public static int MOTOR2 = 3;
     }
 
     public static class SENSORS {

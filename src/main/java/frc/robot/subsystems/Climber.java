@@ -8,6 +8,10 @@
 package frc.robot.subsystems;
 
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+
+import com.ctre.phoenix.motorcontrol.ControlMode;
+import com.ctre.phoenix.motorcontrol.can.TalonSRX;
+
 import edu.wpi.first.wpilibj.Solenoid;
 import frc.robot.RobotMap;
 
@@ -15,6 +19,8 @@ public class Climber extends SubsystemBase {
 
 	private Solenoid pancake;
 	private Solenoid wheelOfFortune;
+	private TalonSRX motor1;
+	private TalonSRX motor2;
 
 	/**
 	 * Creates a new Climber.
@@ -24,10 +30,17 @@ public class Climber extends SubsystemBase {
 	public Climber() {
 		pancake = new Solenoid(RobotMap.COMPRESSOR.PCM1, RobotMap.CLIMBER.PANCAKE);
 		wheelOfFortune = new Solenoid(RobotMap.COMPRESSOR.PCM1, RobotMap.CLIMBER.WHEEL_OF_FORTUNE);
+		motor1 = new TalonSRX(RobotMap.CLIMBER.MOTOR1);
+		motor2 = new TalonSRX(RobotMap.CLIMBER.MOTOR2);
 	}
 
 	public void pancake(boolean out) {
 		pancake.set(out);
+	}
+
+	public void drive(double power) {
+		motor1.set(ControlMode.PercentOutput, power);
+		motor2.set(ControlMode.PercentOutput, power);
 	}
 
 	@Override
