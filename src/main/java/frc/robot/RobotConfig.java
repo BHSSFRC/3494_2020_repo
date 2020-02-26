@@ -41,5 +41,6 @@ public final class RobotConfig
 
     public static class MAGAZINE {
         public static double MOTOR_DEFAULT_POWER = 0.3;
+        public static double TIME_AFTER_2ND_LINEBREAK_SENSOR = 1.0;
     }
 }

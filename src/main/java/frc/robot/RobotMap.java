@@ -42,11 +42,12 @@ public class RobotMap {
         public static int RIGHT_FLIGHT = 1;
         public static int XBOX = 2;
 
-        public static int DRIVE_TURN = 1;
+        public static int DRIVE_TURN = 5;
         public static int DRIVE_STRAIGHT = 4;
         public static int DRIVE_DISTANCE = 3;
 
         public static int RUN_MAGAZINE = 2;
+        public static int INTAKING_ROUTINE = 1;
     }
 
     public static class CLIMBER {

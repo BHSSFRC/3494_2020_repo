@@ -6,12 +6,11 @@ import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import frc.robot.commands.Drive;
-import frc.robot.commands.Climb;
-import frc.robot.commands.DriveClimb;
 import frc.robot.commands.RunMagazine;
 import frc.robot.commands.drive.DistanceDrive;
 import frc.robot.commands.drive.DriveStraight;
 import frc.robot.commands.drive.TurnDegrees;
+import frc.robot.commands.teleop.IntakingRoutine;
 
 public class OI {
     private static OI INSTANCE = new OI();
@@ -25,11 +24,27 @@ public class OI {
     private JoystickButton releaseClimber;
     private JoystickButton retractClimber;
     private JoystickButton extendClimber;
+    private JoystickButton intakingRoutine;
+
+    private ButtonBoard bb;
+    private JoystickButton[] boardButtons;
+
+    /**
+     * shooter right trigger analog power
+     * pneumatics
+     * magazine/hopper: manual left bumper
+     * intake: left trigger analog power
+     * climber: button board
+     */
+    //TODO: display COLOR on SmartDashboard
 
     private OI(){
         leftFlight = new Joystick(RobotMap.OI.LEFT_FLIGHT);
         rightFlight = new Joystick(RobotMap.OI.RIGHT_FLIGHT);
         xbox = new XboxController(RobotMap.OI.XBOX);
+
+        bb = new ButtonBoard(RobotMap.OI.BUTTON_BOARD);
+        boardButtons = new JoystickButton[15];
 
         driveStraight = new JoystickButton(xbox, RobotMap.OI.DRIVE_STRAIGHT);
         driveStraight.whenPressed(new DriveStraight());
@@ -49,14 +64,17 @@ public class OI {
         //runMagazine.whenReleased(new InstantCommand(() -> Hopper.getInstance().stop()));
 
         
-        releaseClimber = new JoystickButton(xbox, RobotMap.CLIMBER.RELEASE_BUTTON);
+        /**releaseClimber = new JoystickButton(xbox, RobotMap.CLIMBER.RELEASE_BUTTON);
         retractClimber = new JoystickButton(xbox, RobotMap.CLIMBER.DRIVE_BUTTON);
         extendClimber = new JoystickButton(xbox, RobotMap.CLIMBER.DRIVE_BUTTON);
         //- = down
         //+ = up
         releaseClimber.whenPressed(new Climb());
-        retractClimber.whenPressed(new DriveClimb(-RobotMap.CLIMBER.CLIMB_POWER));
-        extendClimber.whenPressed(new DriveClimb(RobotMap.CLIMBER.CLIMB_POWER));
+        retractClimber.whenPressed(new DriveClimb(-RobotMap.CLIMBER.CLIMB_UP_POWER));
+        extendClimber.whenPressed(new DriveClimb(RobotMap.CLIMBER.CLIMB_UP_POWER));*/
+
+        intakingRoutine = new JoystickButton(xbox, RobotMap.OI.INTAKING_ROUTINE);
+        intakingRoutine.whenPressed(new IntakingRoutine());
     }
 
     public double getLeftY(){
