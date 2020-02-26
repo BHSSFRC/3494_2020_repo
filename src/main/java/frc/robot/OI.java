@@ -55,8 +55,8 @@ public class OI {
         //- = down
         //+ = up
         releaseClimber.whenPressed(new Climb());
-        retractClimber.whenPressed(new DriveClimb(-RobotMap.CLIMBER.CLIMB_POWER));
-        extendClimber.whenPressed(new DriveClimb(RobotMap.CLIMBER.CLIMB_POWER));
+        retractClimber.whenPressed(new DriveClimb(-RobotMap.CLIMBER.CLIMB_UP_POWER));
+        extendClimber.whenPressed(new DriveClimb(RobotMap.CLIMBER.CLIMB_UP_POWER));
     }
 
     public double getLeftY(){
