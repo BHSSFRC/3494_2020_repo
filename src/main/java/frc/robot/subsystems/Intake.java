@@ -22,7 +22,8 @@ public class Intake extends SubsystemBase {
 
     private final static Intake INSTANCE = new Intake();
 
-  	public Intake() {
+  	publi
+    c Intake() {
   	    this.motor = new TalonSRX(RobotMap.INTAKE.MOTOR);
   	}
 

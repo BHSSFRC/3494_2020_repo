@@ -53,11 +53,16 @@ public class RobotMap {
         public static int LEFT_FLIGHT = 0;
         public static int RIGHT_FLIGHT = 1;
         public static int XBOX = 2;
+        public static int BUTTON_BOARD = 3;
 
-        public static int DRIVE_TURN = 1;
-        public static int DRIVE_STRAIGHT = 4;
-        public static int DRIVE_DISTANCE = 3;
+        //xbox bindings
+        //x = pancake hood limit
+        //y = main hood
+        public static int INTAKING_ROUTINE = 1;
+        //public static int SHOOTER_LIMIT = 2;
+        //public static int SHOOTER_HOOD = 3;
 
+<<<<<<< HEAD
         public static int RUN_MAGAZINE = 2;
         public static int RUN_SHOOTER = 6;
         public static int SHOOTER_FOWARD = 8;
@@ -66,6 +71,20 @@ public class RobotMap {
         public static int RELEASE_BUTTON = 3;
         public static int DRIVE_BUTTON = 1;
         public static int REVERSE_BUTTON = 4;
+=======
+        //button board bindings
+        public static int RUN_MAGAZINE = 9;
+        public static int RUN_HOPPER = 8;
+        public static int SPIN_HOPPER_MAGAZINE = 4;
+
+        public static int RELEASE_CLIMBER = 1;
+        public static int DRIVE_CLIMBER = 2;
+        public static int REVERSE_CLIMBER = 3;
+
+        public static int DRIVE_TURN = 10;
+        public static int DRIVE_STRAIGHT = 11;
+        public static int DRIVE_DISTANCE = 12;
+>>>>>>> control_scheme
     }
 
     public static class CLIMBER {
