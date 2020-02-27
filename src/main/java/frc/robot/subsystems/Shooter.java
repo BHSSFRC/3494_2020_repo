@@ -4,11 +4,13 @@ package frc.robot.subsystems;
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkMaxLowLevel;
 import edu.wpi.first.wpilibj.DoubleSolenoid;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.RobotMap;
 
 public class Shooter extends SubsystemBase {
 
+    //TODO: get method for whether shooter is at target speed yet
     /**
      * Shooter routine
      * 1 Ramp up shooter, turn on AimBot
@@ -34,6 +36,15 @@ public class Shooter extends SubsystemBase {
     public void shoot(double power) {
         this.left.set(power);
         this.right.set(power);
+        SmartDashboard.putNumber("Shooter Power Current", power);
+    }
+
+    public boolean atTargetSpeed(double targetRPM) {
+        return Math.abs(this.getRPM() - targetRPM) < 10;
+    }
+
+    public double getRPM() {
+        return (this.left.getEncoder().getVelocity() + this.right.getEncoder().getVelocity()) / 2;
     }
 
     public void hood(boolean hood, boolean limit) {

@@ -43,6 +43,7 @@ public class Robot extends TimedRobot {
         IMU.getInstance();
         Pneumatics.getInstance();
         Magazine.getInstance();
+        PreShooter.getInstance();
         Climber.getInstance();
         robotContainer = new RobotContainer();
 
@@ -51,7 +52,7 @@ public class Robot extends TimedRobot {
 
         String[] SDDoubles = {"Left Y", "Shooter Max Power", "Distance Sensor", "Angle", "Calibrate1", "Calibrate2",
                 "Tuning/PID P", "Tuning/PID I", "Tuning/PID D", "DriveStraight Offset", "DriveTurn Offset", "Turn Power", "XboxLeftTrigger",
-                "Encoder Distance", "Inches to Drive", "Rotation(degrees)"};
+                "Encoder Distance", "Inches to Drive", "Rotation(degrees)", "Shooter RPM", "Shooter Power Current"};
 
         for (String doubleName : SDDoubles) {
             if (!SmartDashboard.containsKey(doubleName)) {
@@ -140,6 +141,7 @@ public class Robot extends TimedRobot {
     public void teleopPeriodic() {
         SmartDashboard.putNumber("XboxLeftTrigger", OI.getINSTANCE().getXboxLeftTrigger());
         SmartDashboard.putNumber("Angle", IMU.getInstance().getYaw());
+        SmartDashboard.putNumber("Shooter RPM", Shooter.getInstance().getRPM());
     }
 
     @Override

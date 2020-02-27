@@ -43,4 +43,8 @@ public final class RobotConfig
         public static double MOTOR_DEFAULT_POWER = 0.3;
         public static double TIME_AFTER_2ND_LINEBREAK_SENSOR = 1.0;
     }
+
+    public static class SHOOTER {
+        public static double RPM_PER_POWER = 1000;
+    }
 }

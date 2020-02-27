@@ -3,6 +3,8 @@ package frc.robot.commands;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.OI;
+import frc.robot.RobotConfig;
+import frc.robot.subsystems.PreShooter;
 import frc.robot.subsystems.Shooter;
 import java.util.concurrent.ScheduledThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
@@ -13,12 +15,19 @@ public class Shoot extends CommandBase {
     boolean releasedUp = true;
     boolean releasedDown = true;
     boolean doneMoving = true;
+    boolean spinPreShooter;
+    private double targetRPM;
 
     ScheduledThreadPoolExecutor delayer;
 
     public Shoot() {
         // If any subsystems are needed, you will need to pass them into the requires() method
         addRequirements(Shooter.getInstance());
+        addRequirements(PreShooter.getInstance());
+        this.spinPreShooter = false;
+        this.targetRPM = OI.getINSTANCE().getXboxLeftTrigger() *
+                SmartDashboard.getNumber("Shooter Max Power", 1) *
+                RobotConfig.SHOOTER.RPM_PER_POWER;
     }
 
     @Override
@@ -29,7 +38,13 @@ public class Shoot extends CommandBase {
 
     @Override
     public void execute() {
-        Shooter.getInstance().shoot(OI.getINSTANCE().getXboxLeftTrigger() * SmartDashboard.getNumber("Shooter Max Power", 1));
+        double shooterPower = OI.getINSTANCE().getXboxLeftTrigger() * SmartDashboard.getNumber("Shooter Max Power", 1);
+        if(shooterPower != 0 && this.spinPreShooter) {
+            PreShooter.getInstance().spin(0.2);
+        }else{
+            PreShooter.getInstance().spin(0);
+        }
+        Shooter.getInstance().shoot(shooterPower);
         if (releasedUp && OI.getINSTANCE().getXboxDpadUp() && doneMoving) {
             if (hoodPosition < 2) hoodPosition++;
             resetPosition();
@@ -74,6 +89,8 @@ public class Shoot extends CommandBase {
         if (hoodPosition == 0 && doneMoving) Shooter.getInstance().hood(false, false);
         if (hoodPosition == 1 && doneMoving) Shooter.getInstance().hood(true, true);
         if (hoodPosition == 2 && doneMoving) Shooter.getInstance().hood(true, false);
+
+        if(this.spinPreShooter == false && Shooter.getInstance().atTargetSpeed(this.targetRPM));
     }
 
     private void resetPosition() {
@@ -90,6 +107,7 @@ public class Shoot extends CommandBase {
     @Override
     public void end(boolean interrupted){
         SmartDashboard.putBoolean("Shoot?", false);
+        PreShooter.getInstance().stop();
         Shooter.getInstance().shoot(0);
     }
 }
