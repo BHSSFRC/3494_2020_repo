@@ -14,7 +14,8 @@ import frc.robot.commands.drive.DistanceDrive;
 import frc.robot.commands.drive.DriveStraight;
 import frc.robot.commands.drive.TurnDegrees;
 import frc.robot.subsystems.Shooter;
-import frc.robot.commands.SetShooterPosition;
+import frc.robot.commands.RollShooterPosition;;
+import frc.robot.commands.Shoot;
 
 public class OI {
     private static OI INSTANCE = new OI();
@@ -54,16 +55,16 @@ public class OI {
         runShooter = new JoystickButton(xbox, RobotMap.OI.RUN_SHOOTER);
         shooterPositionBackward = new JoystickButton(xbox, RobotMap.OI.SHOOTER_BACKWARD);
         shooterPositionForward = new JoystickButton(xbox, RobotMap.OI.SHOOTER_FOWARD);
-        
-        runShooter.whenPressed(new Shoot());
-        toggleShooterPosition.whenPressed(new RollShooterPosition());
+        runShooter.whileHeld(new Shoot());
+        //shooterPositionForward.whenPressed(new RollShooterPosition(true));
+        //shooterPositionBackward.whenPressed(new RollShooterPosition(false));
         //runMagazine.whenPressed(new RunHopper());
         //runMagazine.whenReleased(new InstantCommand(() -> Hopper.getInstance().stop()));
 
         
-        releaseClimber = new JoystickButton(xbox, RobotMap.CLIMBER.RELEASE_BUTTON);
-        retractClimber = new JoystickButton(xbox, RobotMap.CLIMBER.DRIVE_BUTTON);
-        extendClimber = new JoystickButton(xbox, RobotMap.CLIMBER.DRIVE_BUTTON);
+        releaseClimber = new JoystickButton(xbox, RobotMap.OI.RELEASE_BUTTON);
+        retractClimber = new JoystickButton(xbox, RobotMap.OI.DRIVE_BUTTON);
+        extendClimber = new JoystickButton(xbox, RobotMap.OI.DRIVE_BUTTON);
         //- = down
         //+ = up
         releaseClimber.whenPressed(new Climb());

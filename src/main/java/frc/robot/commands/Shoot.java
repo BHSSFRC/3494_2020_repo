@@ -34,6 +34,6 @@ public class Shoot extends CommandBase {
     @Override
     public void end(boolean interrupted){
         SmartDashboard.putBoolean("Shoot?", false);
-        Shooter.getInstance().shoot(0);
+        Shooter.getInstance().stop();
     }
 }

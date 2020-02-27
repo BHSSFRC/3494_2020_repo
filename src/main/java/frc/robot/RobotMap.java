@@ -59,7 +59,13 @@ public class RobotMap {
         public static int DRIVE_DISTANCE = 3;
 
         public static int RUN_MAGAZINE = 2;
-        public static int RUN_SHOOTER = 9;
+        public static int RUN_SHOOTER = 6;
+        public static int SHOOTER_FOWARD = 8;
+        public static int SHOOTER_BACKWARD = 7;
+        
+        public static int RELEASE_BUTTON = 3;
+        public static int DRIVE_BUTTON = 1;
+        public static int REVERSE_BUTTON = 4;
     }
 
     public static class CLIMBER {
@@ -67,22 +73,15 @@ public class RobotMap {
         public static int WHEEL_OF_FORTUNE = 7;
         public static int MOTOR1 = 2;
         public static int MOTOR2 = 3;
-        public static int RELEASE_BUTTON = 3;
-        public static int DRIVE_BUTTON = 1;
-        public static int REVERSE_BUTTON = 4;
         public static double CLIMB_UP_POWER = 1;
         public static double CLIMB_UP_RAMPRATE = 0.5;
     }
 
     public static class SENSORS {
         public static int IMU = 0;
-<<<<<<< HEAD
-        
-=======
 
         public static int LINEBREAK_BOT = 6;
         public static int LINEBREAK_TOP = 5;
->>>>>>> develop
     }
     
     public static class COMPRESSOR {

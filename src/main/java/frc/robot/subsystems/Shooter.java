@@ -7,6 +7,8 @@ import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.RobotMap;
 
+import edu.wpi.first.wpilibj.Timer;
+
 public class Shooter extends SubsystemBase {
 
     /**
@@ -86,6 +88,8 @@ public class Shooter extends SubsystemBase {
         this.left = new CANSparkMax(RobotMap.SHOOTER.LEFT, CANSparkMaxLowLevel.MotorType.kBrushless);
         this.right= new CANSparkMax(RobotMap.SHOOTER.RIGHT, CANSparkMaxLowLevel.MotorType.kBrushless);
 
+        this.left.setInverted(true);
+
         this.setPosition(Position.ONE);
     }
 
@@ -94,19 +98,28 @@ public class Shooter extends SubsystemBase {
         this.right.set(power);
     }
 
+    public void stop()
+    {
+        this.left.set(0);
+        this.right.set(0);
+    }
+
     public Position getPosition()
     {
         return this.currentPosition;
     }
 
+    /*
     public double getVelocity() {
         return ((this.left.getVelocity() + this.left.getVelocity()) / 2);
     }
+    */
 
     public void setPosition(Position position) {
         if (position != this.currentPosition){
             if (position != Position.THREE) {
                 this.hood.set(position.getHood());
+                Timer.delay(50E-3);
                 this.limiter.set(position.getLimiter());
             }
             else
@@ -117,6 +130,7 @@ public class Shooter extends SubsystemBase {
                 this.limiter.set(position.getLimiter());
             }
         }
+        System.out.println(position);
         
         this.currentPosition = position;
     }

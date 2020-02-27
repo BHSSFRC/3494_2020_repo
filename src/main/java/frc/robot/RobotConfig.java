@@ -38,13 +38,19 @@ public final class RobotConfig
         public static double IMU_OFFSET_PER_SECOND_PHASE_TWO = 0.985840;
         public static double IMU_CALIBRATION_TIME = 60;
     }
-<<<<<<< HEAD
     public static class TURRET {
         public static double DEFAULT_SPIN_POWER = 0.3;
-=======
+    }
 
     public static class MAGAZINE {
         public static double MOTOR_DEFAULT_POWER = 0.3;
->>>>>>> develop
+    }
+
+    public static class SHOOTER {
+        public final double 
+            kP = 0.0,
+            kI = 0.0,
+            kD = 0.0,
+            kF = 0.0;
     }
 }
