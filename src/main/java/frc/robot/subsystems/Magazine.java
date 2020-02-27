@@ -31,7 +31,7 @@ public class Magazine extends SubsystemBase {
 
     public void runFront(boolean on){
         if(on){
-            this.front.set(ControlMode.PercentOutput, RobotConfig.MAGAZINE.MOTOR_DEFAULT_POWER);
+            this.front.set(ControlMode.PercentOutput, RobotConfig.MOTOR_SPEEDS.MAGAZINE);
         }else{
             this.front.set(ControlMode.PercentOutput, 0);
         }
@@ -39,7 +39,7 @@ public class Magazine extends SubsystemBase {
 
     public void runBottom(boolean on){
         if(on){
-            this.bottom.set(ControlMode.PercentOutput, RobotConfig.MAGAZINE.MOTOR_DEFAULT_POWER);
+            this.bottom.set(ControlMode.PercentOutput, RobotConfig.MOTOR_SPEEDS.MAGAZINE);
         }else{
             this.bottom.set(ControlMode.PercentOutput, 0);
         }

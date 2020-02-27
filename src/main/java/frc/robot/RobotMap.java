@@ -62,6 +62,10 @@ public class RobotMap {
         public static double CLIMB_UP_RAMPRATE = 0.5;
     }
 
+    public static class CONTROL_PANEL {
+        public static int WHEEL = 6;
+    }
+
     public static class SENSORS {
         public static int IMU = 0;
 

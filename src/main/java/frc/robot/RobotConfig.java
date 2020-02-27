@@ -39,7 +39,8 @@ public final class RobotConfig
         public static double IMU_CALIBRATION_TIME = 60;
     }
 
-    public static class MAGAZINE {
-        public static double MOTOR_DEFAULT_POWER = 0.3;
+    public static class MOTOR_SPEEDS {
+        public static double MAGAZINE = 0.3;
+        public static double WHEEL_OF_FORTUNE = 0.2;
     }
 }
