@@ -73,7 +73,7 @@ public class RobotMap {
         public static int WHEEL_OF_FORTUNE = 7;
         public static int MOTOR1 = 2;
         public static int MOTOR2 = 3;
-        public static double CLIMB_UP_POWER = 1;
+        public static double CLIMB_UP_POWER = 0.2;
         public static double CLIMB_UP_RAMPRATE = 0.5;
     }
 
