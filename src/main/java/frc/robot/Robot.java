@@ -7,6 +7,7 @@
 
 package frc.robot;
 
+import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
@@ -80,6 +81,15 @@ public class Robot extends TimedRobot {
             if(!SmartDashboard.containsKey(booleanName)){
                 SmartDashboard.putBoolean(booleanName, false);
                 SmartDashboard.setPersistent(booleanName);
+            }
+        }
+
+        String[] SDString = {"Color"};
+
+        for (String stringName: SDString){
+            if(!SmartDashboard.containsKey(stringName)){
+                SmartDashboard.putString(stringName, "");
+                SmartDashboard.setPersistent(stringName);
             }
         }
     }
@@ -167,6 +177,7 @@ public class Robot extends TimedRobot {
         //SmartDashboard.putNumber("Left Y", OI.getINSTANCE().getLeftY());
         //SmartDashboard.putNumber("Distance Sensor", Dist2m.getInstance().getDist());
         SmartDashboard.putNumber("XboxLeftTrigger", OI.getINSTANCE().getXboxLeftTrigger());
+        SmartDashboard.putString("Color", DriverStation.getInstance().getGameSpecificMessage());
     }
 
     @Override
