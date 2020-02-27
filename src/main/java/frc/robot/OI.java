@@ -5,17 +5,16 @@ import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
-import frc.robot.commands.drive.Drive;
 import frc.robot.commands.Climb;
 import frc.robot.commands.DriveClimb;
-import frc.robot.commands.RollShooterPosition;
 import frc.robot.commands.RunMagazine;
+import frc.robot.commands.Shoot;
 import frc.robot.commands.drive.DistanceDrive;
+import frc.robot.commands.drive.Drive;
 import frc.robot.commands.drive.DriveStraight;
 import frc.robot.commands.drive.TurnDegrees;
-import frc.robot.subsystems.Shooter;
-import frc.robot.commands.RollShooterPosition;;
-import frc.robot.commands.Shoot;
+
+;
 
 public class OI {
     private static OI INSTANCE = new OI();
@@ -68,8 +67,8 @@ public class OI {
         //- = down
         //+ = up
         releaseClimber.whenPressed(new Climb());
-        retractClimber.whenPressed(new DriveClimb(-RobotMap.CLIMBER.CLIMB_POWER));
-        extendClimber.whenPressed(new DriveClimb(RobotMap.CLIMBER.CLIMB_POWER));
+        retractClimber.whenPressed(new DriveClimb(-RobotMap.CLIMBER.CLIMB_UP_POWER));
+        extendClimber.whenPressed(new DriveClimb(RobotMap.CLIMBER.CLIMB_UP_POWER));
     }
 
     public double getLeftY(){
