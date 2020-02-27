@@ -28,6 +28,8 @@ public class OI {
     private Trigger extendClimber;
     private JoystickButton intakingRoutine;
     private JoystickButton spinHopperMagazine;
+    private JoystickButton shooterHood;
+    private JoystickButton shooterLimit;
 
     private ButtonBoard bb;
     private JoystickButton[] boardButtons;
@@ -91,6 +93,8 @@ public class OI {
 
         intakingRoutine = new JoystickButton(xbox, RobotMap.OI.INTAKING_ROUTINE);
         intakingRoutine.whenPressed(new IntakingRoutine());
+
+        //this.shooterHood = new JoystickButton(xbox, RobotMap.OI.)
     }
 
     public double getLeftY(){
