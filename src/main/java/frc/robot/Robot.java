@@ -11,6 +11,7 @@ import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
+<<<<<<< HEAD
 import frc.robot.commands.drive.Drive;
 import frc.robot.commands.Shoot;
 import frc.robot.commands.turret.SpinTurret;
@@ -18,14 +19,14 @@ import frc.robot.subsystems.DriveTrain;
 
 
 import frc.robot.commands.CalibrateIMU;
+=======
+import edu.wpi.first.wpilibj2.command.InstantCommand;
+>>>>>>> develop
 import frc.robot.commands.*;
-import frc.robot.subsystems.*;
-import frc.robot.sensors.IMU;
 import frc.robot.sensors.Dist2m;
-
-
-import frc.robot.commands.RunIntake;
-import frc.robot.subsystems.Intake;
+import frc.robot.sensors.IMU;
+import frc.robot.sensors.Linebreaker;
+import frc.robot.subsystems.*;
 
 
 /**
@@ -40,6 +41,9 @@ public class Robot extends TimedRobot {
 
     private RobotContainer robotContainer;
 
+    private static Linebreaker bottom;
+    private static Linebreaker top;
+
     /**
      * This method is run when the robot is first started up and should be used for any
      * initialization code.
@@ -52,6 +56,7 @@ public class Robot extends TimedRobot {
         DriveTrain.getInstance();
         IMU.getInstance();
         Pneumatics.getInstance();
+<<<<<<< HEAD
         Turret.getInstance();
         robotContainer = new RobotContainer();
 
@@ -61,6 +66,14 @@ public class Robot extends TimedRobot {
         CommandScheduler.getInstance().setDefaultCommand(Pneumatics.getInstance(), new RunCompressor());
         CommandScheduler.getInstance().setDefaultCommand(Intake.getInstance(), new RunIntake());
         CommandScheduler.getInstance().setDefaultCommand(Turret.getInstance(), new SpinTurret());
+=======
+        Magazine.getInstance();
+        Climber.getInstance();
+        robotContainer = new RobotContainer();
+
+        bottom = new Linebreaker(RobotMap.SENSORS.LINEBREAK_BOT);
+        top = new Linebreaker(RobotMap.SENSORS.LINEBREAK_TOP);
+>>>>>>> develop
 
         String[] SDDoubles = {"Left Y", "Shooter Max Power", "Distance Sensor", "Angle", "Calibrate1", "Calibrate2",
         "Tuning/PID P", "Tuning/PID I", "Tuning/PID D", "DriveStraight Offset", "DriveTurn Offset", "Turn Power", "XboxLeftTrigger",
@@ -74,6 +87,7 @@ public class Robot extends TimedRobot {
             }
         }
 
+<<<<<<< HEAD
         String[] SDString = {"Spin"};
         for(String stringName :SDString)
         {
@@ -82,6 +96,15 @@ public class Robot extends TimedRobot {
                 SmartDashboard.setPersistent(stringName);
             }
         }
+=======
+        CommandScheduler.getInstance().setDefaultCommand(DriveTrain.getInstance(), new Drive());
+        //CommandScheduler.getInstance().setDefaultCommand(Shooter.getInstance(), new Shoot());
+        CommandScheduler.getInstance().setDefaultCommand(Magazine.getInstance(), new RunMagazine());
+
+        CommandScheduler.getInstance().setDefaultCommand(Intake.getInstance(), new RunIntake());
+>>>>>>> develop
+
+        CommandScheduler.getInstance().schedule(new InstantCommand(Pneumatics.getInstance()::startCompressor));
 
         String[] SDBooleans = {"Dist Sensor Error", "DriveStraight?", "Calibrate IMU?", "DriveDistance?", "Drive?", "Shoot?",
                 "Distance Drive done?", "Front Limit", "Back Limit", "Go To Setpoint?"};
@@ -190,5 +213,13 @@ public class Robot extends TimedRobot {
      */
     @Override
     public void testPeriodic() {
+    }
+
+    public static Linebreaker getLinebreakBottom(){
+        return bottom;
+    }
+
+    public static Linebreaker getLinebreakTop(){
+        return top;
     }
 }

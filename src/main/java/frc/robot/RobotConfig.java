@@ -19,6 +19,9 @@ package frc.robot;
 //this class store software variables such as PID constants that change from time to time
 public final class RobotConfig
 {
+    public static class DRIVE {
+        public static final double POWER_CURVE_EXPONENT = 2.8;
+    }
 
     public static class DRIVE_STRAIGHT {
         public static final int kP = 1;
@@ -35,7 +38,13 @@ public final class RobotConfig
         public static double IMU_OFFSET_PER_SECOND_PHASE_TWO = 0.985840;
         public static double IMU_CALIBRATION_TIME = 60;
     }
+<<<<<<< HEAD
     public static class TURRET {
         public static double DEFAULT_SPIN_POWER = 0.3;
+=======
+
+    public static class MAGAZINE {
+        public static double MOTOR_DEFAULT_POWER = 0.3;
+>>>>>>> develop
     }
 }

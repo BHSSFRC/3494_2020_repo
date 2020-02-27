@@ -13,14 +13,28 @@ public class RobotMap {
     }
 
     public static class SHOOTER {
-        public static final int TOP = 12;
-        public static final int BOT = 13;
+        public static final int RIGHT = 12;
+        public static final int LEFT = 13;
+        public static final int HOOD_MAIN_UP = 4;
+        public static final int HOOD_MAIN_DOWN = 5;
+        public static final int HOOD_LIMIT_UP = 2;
+        public static final int HOOD_LIMIT_DOWN = 3;
     }
 
     public static class INTAKE {
         public static final int MOTOR = 8;
-        public static final int CYLINDER_OUT = 0;
-        public static final int CYLINDER_IN = 1;
+        public static final int CYLINDER_OUT = 1;
+        public static final int CYLINDER_IN = 0;
+    }
+
+    public static class HOPPER {
+        public static final int MOTOR = 7;
+    }
+
+    public static class MAGAZINE {
+        public static final int FRONT = 10;
+        public static final int BOTTOM = 9;
+        public static final int TOP = 4;
     }
 
     public static final class TURRET {
@@ -43,12 +57,34 @@ public class RobotMap {
         public static int DRIVE_TURN = 1;
         public static int DRIVE_STRAIGHT = 4;
         public static int DRIVE_DISTANCE = 3;
+
+        public static int RUN_MAGAZINE = 2;
+        public static int RUN_SHOOTER = 9;
+    }
+
+    public static class CLIMBER {
+        public static int PANCAKE = 6;
+        public static int WHEEL_OF_FORTUNE = 7;
+        public static int MOTOR1 = 2;
+        public static int MOTOR2 = 3;
+        public static int RELEASE_BUTTON = 3;
+        public static int DRIVE_BUTTON = 1;
+        public static int REVERSE_BUTTON = 4;
+        public static double CLIMB_UP_POWER = 1;
+        public static double CLIMB_UP_RAMPRATE = 0.5;
     }
 
     public static class SENSORS {
         public static int IMU = 0;
+<<<<<<< HEAD
         
+=======
+
+        public static int LINEBREAK_BOT = 6;
+        public static int LINEBREAK_TOP = 5;
+>>>>>>> develop
     }
+    
     public static class COMPRESSOR {
         public static int PCM1 = 1;
     }

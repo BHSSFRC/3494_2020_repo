@@ -5,6 +5,13 @@ import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
+<<<<<<< HEAD
+=======
+import frc.robot.commands.Drive;
+import frc.robot.commands.Climb;
+import frc.robot.commands.DriveClimb;
+import frc.robot.commands.RunMagazine;
+>>>>>>> develop
 import frc.robot.commands.drive.DistanceDrive;
 import frc.robot.commands.drive.Drive;
 import frc.robot.commands.drive.DriveStraight;
@@ -20,6 +27,10 @@ public class OI {
     private JoystickButton driveStraight;
     private JoystickButton driveTurn;
     private JoystickButton driveDistance;
+    private JoystickButton runMagazine;
+    private JoystickButton releaseClimber;
+    private JoystickButton retractClimber;
+    private JoystickButton extendClimber;
 
     private JoystickButton turretLimits;
     private JoystickButton turretToSetpoint;
@@ -40,11 +51,29 @@ public class OI {
         //driveDistance.whenPressed(() -> SmartDashboard.putBoolean())
         driveDistance.whenPressed(new DistanceDrive(SmartDashboard.getNumber("Inches to Drive", 0)), false);
 
+<<<<<<< HEAD
         this.turretLimits = new JoystickButton(xbox, 3);
         this.turretLimits.whenPressed(new QuickTurretLimit());
 
         this.turretToSetpoint = new JoystickButton(xbox, 4);
         this.turretToSetpoint.toggleWhenPressed(new AimBot());
+=======
+        runMagazine = new JoystickButton(xbox, RobotMap.OI.RUN_MAGAZINE);
+        runMagazine.whenPressed(new RunMagazine(true, true, true));
+        runMagazine.whenReleased(new RunMagazine(false, false, false));
+        //runMagazine.whenPressed(new RunHopper());
+        //runMagazine.whenReleased(new InstantCommand(() -> Hopper.getInstance().stop()));
+
+        
+        releaseClimber = new JoystickButton(xbox, RobotMap.CLIMBER.RELEASE_BUTTON);
+        retractClimber = new JoystickButton(xbox, RobotMap.CLIMBER.DRIVE_BUTTON);
+        extendClimber = new JoystickButton(xbox, RobotMap.CLIMBER.DRIVE_BUTTON);
+        //- = down
+        //+ = up
+        releaseClimber.whenPressed(new Climb());
+        retractClimber.whenPressed(new DriveClimb(-RobotMap.CLIMBER.CLIMB_POWER));
+        extendClimber.whenPressed(new DriveClimb(RobotMap.CLIMBER.CLIMB_POWER));
+>>>>>>> develop
     }
 
     public double getLeftY(){
@@ -73,6 +102,18 @@ public class OI {
 
     public boolean getXboxRightBumper(){
         return this.xbox.getBumper(GenericHID.Hand.kRight);
+    }
+
+    public boolean getXboxLeftBumper(){
+        return this.xbox.getBumper(GenericHID.Hand.kLeft);
+    }
+
+    public boolean getXboxDpadUp(){
+        return this.xbox.getPOV() == 0;
+    }
+
+    public boolean getXboxDpadDown(){
+        return this.xbox.getPOV() == 180;
     }
 
     /**
