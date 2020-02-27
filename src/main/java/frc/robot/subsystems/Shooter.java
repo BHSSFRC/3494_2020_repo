@@ -25,6 +25,25 @@ public class Shooter extends SubsystemBase {
     private DoubleSolenoid hood = new DoubleSolenoid(RobotMap.COMPRESSOR.PCM1, RobotMap.SHOOTER.HOOD_MAIN_UP, RobotMap.SHOOTER.HOOD_MAIN_DOWN);
     private DoubleSolenoid limiter = new DoubleSolenoid(RobotMap.COMPRESSOR.PCM1, RobotMap.SHOOTER.HOOD_LIMIT_UP, RobotMap.SHOOTER.HOOD_LIMIT_DOWN);
 
+    public enum Position
+    {
+        ONE(false, false), TWO(false, false), THREE(false, false);
+
+        private final boolean pancake, limiter;
+        
+        private Position(boolean pancake, boolean limiter){
+            this.pancake = pancake;
+            this.limiter = limiter;
+        }
+
+        public boolean getPancake() {
+            return this.pancake;
+        }
+
+        public boolean getLimiter() {
+            return this.limiter;
+        }
+    }
 
     private Shooter() {
         this.left = new CANSparkMax(RobotMap.SHOOTER.LEFT, CANSparkMaxLowLevel.MotorType.kBrushless);
