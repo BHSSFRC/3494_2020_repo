@@ -19,13 +19,11 @@ public class Shoot extends CommandBase {
     private QuadTimer timer;
 
     public Shoot() {
-        // If any subsystems are needed, you will need to pass them into the requires() method
-        addRequirements(Shooter.getInstance());
-        addRequirements(PreShooter.getInstance());
+        addRequirements(Shooter.getInstance(), PreShooter.getInstance());
         this.spinPreShooter = false;
-        this.targetRPM = OI.getINSTANCE().getXboxLeftTrigger() *
+        /**this.targetRPM = OI.getINSTANCE().getXboxLeftTrigger() *
                 SmartDashboard.getNumber("Shooter Max Power", 1) *
-                RobotConfig.SHOOTER.RPM_PER_POWER;
+                RobotConfig.SHOOTER.RPM_PER_POWER;*/
         this.timer = new QuadTimer();
     }
 
@@ -37,10 +35,13 @@ public class Shoot extends CommandBase {
 
     @Override
     public void execute() {
-        Shooter.getInstance().shoot( OI.getINSTANCE().getXboxLeftTrigger() *
-                SmartDashboard.getNumber("Shooter Max Power", 1));
-        if (timer.get() > 2) {
+        double shootPower = OI.getINSTANCE().getXboxLeftTrigger() *
+                SmartDashboard.getNumber("Shooter Max Power", 1);
+        Shooter.getInstance().shoot(shootPower);
+        if (timer.get() > 2 && shootPower > 0.05) {
             PreShooter.getInstance().spin(RobotConfig.SHOOTER.PRESHOOTER_POWER);
+        }else{
+            timer.reset();
         }
     }
 

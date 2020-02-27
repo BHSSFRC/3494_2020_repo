@@ -91,13 +91,14 @@ public class Shooter extends SubsystemBase {
         this.right= new CANSparkMax(RobotMap.SHOOTER.RIGHT, CANSparkMaxLowLevel.MotorType.kBrushless);
 
         this.left.setInverted(true);
+        this.right.setInverted(true);
 
         this.setPosition(Position.ONE);
     }
 
     public void shoot(double power) {
         this.left.set(power);
-        this.right.set(power);
+        this.right.set(-power);
         SmartDashboard.putNumber("Shooter Power Current", power);
     }
 
