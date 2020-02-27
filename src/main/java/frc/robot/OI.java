@@ -6,6 +6,7 @@ import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
+import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.commands.*;
 import frc.robot.commands.drive.DistanceDrive;
 import frc.robot.commands.drive.DriveStraight;
@@ -22,9 +23,9 @@ public class OI {
     private JoystickButton driveDistance;
     private JoystickButton runMagazine;
     private JoystickButton runHopper;
-    private JoystickButton releaseClimber;
-    private JoystickButton retractClimber;
-    private JoystickButton extendClimber;
+    private Trigger releaseClimber;
+    private Trigger retractClimber;
+    private Trigger extendClimber;
     private JoystickButton intakingRoutine;
     private JoystickButton spinHopperMagazine;
 
@@ -76,14 +77,17 @@ public class OI {
         runHopper = new JoystickButton(bb, RobotMap.OI.RUN_HOPPER);
         runHopper.whenPressed(new RunHopper());
         
-        releaseClimber = new JoystickButton(bb, RobotMap.OI.RELEASE_CLIMBER);
+        /**releaseClimber = new JoystickButton(bb, RobotMap.OI.RELEASE_CLIMBER);
         retractClimber = new JoystickButton(bb, RobotMap.OI.REVERSE_CLIMBER);
-        extendClimber = new JoystickButton(bb, RobotMap.OI.DRIVE_CLIMBER);
+        extendClimber = new JoystickButton(bb, RobotMap.OI.DRIVE_CLIMBER);*/
+        retractClimber = new Trigger(() -> getXboxDpadDown());
+        extendClimber = new Trigger(() -> getXboxDpadUp());
+        releaseClimber = new Trigger(() -> getXboxDpadLeft());
         //- = down
         //+ = up
-        releaseClimber.whenPressed(new Climb());
-        retractClimber.whenPressed(new DriveClimb(-RobotMap.CLIMBER.CLIMB_UP_POWER));
-        extendClimber.whenPressed(new DriveClimb(RobotMap.CLIMBER.CLIMB_UP_POWER));
+        releaseClimber.whenActive(new Climb());
+        retractClimber.whenActive(new DriveClimb(-RobotMap.CLIMBER.CLIMB_UP_POWER));
+        extendClimber.whenActive(new DriveClimb(RobotMap.CLIMBER.CLIMB_UP_POWER));
 
         intakingRoutine = new JoystickButton(xbox, RobotMap.OI.INTAKING_ROUTINE);
         intakingRoutine.whenPressed(new IntakingRoutine());
@@ -127,6 +131,14 @@ public class OI {
 
     public boolean getXboxDpadDown(){
         return this.xbox.getPOV() == 180;
+    }
+
+    public boolean getXboxDpadLeft(){
+        return this.xbox.getPOV() == 270;
+    }
+
+    public boolean getXboxDpadRight(){
+        return this.xbox.getPOV() == 90;
     }
 
     /**
