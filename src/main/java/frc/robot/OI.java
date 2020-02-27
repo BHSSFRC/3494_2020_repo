@@ -4,9 +4,9 @@ import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
-import frc.robot.commands.Drive;
-import frc.robot.commands.RunMagazine;
+import frc.robot.commands.*;
 import frc.robot.commands.drive.DistanceDrive;
 import frc.robot.commands.drive.DriveStraight;
 import frc.robot.commands.drive.TurnDegrees;
@@ -21,13 +21,24 @@ public class OI {
     private JoystickButton driveTurn;
     private JoystickButton driveDistance;
     private JoystickButton runMagazine;
+    private JoystickButton runHopper;
     private JoystickButton releaseClimber;
     private JoystickButton retractClimber;
     private JoystickButton extendClimber;
     private JoystickButton intakingRoutine;
+    private JoystickButton spinHopperMagazine;
 
     private ButtonBoard bb;
     private JoystickButton[] boardButtons;
+
+    /**
+     * Adam
+     * Intake right trigger
+     * Intake pneumatics: right bumper
+     * shooting power left trigger
+     * Magazine/hopper feed to shooter button b
+     *
+     */
 
     /**
      * shooter right trigger analog power
@@ -46,32 +57,33 @@ public class OI {
         bb = new ButtonBoard(RobotMap.OI.BUTTON_BOARD);
         boardButtons = new JoystickButton[15];
 
-        driveStraight = new JoystickButton(xbox, RobotMap.OI.DRIVE_STRAIGHT);
+        driveStraight = new JoystickButton(bb, RobotMap.OI.DRIVE_STRAIGHT);
         driveStraight.whenPressed(new DriveStraight());
         driveStraight.whenReleased(new Drive());
-
-        driveTurn = new JoystickButton(xbox, RobotMap.OI.DRIVE_TURN);
+        driveTurn = new JoystickButton(bb, RobotMap.OI.DRIVE_TURN);
         driveTurn.whenPressed(new TurnDegrees(SmartDashboard.getNumber("Rotation(degrees)", 0)));
-
-        driveDistance = new JoystickButton(xbox, RobotMap.OI.DRIVE_DISTANCE);
+        driveDistance = new JoystickButton(bb, RobotMap.OI.DRIVE_DISTANCE);
         //driveDistance.whenPressed(() -> SmartDashboard.putBoolean())
         driveDistance.whenPressed(new DistanceDrive(SmartDashboard.getNumber("Inches to Drive", 0)), false);
 
-        runMagazine = new JoystickButton(xbox, RobotMap.OI.RUN_MAGAZINE);
+        spinHopperMagazine = new JoystickButton(bb, RobotMap.OI.SPIN_HOPPER_MAGAZINE);
+        spinHopperMagazine.whenPressed(new ParallelCommandGroup(new RunHopper(), new RunMagazine(true, true, false)));
+
+        runMagazine = new JoystickButton(bb, RobotMap.OI.RUN_MAGAZINE);
         runMagazine.whenPressed(new RunMagazine(true, true, true));
         runMagazine.whenReleased(new RunMagazine(false, false, false));
-        //runMagazine.whenPressed(new RunHopper());
-        //runMagazine.whenReleased(new InstantCommand(() -> Hopper.getInstance().stop()));
 
+        runHopper = new JoystickButton(bb, RobotMap.OI.RUN_HOPPER);
+        runHopper.whenPressed(new RunHopper());
         
-        /**releaseClimber = new JoystickButton(xbox, RobotMap.CLIMBER.RELEASE_BUTTON);
-        retractClimber = new JoystickButton(xbox, RobotMap.CLIMBER.DRIVE_BUTTON);
-        extendClimber = new JoystickButton(xbox, RobotMap.CLIMBER.DRIVE_BUTTON);
+        releaseClimber = new JoystickButton(bb, RobotMap.OI.RELEASE_CLIMBER);
+        retractClimber = new JoystickButton(bb, RobotMap.OI.REVERSE_CLIMBER);
+        extendClimber = new JoystickButton(bb, RobotMap.OI.DRIVE_CLIMBER);
         //- = down
         //+ = up
         releaseClimber.whenPressed(new Climb());
         retractClimber.whenPressed(new DriveClimb(-RobotMap.CLIMBER.CLIMB_UP_POWER));
-        extendClimber.whenPressed(new DriveClimb(RobotMap.CLIMBER.CLIMB_UP_POWER));*/
+        extendClimber.whenPressed(new DriveClimb(RobotMap.CLIMBER.CLIMB_UP_POWER));
 
         intakingRoutine = new JoystickButton(xbox, RobotMap.OI.INTAKING_ROUTINE);
         intakingRoutine.whenPressed(new IntakingRoutine());
