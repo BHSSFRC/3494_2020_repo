@@ -21,7 +21,7 @@ public class Shoot extends CommandBase {
 
     @Override
     public void execute() {
-        Shooter.getInstance().shoot(OI.getINSTANCE().getXboxLeftTrigger() * 
+        Shooter.getInstance().shoot(// TODO: OI.getINSTANCE().getXboxLeftTrigger() * 
                                     SmartDashboard.getNumber("Shooter Max Power", 1));
     }
 

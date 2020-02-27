@@ -6,13 +6,15 @@ import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import frc.robot.commands.drive.Drive;
-import frc.robot.commands.drive.DriveStraight;
 import frc.robot.commands.Climb;
 import frc.robot.commands.DriveClimb;
+import frc.robot.commands.RollShooterPosition;
 import frc.robot.commands.RunMagazine;
 import frc.robot.commands.drive.DistanceDrive;
 import frc.robot.commands.drive.DriveStraight;
 import frc.robot.commands.drive.TurnDegrees;
+import frc.robot.subsystems.Shooter;
+import frc.robot.commands.SetShooterPosition;
 
 public class OI {
     private static OI INSTANCE = new OI();
@@ -27,6 +29,7 @@ public class OI {
     private JoystickButton retractClimber;
     private JoystickButton extendClimber;
     private JoystickButton runShooter;
+    private JoystickButton shooterPositionForward, shooterPositionBackward;
 
     private OI(){
         leftFlight = new Joystick(RobotMap.OI.LEFT_FLIGHT);
@@ -48,7 +51,12 @@ public class OI {
         runMagazine.whenPressed(new RunMagazine(true, true, true));
         runMagazine.whenReleased(new RunMagazine(false, false, false));
 
+        runShooter = new JoystickButton(xbox, RobotMap.OI.RUN_SHOOTER);
+        shooterPositionBackward = new JoystickButton(xbox, RobotMap.OI.SHOOTER_BACKWARD);
+        shooterPositionForward = new JoystickButton(xbox, RobotMap.OI.SHOOTER_FOWARD);
+        
         runShooter.whenPressed(new Shoot());
+        toggleShooterPosition.whenPressed(new RollShooterPosition());
         //runMagazine.whenPressed(new RunHopper());
         //runMagazine.whenReleased(new InstantCommand(() -> Hopper.getInstance().stop()));
 

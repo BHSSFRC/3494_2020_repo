@@ -4,16 +4,8 @@ package frc.robot.subsystems;
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.can.TalonFX;
-<<<<<<< HEAD
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-=======
->>>>>>> develop
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.RobotMap;
-<<<<<<< HEAD
-import frc.robot.commands.drive.Drive;
-=======
->>>>>>> develop
 
 public class DriveTrain extends SubsystemBase {
 
