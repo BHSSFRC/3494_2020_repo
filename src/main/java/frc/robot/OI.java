@@ -91,6 +91,8 @@ public class OI {
 
         intakingRoutine = new JoystickButton(xbox, RobotMap.OI.INTAKING_ROUTINE);
         intakingRoutine.whenPressed(new IntakingRoutine());
+
+        //climber safety button
     }
 
     public double getLeftY(){
