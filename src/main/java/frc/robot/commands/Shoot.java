@@ -2,6 +2,7 @@ package frc.robot.commands;
 
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
+import frc.robot.OI;
 import frc.robot.subsystems.Shooter;
 
 
@@ -19,8 +20,8 @@ public class Shoot extends CommandBase {
 
     @Override
     public void execute() {
-        Shooter.getInstance().shoot(// TODO: OI.getINSTANCE().getXboxLeftTrigger() * 
-                                    SmartDashboard.getNumber("Shooter Max Power", 1));
+        Shooter.getInstance().shoot( OI.getINSTANCE().getXboxLeftTrigger() *
+                SmartDashboard.getNumber("Shooter Max Power", 1));
     }
 
     @Override

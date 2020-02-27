@@ -143,7 +143,6 @@ public class Robot extends TimedRobot {
 
     @Override
     public void teleopPeriodic() {
-        SmartDashboard.putNumber("XboxLeftTrigger", OI.getINSTANCE().getXboxLeftTrigger());
         SmartDashboard.putNumber("Angle", IMU.getInstance().getYaw());
     }
 
