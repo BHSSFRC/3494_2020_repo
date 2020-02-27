@@ -87,7 +87,7 @@ public class OI {
 
         runShooter = new JoystickButton(xbox, RobotMap.OI.RUN_SHOOTER);
         shooterPositionBackward = new JoystickButton(xbox, RobotMap.OI.SHOOTER_BACKWARD);
-        shooterPositionForward = new JoystickButton(xbox, RobotMap.OI.SHOOTER_FOWARD);
+        shooterPositionForward = new JoystickButton(xbox, RobotMap.OI.SHOOTER_FORWARD);
         runShooter.whileHeld(new Shoot());
         //shooterPositionForward.whenPressed(new RollShooterPosition(true));
         //shooterPositionBackward.whenPressed(new RollShooterPosition(false));
