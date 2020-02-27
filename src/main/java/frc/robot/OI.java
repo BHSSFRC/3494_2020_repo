@@ -5,19 +5,14 @@ import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
-<<<<<<< HEAD
-=======
-import frc.robot.commands.Drive;
+import frc.robot.commands.drive.Drive;
+import frc.robot.commands.drive.DriveStraight;
 import frc.robot.commands.Climb;
 import frc.robot.commands.DriveClimb;
 import frc.robot.commands.RunMagazine;
->>>>>>> develop
 import frc.robot.commands.drive.DistanceDrive;
-import frc.robot.commands.drive.Drive;
 import frc.robot.commands.drive.DriveStraight;
 import frc.robot.commands.drive.TurnDegrees;
-import frc.robot.commands.turret.AimBot;
-import frc.robot.commands.turret.QuickTurretLimit;
 
 public class OI {
     private static OI INSTANCE = new OI();
@@ -31,9 +26,7 @@ public class OI {
     private JoystickButton releaseClimber;
     private JoystickButton retractClimber;
     private JoystickButton extendClimber;
-
-    private JoystickButton turretLimits;
-    private JoystickButton turretToSetpoint;
+    private JoystickButton runShooter;
 
     private OI(){
         leftFlight = new Joystick(RobotMap.OI.LEFT_FLIGHT);
@@ -51,16 +44,11 @@ public class OI {
         //driveDistance.whenPressed(() -> SmartDashboard.putBoolean())
         driveDistance.whenPressed(new DistanceDrive(SmartDashboard.getNumber("Inches to Drive", 0)), false);
 
-<<<<<<< HEAD
-        this.turretLimits = new JoystickButton(xbox, 3);
-        this.turretLimits.whenPressed(new QuickTurretLimit());
-
-        this.turretToSetpoint = new JoystickButton(xbox, 4);
-        this.turretToSetpoint.toggleWhenPressed(new AimBot());
-=======
         runMagazine = new JoystickButton(xbox, RobotMap.OI.RUN_MAGAZINE);
         runMagazine.whenPressed(new RunMagazine(true, true, true));
         runMagazine.whenReleased(new RunMagazine(false, false, false));
+
+        runShooter.whenPressed(new Shoot());
         //runMagazine.whenPressed(new RunHopper());
         //runMagazine.whenReleased(new InstantCommand(() -> Hopper.getInstance().stop()));
 
@@ -73,7 +61,6 @@ public class OI {
         releaseClimber.whenPressed(new Climb());
         retractClimber.whenPressed(new DriveClimb(-RobotMap.CLIMBER.CLIMB_POWER));
         extendClimber.whenPressed(new DriveClimb(RobotMap.CLIMBER.CLIMB_POWER));
->>>>>>> develop
     }
 
     public double getLeftY(){
@@ -115,7 +102,6 @@ public class OI {
     public boolean getXboxDpadDown(){
         return this.xbox.getPOV() == 180;
     }
-
     /**
      * Returns 0.0 if the given value is within the specified range around zero. The remaining range
      * between the deadband and 1.0 is scaled from 0.0 to 1.0.
