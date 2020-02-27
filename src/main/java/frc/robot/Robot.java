@@ -68,7 +68,7 @@ public class Robot extends TimedRobot {
                 SmartDashboard.setPersistent(doubleName);
             }
         }
-        //CommandScheduler.getInstance().setDefaultCommand(Shooter.getInstance(), new Shoot());
+        CommandScheduler.getInstance().setDefaultCommand(Shooter.getInstance(), new Shoot());
         CommandScheduler.getInstance().setDefaultCommand(Magazine.getInstance(), new RunMagazine());
 
         CommandScheduler.getInstance().setDefaultCommand(Intake.getInstance(), new RunIntake());

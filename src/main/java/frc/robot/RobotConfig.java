@@ -51,6 +51,7 @@ public final class RobotConfig
 
     public static class SHOOTER {
         public static double RPM_PER_POWER = 1000;
+        public static double PRESHOOTER_POWER = 0.3;
         public final double 
             kP = 0.0,
             kI = 0.0,

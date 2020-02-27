@@ -6,6 +6,7 @@ import frc.robot.OI;
 import frc.robot.RobotConfig;
 import frc.robot.subsystems.PreShooter;
 import frc.robot.subsystems.Shooter;
+import frc.robot.util.QuadTimer;
 
 public class Shoot extends CommandBase {
 
@@ -15,6 +16,7 @@ public class Shoot extends CommandBase {
     boolean doneMoving = true;
     boolean spinPreShooter;
     private double targetRPM;
+    private QuadTimer timer;
 
     public Shoot() {
         // If any subsystems are needed, you will need to pass them into the requires() method
@@ -24,17 +26,22 @@ public class Shoot extends CommandBase {
         this.targetRPM = OI.getINSTANCE().getXboxLeftTrigger() *
                 SmartDashboard.getNumber("Shooter Max Power", 1) *
                 RobotConfig.SHOOTER.RPM_PER_POWER;
+        this.timer = new QuadTimer();
     }
 
     @Override
     public void initialize() {
         SmartDashboard.putBoolean("Shoot?", true);
+        timer.start();
     }
 
     @Override
     public void execute() {
         Shooter.getInstance().shoot( OI.getINSTANCE().getXboxLeftTrigger() *
                 SmartDashboard.getNumber("Shooter Max Power", 1));
+        if (timer.get() > 2) {
+            PreShooter.getInstance().spin(RobotConfig.SHOOTER.PRESHOOTER_POWER);
+        }
     }
 
     @Override
