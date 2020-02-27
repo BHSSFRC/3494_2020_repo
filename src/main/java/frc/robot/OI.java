@@ -6,12 +6,19 @@ import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
+import frc.robot.commands.Climb;
+import frc.robot.commands.DriveClimb;
+import frc.robot.commands.RunMagazine;
+import frc.robot.commands.Shoot;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.commands.*;
 import frc.robot.commands.drive.DistanceDrive;
+import frc.robot.commands.drive.Drive;
 import frc.robot.commands.drive.DriveStraight;
 import frc.robot.commands.drive.TurnDegrees;
 import frc.robot.commands.teleop.IntakingRoutine;
+
+;
 
 public class OI {
     private static OI INSTANCE = new OI();
@@ -22,12 +29,18 @@ public class OI {
     private JoystickButton driveTurn;
     private JoystickButton driveDistance;
     private JoystickButton runMagazine;
+
+    private JoystickButton runShooter;
+    private JoystickButton shooterPositionForward, shooterPositionBackward;
     private JoystickButton runHopper;
     private Trigger releaseClimber;
     private Trigger retractClimber;
     private Trigger extendClimber;
+    private JoystickButton safetyClimber;
     private JoystickButton intakingRoutine;
     private JoystickButton spinHopperMagazine;
+    private JoystickButton shooterHood;
+    private JoystickButton shooterLimit;
 
     private ButtonBoard bb;
     private JoystickButton[] boardButtons;
@@ -38,7 +51,14 @@ public class OI {
      * Intake pneumatics: right bumper
      * shooting power left trigger
      * Magazine/hopper feed to shooter button b
-     *
+     * Climber:
+     * release = 12
+     * climb = 14
+     * retract = 13
+     * shooter speed limit
+     * short = 1
+     * medium = 3
+     * long = 6
      */
 
     /**
@@ -48,7 +68,6 @@ public class OI {
      * intake: left trigger analog power
      * climber: button board
      */
-    //TODO: display COLOR on SmartDashboard
 
     private OI(){
         leftFlight = new Joystick(RobotMap.OI.LEFT_FLIGHT);
@@ -74,15 +93,26 @@ public class OI {
         runMagazine.whenPressed(new RunMagazine(true, true, true));
         runMagazine.whenReleased(new RunMagazine(false, false, false));
 
+        runShooter = new JoystickButton(xbox, RobotMap.OI.RUN_SHOOTER);
+        shooterPositionBackward = new JoystickButton(xbox, RobotMap.OI.SHOOTER_BACKWARD);
+        shooterPositionForward = new JoystickButton(xbox, RobotMap.OI.SHOOTER_FORWARD);
+        runShooter.whileHeld(new Shoot());
+        //shooterPositionForward.whenPressed(new RollShooterPosition(true));
+        //shooterPositionBackward.whenPressed(new RollShooterPosition(false));
+        //runMagazine.whenPressed(new RunHopper());
+        //runMagazine.whenReleased(new InstantCommand(() -> Hopper.getInstance().stop()));
+
+
         runHopper = new JoystickButton(bb, RobotMap.OI.RUN_HOPPER);
         runHopper.whenPressed(new RunHopper());
         
         /**releaseClimber = new JoystickButton(bb, RobotMap.OI.RELEASE_CLIMBER);
         retractClimber = new JoystickButton(bb, RobotMap.OI.REVERSE_CLIMBER);
         extendClimber = new JoystickButton(bb, RobotMap.OI.DRIVE_CLIMBER);*/
-        retractClimber = new Trigger(() -> getXboxDpadDown());
-        extendClimber = new Trigger(() -> getXboxDpadUp());
-        releaseClimber = new Trigger(() -> getXboxDpadLeft());
+        safetyClimber = new JoystickButton(bb, RobotMap.OI.SAFETY_CLIMBER);
+        retractClimber = new JoystickButton(bb, RobotMap.OI.REVERSE_CLIMBER).and(safetyClimber);
+        extendClimber = new JoystickButton(bb, RobotMap.OI.DRIVE_CLIMBER).and(safetyClimber);
+        releaseClimber = new JoystickButton(bb, RobotMap.OI.RELEASE_CLIMBER).and(safetyClimber);
         //- = down
         //+ = up
         releaseClimber.whenActive(new Climb());
