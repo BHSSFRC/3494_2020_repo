@@ -71,9 +71,10 @@ public class RobotMap {
         public static int RUN_HOPPER = 8;
         public static int SPIN_HOPPER_MAGAZINE = 4;
 
-        public static int RELEASE_CLIMBER = 1;
-        public static int DRIVE_CLIMBER = 2;
-        public static int REVERSE_CLIMBER = 3;
+        public static int RELEASE_CLIMBER = 12;
+        public static int DRIVE_CLIMBER = 14;
+        public static int REVERSE_CLIMBER = 13;
+        public static int SAFETY_CLIMBER  = 9;
 
         public static int DRIVE_TURN = 10;
         public static int DRIVE_STRAIGHT = 11;

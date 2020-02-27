@@ -36,6 +36,7 @@ public class OI {
     private Trigger releaseClimber;
     private Trigger retractClimber;
     private Trigger extendClimber;
+    private JoystickButton safetyClimber;
     private JoystickButton intakingRoutine;
     private JoystickButton spinHopperMagazine;
     private JoystickButton shooterHood;
@@ -50,7 +51,14 @@ public class OI {
      * Intake pneumatics: right bumper
      * shooting power left trigger
      * Magazine/hopper feed to shooter button b
-     *
+     * Climber:
+     * release = 12
+     * climb = 14
+     * retract = 13
+     * shooter speed limit
+     * short = 1
+     * medium = 3
+     * long = 6
      */
 
     /**
@@ -97,10 +105,14 @@ public class OI {
 
         runHopper = new JoystickButton(bb, RobotMap.OI.RUN_HOPPER);
         runHopper.whenPressed(new RunHopper());
-
-        retractClimber = new Trigger(() -> getXboxDpadDown());
-        extendClimber = new Trigger(() -> getXboxDpadUp());
-        releaseClimber = new Trigger(() -> getXboxDpadLeft());
+        
+        /**releaseClimber = new JoystickButton(bb, RobotMap.OI.RELEASE_CLIMBER);
+        retractClimber = new JoystickButton(bb, RobotMap.OI.REVERSE_CLIMBER);
+        extendClimber = new JoystickButton(bb, RobotMap.OI.DRIVE_CLIMBER);*/
+        safetyClimber = new JoystickButton(bb, RobotMap.OI.SAFETY_CLIMBER);
+        retractClimber = new JoystickButton(bb, RobotMap.OI.REVERSE_CLIMBER).and(safetyClimber);
+        extendClimber = new JoystickButton(bb, RobotMap.OI.DRIVE_CLIMBER).and(safetyClimber);
+        releaseClimber = new JoystickButton(bb, RobotMap.OI.RELEASE_CLIMBER).and(safetyClimber);
         //- = down
         //+ = up
         releaseClimber.whenActive(new Climb());
@@ -109,8 +121,6 @@ public class OI {
 
         intakingRoutine = new JoystickButton(xbox, RobotMap.OI.INTAKING_ROUTINE);
         intakingRoutine.whenPressed(new IntakingRoutine());
-
-        //this.shooterHood = new JoystickButton(xbox, RobotMap.OI.)
     }
 
     public double getLeftY(){
