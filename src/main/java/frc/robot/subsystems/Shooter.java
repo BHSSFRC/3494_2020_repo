@@ -99,6 +99,10 @@ public class Shooter extends SubsystemBase {
         return this.currentPosition;
     }
 
+    public double getVelocity() {
+        return ((this.left.getVelocity() + this.left.getVelocity()) / 2);
+    }
+
     public void setPosition(Position position) {
         if (position != this.currentPosition){
             if (position != Position.THREE) {
