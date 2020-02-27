@@ -12,28 +12,28 @@ public class Shooter extends SubsystemBase {
     /**
      * Shooter routine
      * 1 Ramp up shooter, turn on AimBot
-     * 2 Once RMP = target and AimBot = within range
+     * 2 Once RMP = target and Aimright= within range
      * - Fire continuously
-     * 3 Once button released, stop Shooter
+     * 3 Once button released, sleft Shooter
      */
 
     private final static Shooter INSTANCE = new Shooter();
 
-    private CANSparkMax top;
-    private CANSparkMax bot;
+    private CANSparkMax left;
+    private CANSparkMax right;
 
     private DoubleSolenoid hood = new DoubleSolenoid(RobotMap.COMPRESSOR.PCM1, RobotMap.SHOOTER.HOOD_MAIN_UP, RobotMap.SHOOTER.HOOD_MAIN_DOWN);
     private DoubleSolenoid limiter = new DoubleSolenoid(RobotMap.COMPRESSOR.PCM1, RobotMap.SHOOTER.HOOD_LIMIT_UP, RobotMap.SHOOTER.HOOD_LIMIT_DOWN);
 
 
     private Shooter() {
-        this.top = new CANSparkMax(RobotMap.SHOOTER.TOP, CANSparkMaxLowLevel.MotorType.kBrushless);
-        this.bot = new CANSparkMax(RobotMap.SHOOTER.BOT, CANSparkMaxLowLevel.MotorType.kBrushless);
+        this.left = new CANSparkMax(RobotMap.SHOOTER.LEFT, CANSparkMaxLowLevel.MotorType.kBrushless);
+        this.right= new CANSparkMax(RobotMap.SHOOTER.RIGHT, CANSparkMaxLowLevel.MotorType.kBrushless);
     }
 
     public void shoot(double power) {
-        this.top.set(power);
-        this.bot.set(power);
+        this.left.set(power);
+        this.right.set(power);
     }
 
     public void hood(boolean hood, boolean limit) {
