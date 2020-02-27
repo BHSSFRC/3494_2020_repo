@@ -13,8 +13,8 @@ public class RobotMap {
     }
 
     public static class SHOOTER {
-        public static final int TOP = 12;
-        public static final int BOT = 13;
+        public static final int RIGHT = 12;
+        public static final int LEFT = 13;
         public static final int HOOD_MAIN_UP = 4;
         public static final int HOOD_MAIN_DOWN = 5;
         public static final int HOOD_LIMIT_UP = 2;
@@ -41,13 +41,17 @@ public class RobotMap {
         public static int LEFT_FLIGHT = 0;
         public static int RIGHT_FLIGHT = 1;
         public static int XBOX = 2;
+        public static int BUTTON_BOARD = 3;
 
+        //xbox bindings
         public static int DRIVE_TURN = 5;
         public static int DRIVE_STRAIGHT = 4;
         public static int DRIVE_DISTANCE = 3;
 
+        //button board bindings
         public static int RUN_MAGAZINE = 2;
         public static int INTAKING_ROUTINE = 1;
+        public static int RUN_SHOOTER = 9;
     }
 
     public static class CLIMBER {
