@@ -55,10 +55,7 @@ public class RobotMap {
         public static int BUTTON_BOARD = 3;
 
         //xbox bindings
-        public static int INTAKING_ROUTINE = 1;
-        public static int SHOOTER_LIMIT = 2;
-        public static int SHOOTER_HOOD = 3;
-
+        //public static int INTAKING_ROUTINE = 1;
         public static int RUN_SHOOTER = 6;
         public static int SHOOTER_FORWARD = 2;
         public static int SHOOTER_BACKWARD = 3;
@@ -66,7 +63,8 @@ public class RobotMap {
         //button board bindings
         public static int RUN_MAGAZINE = 7;
         public static int RUN_HOPPER = 8;
-        public static int SPIN_HOPPER_MAGAZINE = 4;
+        public static int SPIN_HOPPER_MAGAZINE = 5;
+        public static int REVERSE_INTAKE = 4;
 
         public static int RELEASE_CLIMBER = 12;
         public static int DRIVE_CLIMBER = 14;

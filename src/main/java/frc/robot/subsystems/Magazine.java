@@ -37,6 +37,11 @@ public class Magazine extends SubsystemBase {
         }
     }
 
+    public void runReverse(){
+        this.front.set(ControlMode.PercentOutput, -RobotConfig.MAGAZINE.MOTOR_DEFAULT_POWER);
+        this.bottom.set(ControlMode.PercentOutput, -RobotConfig.MAGAZINE.MOTOR_DEFAULT_POWER);
+    }
+
     public void runBottom(boolean on){
         if(on){
             this.bottom.set(ControlMode.PercentOutput, RobotConfig.MAGAZINE.MOTOR_DEFAULT_POWER);

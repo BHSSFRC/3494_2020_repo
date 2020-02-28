@@ -8,6 +8,7 @@ import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.commands.*;
 import frc.robot.commands.teleop.IntakingRoutine;
+import frc.robot.commands.teleop.ReverseIntake;
 import frc.robot.commands.turret.AimBot;
 import frc.robot.commands.turret.QuickTurretLimit;
 import frc.robot.commands.turret.SpinToSetpoint;
@@ -29,6 +30,7 @@ public class OI {
     private JoystickButton safetyClimber;
     private Trigger intakingRoutine;
     private JoystickButton spinHopperMagazine;
+    private JoystickButton reverseIntake;
     //private JoystickButton shooterHood;
     //private JoystickButton shooterLimit;
     private JoystickButton quickTurretLimits;
@@ -69,8 +71,10 @@ public class OI {
         bb = new ButtonBoard(RobotMap.OI.BUTTON_BOARD);
         boardButtons = new JoystickButton[15];
 
-        spinHopperMagazine = new JoystickButton(bb, RobotMap.OI.SPIN_HOPPER_MAGAZINE);
+        spinHopperMagazine = new JoystickButton(secondaryXbox, RobotMap.OI.SPIN_HOPPER_MAGAZINE);
         spinHopperMagazine.whenPressed(new ParallelCommandGroup(new RunHopper(), new RunMagazine(true, true, false)));
+        reverseIntake = new JoystickButton(bb, RobotMap.OI.REVERSE_INTAKE);
+        reverseIntake.whenPressed(new ReverseIntake());
 
         runMagazine = new JoystickButton(bb, RobotMap.OI.RUN_MAGAZINE);
         runMagazine.whenPressed(new RunMagazine(true, true, true));
