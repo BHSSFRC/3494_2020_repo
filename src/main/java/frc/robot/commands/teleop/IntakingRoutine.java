@@ -23,10 +23,10 @@ public class IntakingRoutine extends SequentialCommandGroup {
                                 new RunMagazine(true, true, false).withInterrupt(() -> Robot.getLinebreakTop().lineBroken()),
                                 new RunMagazine(true, true, false).withTimeout(RobotConfig.MAGAZINE.TIME_AFTER_2ND_LINEBREAK_SENSOR),
                                 new RunMagazine(true, false, false).withInterrupt(() -> Robot.getLinebreakBottom().lineBroken())
-                        )//,
-                        //new RunHopper()
+                        ),
+                        new RunHopper()
                 ),
-                //new InstantCommand(() -> Hopper.getInstance().stop()),
+                new InstantCommand(() -> Hopper.getInstance().stop()),
                 new RunMagazine(false, false, false)
                 /**new ParallelCommandGroup(
                         //new RunHopper(),

@@ -26,7 +26,7 @@ public class OI {
     private Trigger retractClimber;
     private Trigger extendClimber;
     private JoystickButton safetyClimber;
-    private JoystickButton intakingRoutine;
+    private Trigger intakingRoutine;
     private JoystickButton spinHopperMagazine;
     //private JoystickButton shooterHood;
     //private JoystickButton shooterLimit;
@@ -96,8 +96,8 @@ public class OI {
         retractClimber.whenActive(new DriveClimb(-RobotMap.CLIMBER.CLIMB_UP_POWER));
         extendClimber.whenActive(new DriveClimb(RobotMap.CLIMBER.CLIMB_UP_POWER));
 
-        intakingRoutine = new JoystickButton(secondaryXbox, RobotMap.OI.INTAKING_ROUTINE);
-        intakingRoutine.whenPressed(new IntakingRoutine());
+        intakingRoutine = new Trigger(() -> secondaryXbox.getBumper(GenericHID.Hand.kLeft));
+        intakingRoutine.whenActive(new IntakingRoutine());
 
         shooterPositionBackward = new JoystickButton(secondaryXbox, RobotMap.OI.SHOOTER_BACKWARD);
         shooterPositionBackward.whenPressed(new InstantCommand(() ->
