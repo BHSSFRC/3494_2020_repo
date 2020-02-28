@@ -70,7 +70,7 @@ public class Robot extends TimedRobot {
         //CommandScheduler.getInstance().setDefaultCommand(Shooter.getInstance(), new Shoot());
         CommandScheduler.getInstance().setDefaultCommand(Magazine.getInstance(), new RunMagazine());
 
-        //CommandScheduler.getInstance().setDefaultCommand(Intake.getInstance(), new RunIntake());
+        CommandScheduler.getInstance().setDefaultCommand(Intake.getInstance(), new RunIntake());
         CommandScheduler.getInstance().schedule(new InstantCommand(Pneumatics.getInstance()::startCompressor));
 
         String[] SDBooleans = {"Dist Sensor Error", "DriveStraight?", "Calibrate IMU?", "DriveDistance?",
