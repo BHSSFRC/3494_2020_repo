@@ -41,6 +41,7 @@ public class OI {
     private JoystickButton spinHopperMagazine;
     private JoystickButton shooterHood;
     private JoystickButton shooterLimit;
+    private JoystickButton quickTurretLimits;
 
     private ButtonBoard bb;
     private JoystickButton[] boardButtons;
@@ -105,6 +106,8 @@ public class OI {
 
         runHopper = new JoystickButton(bb, RobotMap.OI.RUN_HOPPER);
         runHopper.whenPressed(new RunHopper());
+
+        quickTurretLimits = new JoystickButton(bb, RobotMap.OI.QUICK_TURRET_LIMITS);
         
         /**releaseClimber = new JoystickButton(bb, RobotMap.OI.RELEASE_CLIMBER);
         retractClimber = new JoystickButton(bb, RobotMap.OI.REVERSE_CLIMBER);

@@ -79,6 +79,8 @@ public class RobotMap {
         public static int DRIVE_TURN = 10;
         public static int DRIVE_STRAIGHT = 11;
         public static int DRIVE_DISTANCE = 12;
+
+        public static int QUICK_TURRET_LIMITS = 2;
     }
 
     public static class CLIMBER {

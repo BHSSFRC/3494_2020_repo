@@ -11,16 +11,13 @@ import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
-import frc.robot.commands.drive.Drive;
 import frc.robot.commands.Shoot;
-import frc.robot.commands.turret.SpinTurret;
 import frc.robot.subsystems.DriveTrain;
 
 
 import frc.robot.commands.CalibrateIMU;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import frc.robot.commands.*;
-import frc.robot.sensors.Dist2m;
 import frc.robot.sensors.IMU;
 import frc.robot.sensors.Linebreaker;
 import frc.robot.subsystems.*;
@@ -94,7 +91,7 @@ public class Robot extends TimedRobot {
         // block in order for anything in the Command-based framework to work.
         CommandScheduler.getInstance().run();
 
-        SmartDashboard.putBoolean("Dist Sensor Error", Dist2m.getInstance().isNotEnabled());
+        //SmartDashboard.putBoolean("Dist Sensor Error", Dist2m.getInstance().isNotEnabled());
     }
 
     @Override
@@ -146,6 +143,7 @@ public class Robot extends TimedRobot {
     public void teleopPeriodic() {
         SmartDashboard.putNumber("Angle", IMU.getInstance().getYaw());
         SmartDashboard.putNumber("Shooter RPM", Shooter.getInstance().getRPM());
+        SmartDashboard.putNumber("Turret Pos", Turret.getInstance().getPosition());
     }
 
     @Override
