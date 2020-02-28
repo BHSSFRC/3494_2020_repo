@@ -107,12 +107,13 @@ public class Shooter extends SubsystemBase {
     }
 
     public double getRPM() {
-        return (this.left.getEncoder().getVelocity() + this.right.getEncoder().getVelocity()) / 2;
+        return (this.left.getEncoder().getVelocity()
+                + this.right.getEncoder().getVelocity()) / 2;
     }
 
     public void stop()
     {
-        this.left.set(0);
+        //this.left.set(0);
         this.right.set(0);
     }
 

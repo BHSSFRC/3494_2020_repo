@@ -7,11 +7,10 @@
 
 package frc.robot.subsystems;
 
+import com.ctre.phoenix.motorcontrol.ControlMode;
+import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
-import frc.robot.commands.RunIntake;
-import com.ctre.phoenix.motorcontrol.can.TalonSRX;
-import com.ctre.phoenix.motorcontrol.ControlMode;
 import frc.robot.RobotMap;
 
 public class Intake extends SubsystemBase {
@@ -25,10 +24,6 @@ public class Intake extends SubsystemBase {
   	public Intake() {
   	    this.motor = new TalonSRX(RobotMap.INTAKE.MOTOR);
   	}
-
-    public void initDefaultCommand(){
-        setDefaultCommand(new RunIntake());
-    }
 
     public void runIntake(double power) {
         this.motor.set(ControlMode.PercentOutput, power);

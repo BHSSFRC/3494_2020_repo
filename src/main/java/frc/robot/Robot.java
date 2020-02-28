@@ -11,13 +11,11 @@ import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
-import frc.robot.commands.Shoot;
-import frc.robot.subsystems.DriveTrain;
-
-
-import frc.robot.commands.CalibrateIMU;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
-import frc.robot.commands.*;
+import frc.robot.commands.CalibrateIMU;
+import frc.robot.commands.RunIntake;
+import frc.robot.commands.RunMagazine;
+import frc.robot.commands.Shoot;
 import frc.robot.sensors.IMU;
 import frc.robot.sensors.Linebreaker;
 import frc.robot.subsystems.*;
@@ -46,13 +44,17 @@ public class Robot extends TimedRobot {
         DriveTrain.getInstance();
         IMU.getInstance();
         Pneumatics.getInstance();
+
         Magazine.getInstance();
         PreShooter.getInstance();
+        Shooter.getInstance();
         Climber.getInstance();
+        //Turret.getInstance();
+        Hopper.getInstance();
         robotContainer = new RobotContainer();
 
         bottom = new Linebreaker(RobotMap.SENSORS.LINEBREAK_BOT);
-        top = new Linebreaker(RobotMap.SENSORS.LINEBREAK_TOP);*/
+        top = new Linebreaker(RobotMap.SENSORS.LINEBREAK_TOP);
 
         String[] SDDoubles = {"Left Y", "Shooter Max Power", "Distance Sensor", "Angle", "Calibrate1", "Calibrate2",
                 "Tuning/PID P", "Tuning/PID I", "Tuning/PID D", "DriveStraight Offset", "DriveTurn Offset", "Turn Power", "XboxLeftTrigger",
@@ -65,11 +67,10 @@ public class Robot extends TimedRobot {
                 SmartDashboard.setPersistent(doubleName);
             }
         }
-        CommandScheduler.getInstance().setDefaultCommand(Shooter.getInstance(), new Shoot());
+        //CommandScheduler.getInstance().setDefaultCommand(Shooter.getInstance(), new Shoot());
         CommandScheduler.getInstance().setDefaultCommand(Magazine.getInstance(), new RunMagazine());
 
-        CommandScheduler.getInstance().setDefaultCommand(Intake.getInstance(), new RunIntake());
-
+        //CommandScheduler.getInstance().setDefaultCommand(Intake.getInstance(), new RunIntake());
         CommandScheduler.getInstance().schedule(new InstantCommand(Pneumatics.getInstance()::startCompressor));
 
         String[] SDBooleans = {"Dist Sensor Error", "DriveStraight?", "Calibrate IMU?", "DriveDistance?",
@@ -134,16 +135,16 @@ public class Robot extends TimedRobot {
         //new ScheduleCommand(new Drive());
         //CommandScheduler.getInstance().schedule(new Drive());
         //CommandScheduler.getInstance().schedule(new Drive());
-        if (SmartDashboard.getBoolean("Calibrate IMU?", false)) {
+        /**if (SmartDashboard.getBoolean("Calibrate IMU?", false)) {
             CommandScheduler.getInstance().schedule(new CalibrateIMU());
-        }
+        }*/
     }
 
     @Override
     public void teleopPeriodic() {
-        SmartDashboard.putNumber("Angle", IMU.getInstance().getYaw());
+        /**SmartDashboard.putNumber("Angle", IMU.getInstance().getYaw());
         SmartDashboard.putNumber("Shooter RPM", Shooter.getInstance().getRPM());
-        SmartDashboard.putNumber("Turret Pos", Turret.getInstance().getPosition());
+        SmartDashboard.putNumber("Turret Pos", Turret.getInstance().getPosition());*/
     }
 
     @Override
