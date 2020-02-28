@@ -8,6 +8,8 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.RobotMap;
 
+import edu.wpi.first.wpilibj.Timer;
+
 public class Shooter extends SubsystemBase {
 
     //TODO: get method for whether shooter is at target speed yet
@@ -27,15 +29,76 @@ public class Shooter extends SubsystemBase {
     private DoubleSolenoid hood = new DoubleSolenoid(RobotMap.COMPRESSOR.PCM1, RobotMap.SHOOTER.HOOD_MAIN_UP, RobotMap.SHOOTER.HOOD_MAIN_DOWN);
     private DoubleSolenoid limiter = new DoubleSolenoid(RobotMap.COMPRESSOR.PCM1, RobotMap.SHOOTER.HOOD_LIMIT_UP, RobotMap.SHOOTER.HOOD_LIMIT_DOWN);
 
+    public enum Position
+    {
+        ONE(DoubleSolenoid.Value.kReverse, DoubleSolenoid.Value.kReverse), 
+        TWO(DoubleSolenoid.Value.kForward, DoubleSolenoid.Value.kReverse), 
+        THREE(DoubleSolenoid.Value.kForward, DoubleSolenoid.Value.kForward);
+
+        private final DoubleSolenoid.Value hood, limiter;
+        
+        Position(DoubleSolenoid.Value hood, DoubleSolenoid.Value limiter){
+            this.hood = hood; // "long piston"
+            this.limiter = limiter; // "pancake piston"
+        }
+
+        public DoubleSolenoid.Value getHood() {
+            return this.hood;
+        }
+
+        public DoubleSolenoid.Value getLimiter() {
+            return this.limiter;
+        }
+
+        public Position prev() {
+            if (this == Position.ONE) {
+                return Position.THREE;
+            }
+            else if (this == Position.TWO) {
+                return Position.ONE;
+            }
+            else if (this == Position.THREE) {
+                return Position.TWO;
+            }
+            else
+            {
+                return Position.ONE;
+            }
+        }
+
+        public Position next()
+        {
+            if (this == Position.ONE) {
+                return Position.TWO;
+            }
+            else if (this == Position.TWO) {
+                return Position.THREE;
+            }
+            else if (this == Position.THREE) {
+                return Position.ONE;
+            }
+            else
+            {
+                return Position.ONE;
+            }
+        }
+    }
+
+    private Position currentPosition;
 
     private Shooter() {
         this.left = new CANSparkMax(RobotMap.SHOOTER.LEFT, CANSparkMaxLowLevel.MotorType.kBrushless);
         this.right= new CANSparkMax(RobotMap.SHOOTER.RIGHT, CANSparkMaxLowLevel.MotorType.kBrushless);
+
+        this.left.setInverted(true);
+        this.right.setInverted(true);
+
+        this.setPosition(Position.ONE);
     }
 
     public void shoot(double power) {
         this.left.set(power);
-        this.right.set(power);
+        this.right.set(-power);
         SmartDashboard.putNumber("Shooter Power Current", power);
     }
 
@@ -44,20 +107,45 @@ public class Shooter extends SubsystemBase {
     }
 
     public double getRPM() {
-        return (this.left.getEncoder().getVelocity() + this.right.getEncoder().getVelocity()) / 2;
+        return (this.left.getEncoder().getVelocity()
+                + this.right.getEncoder().getVelocity()) / 2;
     }
 
-    public void hood(boolean hood, boolean limit) {
-        if (hood) {
-            this.hood.set(DoubleSolenoid.Value.kForward);
-        } else {
-            this.hood.set(DoubleSolenoid.Value.kReverse);
+    public void stop()
+    {
+        //this.left.set(0);
+        this.right.set(0);
+    }
+
+    public Position getPosition()
+    {
+        return this.currentPosition;
+    }
+
+    /*
+    public double getVelocity() {
+        return ((this.left.getVelocity() + this.left.getVelocity()) / 2);
+    }
+    */
+
+    public void setPosition(Position position) {
+        if (position != this.currentPosition){
+            if (position != Position.THREE) {
+                this.hood.set(position.getHood());
+                Timer.delay(50E-3);
+                this.limiter.set(position.getLimiter());
+            }
+            else
+            {
+                this.setPosition(Position.ONE);
+                this.hood.set(position.getHood());
+                Timer.delay(50E-3); // 50ms
+                this.limiter.set(position.getLimiter());
+            }
         }
-        if (limit) {
-            this.limiter.set(DoubleSolenoid.Value.kForward);
-        } else {
-            this.limiter.set(DoubleSolenoid.Value.kReverse);
-        }
+        System.out.println(position);
+        
+        this.currentPosition = position;
     }
 
     public static Shooter getInstance() {

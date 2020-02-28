@@ -10,7 +10,7 @@ import frc.robot.RobotMap;
 public class Magazine extends SubsystemBase {
     private TalonSRX front;
     private TalonSRX bottom;
-    private TalonSRX top;
+    //private TalonSRX top;
 
     /**
      * TODO: create teleop routine
@@ -26,7 +26,7 @@ public class Magazine extends SubsystemBase {
         this.front = new TalonSRX(RobotMap.MAGAZINE.FRONT);
         this.bottom = new TalonSRX(RobotMap.MAGAZINE.BOTTOM);
         this.bottom.setInverted(true);
-        this.top = new TalonSRX(RobotMap.MAGAZINE.TOP);
+        //this.top = new TalonSRX(RobotMap.MAGAZINE.TOP);
     }
 
     public void runFront(boolean on){
@@ -46,11 +46,12 @@ public class Magazine extends SubsystemBase {
     }
 
     public void runTop(boolean on){
-        if(on){
+        return;
+        /**if(on){
             this.top.set(ControlMode.PercentOutput, 0.1);
         }else{
             this.top.set(ControlMode.PercentOutput, 0);
-        }
+        }*/
     }
 
     public void stop(){
