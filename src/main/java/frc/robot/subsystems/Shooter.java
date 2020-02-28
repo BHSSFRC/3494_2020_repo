@@ -3,62 +3,151 @@ package frc.robot.subsystems;
 
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkMaxLowLevel;
-import edu.wpi.first.wpilibj.Servo;
+import edu.wpi.first.wpilibj.DoubleSolenoid;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
-//import frc.robot.RobotMap;
-import frc.robot.commands.Shoot;
+import frc.robot.RobotMap;
+
+import edu.wpi.first.wpilibj.Timer;
 
 public class Shooter extends SubsystemBase {
 
-// Any variables/fields used in the constructor must appear before the "INSTANCE" variable
-// so that they are initialized before the constructor is called.
-
+    //TODO: get method for whether shooter is at target speed yet
     /**
-     * The Singleton instance of this Shooter. External classes should
-     * use the {@link #getInstance()} method to get the instance.
+     * Shooter routine
+     * 1 Ramp up shooter, turn on AimBot
+     * 2 Once RMP = target and Aimright= within range
+     * - Fire continuously
+     * 3 Once button released, sleft Shooter
      */
+
     private final static Shooter INSTANCE = new Shooter();
 
-    private CANSparkMax top;
-    private CANSparkMax bot;
+    private CANSparkMax left;
+    private CANSparkMax right;
 
-    private Servo hood;
+    private DoubleSolenoid hood = new DoubleSolenoid(RobotMap.COMPRESSOR.PCM1, RobotMap.SHOOTER.HOOD_MAIN_UP, RobotMap.SHOOTER.HOOD_MAIN_DOWN);
+    private DoubleSolenoid limiter = new DoubleSolenoid(RobotMap.COMPRESSOR.PCM1, RobotMap.SHOOTER.HOOD_LIMIT_UP, RobotMap.SHOOTER.HOOD_LIMIT_DOWN);
 
-    /**
-     * Creates a new instance of this Shooter.
-     * This constructor is private since this class is a Singleton. External classes
-     * should use the {@link #getInstance()} method to get the instance.
-     */
+    public enum Position
+    {
+        ONE(DoubleSolenoid.Value.kReverse, DoubleSolenoid.Value.kReverse), 
+        TWO(DoubleSolenoid.Value.kForward, DoubleSolenoid.Value.kReverse), 
+        THREE(DoubleSolenoid.Value.kForward, DoubleSolenoid.Value.kForward);
+
+        private final DoubleSolenoid.Value hood, limiter;
+        
+        Position(DoubleSolenoid.Value hood, DoubleSolenoid.Value limiter){
+            this.hood = hood; // "long piston"
+            this.limiter = limiter; // "pancake piston"
+        }
+
+        public DoubleSolenoid.Value getHood() {
+            return this.hood;
+        }
+
+        public DoubleSolenoid.Value getLimiter() {
+            return this.limiter;
+        }
+
+        public Position prev() {
+            if (this == Position.ONE) {
+                return Position.THREE;
+            }
+            else if (this == Position.TWO) {
+                return Position.ONE;
+            }
+            else if (this == Position.THREE) {
+                return Position.TWO;
+            }
+            else
+            {
+                return Position.ONE;
+            }
+        }
+
+        public Position next()
+        {
+            if (this == Position.ONE) {
+                return Position.TWO;
+            }
+            else if (this == Position.TWO) {
+                return Position.THREE;
+            }
+            else if (this == Position.THREE) {
+                return Position.ONE;
+            }
+            else
+            {
+                return Position.ONE;
+            }
+        }
+    }
+
+    private Position currentPosition;
+
     private Shooter() {
-        // TODO: Set the default command, if any, for this subsystem by calling setDefaultCommand(command)
-        //       in the constructor or in the robot coordination class, such as RobotContainer.
-        //       Also, you can call addChild(name, sendableChild) to associate sendables with the subsystem
-        //       such as SpeedControllers, Encoders, DigitalInputs, etc
+        this.left = new CANSparkMax(RobotMap.SHOOTER.LEFT, CANSparkMaxLowLevel.MotorType.kBrushless);
+        this.right= new CANSparkMax(RobotMap.SHOOTER.RIGHT, CANSparkMaxLowLevel.MotorType.kBrushless);
 
-        //this.top = new CANSparkMax(RobotMap.SHOOTER.TOP, CANSparkMaxLowLevel.MotorType.kBrushless);
-        //this.bot = new CANSparkMax(RobotMap.SHOOTER.BOT, CANSparkMaxLowLevel.MotorType.kBrushless);
-        this.top = new CANSparkMax(12, CANSparkMaxLowLevel.MotorType.kBrushless);
-        this.bot = new CANSparkMax(13, CANSparkMaxLowLevel.MotorType.kBrushless);
-        //this.bot.setInverted(false);
-        //this.bot.follow(this.top);
+        this.left.setInverted(true);
+        this.right.setInverted(true);
 
-        this.hood = new Servo(8);
+        this.setPosition(Position.ONE);
     }
 
-    public void initDefaultCommand(){
-        setDefaultCommand(new Shoot());
+    public void shoot(double power) {
+        this.left.set(power);
+        this.right.set(-power);
+        SmartDashboard.putNumber("Shooter Power Current", power);
     }
 
-    public void shoot(double power){
-        this.top.set(power);
-        this.bot.set(power);
+    public boolean atTargetSpeed(double targetRPM) {
+        return Math.abs(this.getRPM() - targetRPM) < 10;
     }
 
-    /**
-     * Returns the Singleton instance of this Shooter. This static method
-     * should be used -- {@code Shooter.getInstance();} -- by external
-     * classes, rather than the constructor to get the instance of this class.
-     */
+    public double getRPM() {
+        return (this.left.getEncoder().getVelocity()
+                + this.right.getEncoder().getVelocity()) / 2;
+    }
+
+    public void stop()
+    {
+        //this.left.set(0);
+        this.right.set(0);
+    }
+
+    public Position getPosition()
+    {
+        return this.currentPosition;
+    }
+
+    /*
+    public double getVelocity() {
+        return ((this.left.getVelocity() + this.left.getVelocity()) / 2);
+    }
+    */
+
+    public void setPosition(Position position) {
+        if (position != this.currentPosition){
+            if (position != Position.THREE) {
+                this.hood.set(position.getHood());
+                Timer.delay(50E-3);
+                this.limiter.set(position.getLimiter());
+            }
+            else
+            {
+                this.setPosition(Position.ONE);
+                this.hood.set(position.getHood());
+                Timer.delay(50E-3); // 50ms
+                this.limiter.set(position.getLimiter());
+            }
+        }
+        System.out.println(position);
+        
+        this.currentPosition = position;
+    }
+
     public static Shooter getInstance() {
         return INSTANCE;
     }

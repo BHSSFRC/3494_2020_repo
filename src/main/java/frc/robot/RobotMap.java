@@ -13,29 +13,92 @@ public class RobotMap {
     }
 
     public static class SHOOTER {
-        public static final int TOP = 12;
-        public static final int BOT = 13;
+        public static final int RIGHT = 12;
+        public static final int LEFT = 13;
+        public static final int HOOD_MAIN_UP = 4;
+        public static final int HOOD_MAIN_DOWN = 5;
+        public static final int HOOD_LIMIT_UP = 2;
+        public static final int HOOD_LIMIT_DOWN = 3;
     }
 
     public static class INTAKE {
         public static final int MOTOR = 8;
-        public static final int CYLINDER_OUT = 0;
-        public static final int CYLINDER_IN = 1;
+        public static final int CYLINDER_OUT = 1;
+        public static final int CYLINDER_IN = 0;
+    }
+
+    public static class HOPPER {
+        public static final int MOTOR = 7;
+    }
+
+    public static class MAGAZINE {
+        public static final int FRONT = 10;
+        public static final int BOTTOM = 9;
+        public static final int TOP = 4;
+    }
+
+    public static final class TURRET {
+        public static final int MOTOR = 3;
+
+        public static final int ENCODER_CHANNEL_A = 2;
+        public static final int ENCODER_CHANNEL_B = 3;
+        public static final int LIMIT_SWITCH_BACK = 0;
+        public static final int LIMIT_SWITCH_FRONT = 1;
+
+        public static final double RANGE_OF_MOTION = 260;
+        public static final double ENCODER_COUNTS_PER_DEGREE = 10.65;
     }
 
     public static class OI {
         public static int LEFT_FLIGHT = 0;
         public static int RIGHT_FLIGHT = 1;
         public static int XBOX = 2;
+        public static int BUTTON_BOARD = 3;
 
-        public static int DRIVE_TURN = 1;
-        public static int DRIVE_STRAIGHT = 4;
-        public static int DRIVE_DISTANCE = 3;
+        //xbox bindings
+        //x = pancake hood limit
+        //y = main hood
+        public static int INTAKING_ROUTINE = 1;
+        //public static int SHOOTER_LIMIT = 2;
+        //public static int SHOOTER_HOOD = 3;
+
+        public static int RUN_SHOOTER = 6;
+        public static int SHOOTER_FORWARD = 8;
+        public static int SHOOTER_BACKWARD = 7;
+
+        //button board bindings
+        public static int RUN_MAGAZINE = 9;
+        public static int RUN_HOPPER = 8;
+        public static int SPIN_HOPPER_MAGAZINE = 4;
+
+        public static int RELEASE_CLIMBER = 12;
+        public static int DRIVE_CLIMBER = 14;
+        public static int REVERSE_CLIMBER = 13;
+        public static int SAFETY_CLIMBER  = 9;
+
+        public static int DRIVE_TURN = 10;
+        public static int DRIVE_STRAIGHT = 11;
+        public static int DRIVE_DISTANCE = 12;
+
+        public static int QUICK_TURRET_LIMITS = 2;
+    }
+
+    public static class CLIMBER {
+        public static int PANCAKE = 6;
+        public static int WHEEL_OF_FORTUNE = 7;
+        public static int MOTOR1 = 2;
+        public static int MOTOR2 = 3;
+        public static double CLIMB_UP_POWER = 0.2;
+        public static double CLIMB_UP_RAMPRATE = 0.5;
     }
 
     public static class SENSORS {
         public static int IMU = 0;
+
+        public static int LINEBREAK_BOT = 6;
+        public static int LINEBREAK_TOP = 5;
     }
+    
     public static class COMPRESSOR {
         public static int PCM1 = 1;
     }

@@ -1,6 +1,5 @@
-package frc.robot.commands;
+package frc.robot.commands.drive;
 
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.OI;
 import frc.robot.RobotConfig;
@@ -16,15 +15,11 @@ public class Drive extends CommandBase {
 
     @Override
     public void initialize() {
-        //SmartDashboard.putBoolean("DriveStraight?", false);
-        //SmartDashboard.putBoolean("DriveDistance?", false);
-        SmartDashboard.putBoolean("Drive?", true);
     }
 
     @Override
     public void execute() {
         double leftPower = powerCurve(OI.getINSTANCE().getLeftY());
-        SmartDashboard.putNumber("Left Y", leftPower);
         double rightPower = powerCurve(OI.getINSTANCE().getRightY());
         if(Math.abs(IMU.getInstance().getPitch()) > 5){
             double correction = Math.min(IMU.getInstance().getPitch() / 10, 0.5);
@@ -32,11 +27,6 @@ public class Drive extends CommandBase {
             rightPower -= correction;
         }
         DriveTrain.getInstance().tankDrive(leftPower, rightPower);
-
-        /**if(DriveTrain.getInstance().aboveMaxTemp()){
-            //release solenoid to cool motors down
-            DriveTrain.getInstance().openTempSolenoid();
-        }*/
     }
 
     private static double powerCurve(double x) {
@@ -46,12 +36,10 @@ public class Drive extends CommandBase {
 
     @Override
     public boolean isFinished() {
-        // TODO: Make this return true when this Command no longer needs to run execute()
         return false;
     }
 
     @Override
     public void end(boolean interrupted) {
-        SmartDashboard.putBoolean("Drive?", false);
     }
 }

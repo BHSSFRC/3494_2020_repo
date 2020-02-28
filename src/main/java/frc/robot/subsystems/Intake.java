@@ -7,22 +7,17 @@
 
 package frc.robot.subsystems;
 
+import com.ctre.phoenix.motorcontrol.ControlMode;
+import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
-import frc.robot.commands.RunIntake;
-import com.ctre.phoenix.motorcontrol.can.TalonSRX;
-import com.ctre.phoenix.motorcontrol.ControlMode;
 import frc.robot.RobotMap;
 
 public class Intake extends SubsystemBase {
-  	/**
-  	 * Creates a new Intake.
-  	 */
 
     private TalonSRX motor;
 
-    private DoubleSolenoid cylinder = new DoubleSolenoid(RobotMap.COMPRESSOR.PCM1, RobotMap.INTAKE.CYLINDER_OUT, RobotMap.INTAKE.CYLINDER_IN);
-
+    private DoubleSolenoid cylinder = new DoubleSolenoid(RobotMap.COMPRESSOR.PCM1, RobotMap.INTAKE.CYLINDER_IN, RobotMap.INTAKE.CYLINDER_OUT);
 
     private final static Intake INSTANCE = new Intake();
 
@@ -30,15 +25,15 @@ public class Intake extends SubsystemBase {
   	    this.motor = new TalonSRX(RobotMap.INTAKE.MOTOR);
   	}
 
-    public void initDefaultCommand(){
-        setDefaultCommand(new RunIntake());
-    }
-
     public void runIntake(double power) {
         this.motor.set(ControlMode.PercentOutput, power);
     }
 
-    public void setPosition(boolean deployed) {
+    public void stop(){
+  	    this.runIntake(0);
+    }
+
+    public void setDeployed(boolean deployed) {
         if (deployed) {
             this.cylinder.set(DoubleSolenoid.Value.kForward);
         } else {
@@ -48,7 +43,6 @@ public class Intake extends SubsystemBase {
 	
   	@Override
   	public void periodic() {
-  	  	// This method will be called once per scheduler run
   	}
 
     public static Intake getInstance() {
