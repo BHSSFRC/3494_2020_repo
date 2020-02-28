@@ -1,15 +1,10 @@
 package frc.robot;
 
 import edu.wpi.first.wpilibj.GenericHID;
-import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
-import frc.robot.commands.Climb;
-import frc.robot.commands.DriveClimb;
-import frc.robot.commands.RunMagazine;
-import frc.robot.commands.Shoot;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.commands.*;
 import frc.robot.commands.drive.DistanceDrive;
@@ -23,9 +18,8 @@ import frc.robot.commands.turret.QuickTurretLimit;
 
 public class OI {
     private static OI INSTANCE = new OI();
-    private Joystick leftFlight;
-    private Joystick rightFlight;
-    private XboxController xbox;
+    private XboxController primaryXbox;
+    private XboxController secondaryXbox;
     private JoystickButton driveStraight;
     private JoystickButton driveTurn;
     private JoystickButton driveDistance;
@@ -72,9 +66,8 @@ public class OI {
      */
 
     private OI(){
-        leftFlight = new Joystick(RobotMap.OI.LEFT_FLIGHT);
-        rightFlight = new Joystick(RobotMap.OI.RIGHT_FLIGHT);
-        xbox = new XboxController(RobotMap.OI.XBOX);
+        primaryXbox = new XboxController(RobotMap.OI.PRIMARY_XBOX);
+        secondaryXbox = new XboxController(RobotMap.OI.SECONDARY_XBOX);
 
         bb = new ButtonBoard(RobotMap.OI.BUTTON_BOARD);
         boardButtons = new JoystickButton[15];
@@ -95,9 +88,9 @@ public class OI {
         runMagazine.whenPressed(new RunMagazine(true, true, true));
         runMagazine.whenReleased(new RunMagazine(false, false, false));
 
-        runShooter = new JoystickButton(xbox, RobotMap.OI.RUN_SHOOTER);
-        shooterPositionBackward = new JoystickButton(xbox, RobotMap.OI.SHOOTER_BACKWARD);
-        shooterPositionForward = new JoystickButton(xbox, RobotMap.OI.SHOOTER_FORWARD);
+        runShooter = new JoystickButton(secondaryXbox, RobotMap.OI.RUN_SHOOTER);
+        shooterPositionBackward = new JoystickButton(secondaryXbox, RobotMap.OI.SHOOTER_BACKWARD);
+        shooterPositionForward = new JoystickButton(secondaryXbox, RobotMap.OI.SHOOTER_FORWARD);
         runShooter.whileHeld(new Shoot());
         //shooterPositionForward.whenPressed(new RollShooterPosition(true));
         //shooterPositionBackward.whenPressed(new RollShooterPosition(false));
@@ -124,58 +117,70 @@ public class OI {
         retractClimber.whenActive(new DriveClimb(-RobotMap.CLIMBER.CLIMB_UP_POWER));
         extendClimber.whenActive(new DriveClimb(RobotMap.CLIMBER.CLIMB_UP_POWER));
 
-        intakingRoutine = new JoystickButton(xbox, RobotMap.OI.INTAKING_ROUTINE);
+        intakingRoutine = new JoystickButton(secondaryXbox, RobotMap.OI.INTAKING_ROUTINE);
         intakingRoutine.whenPressed(new IntakingRoutine());
 
         //climber safety button
     }
 
-    public double getLeftY(){
+    /**public double getLeftY(){
         return removeDeadband(leftFlight.getY(GenericHID.Hand.kLeft));
     }
 
     public double getRightY(){
         return removeDeadband(rightFlight.getY(GenericHID.Hand.kRight));
+    }*/
+
+    public double getPrimaryXboxLeftTrigger(){
+        return this.primaryXbox.getTriggerAxis(GenericHID.Hand.kLeft);
+    }
+
+    public double getPrimaryXboxRightTrigger(){
+        return this.primaryXbox.getTriggerAxis(GenericHID.Hand.kRight);
+    }
+
+    public double getPrimaryXboxLeftX(){
+        return this.primaryXbox.getX(GenericHID.Hand.kLeft);
     }
 
     public double getXboxRightY(){
-        return this.xbox.getY(GenericHID.Hand.kRight);
+        return this.secondaryXbox.getY(GenericHID.Hand.kRight);
     }
 
     public double getXboxRightX() {
-        return this.xbox.getX(GenericHID.Hand.kRight);
+        return this.secondaryXbox.getX(GenericHID.Hand.kRight);
     }
 
     public double getXboxRightTrigger(){
-        return this.xbox.getTriggerAxis(GenericHID.Hand.kRight);
+        return this.secondaryXbox.getTriggerAxis(GenericHID.Hand.kRight);
     }
 
     public double getXboxLeftTrigger(){
-        return this.xbox.getTriggerAxis(GenericHID.Hand.kLeft);
+        return this.secondaryXbox.getTriggerAxis(GenericHID.Hand.kLeft);
     }
 
     public boolean getXboxRightBumper(){
-        return this.xbox.getBumper(GenericHID.Hand.kRight);
+        return this.secondaryXbox.getBumper(GenericHID.Hand.kRight);
     }
 
     public boolean getXboxLeftBumper(){
-        return this.xbox.getBumper(GenericHID.Hand.kLeft);
+        return this.secondaryXbox.getBumper(GenericHID.Hand.kLeft);
     }
 
     public boolean getXboxDpadUp(){
-        return this.xbox.getPOV() == 0;
+        return this.secondaryXbox.getPOV() == 0;
     }
 
     public boolean getXboxDpadDown(){
-        return this.xbox.getPOV() == 180;
+        return this.secondaryXbox.getPOV() == 180;
     }
 
     public boolean getXboxDpadLeft(){
-        return this.xbox.getPOV() == 270;
+        return this.secondaryXbox.getPOV() == 270;
     }
 
     public boolean getXboxDpadRight(){
-        return this.xbox.getPOV() == 90;
+        return this.secondaryXbox.getPOV() == 90;
     }
 
     /**

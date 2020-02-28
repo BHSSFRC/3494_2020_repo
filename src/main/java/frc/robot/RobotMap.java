@@ -50,9 +50,8 @@ public class RobotMap {
     }
 
     public static class OI {
-        public static int LEFT_FLIGHT = 0;
-        public static int RIGHT_FLIGHT = 1;
-        public static int XBOX = 2;
+        public static int PRIMARY_XBOX = 0;
+        public static int SECONDARY_XBOX = 2;
         public static int BUTTON_BOARD = 3;
 
         //xbox bindings

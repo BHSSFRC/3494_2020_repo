@@ -18,9 +18,9 @@ public class Drive extends CommandBase {
 
     @Override
     public void execute() {
-        double leftPower = powerCurve(OI.getINSTANCE().getLeftY());
-        double rightPower = powerCurve(OI.getINSTANCE().getRightY());
-        DriveTrain.getInstance().tankDrive(leftPower, rightPower);
+        double xSpeed = powerCurve(OI.getINSTANCE().getPrimaryXboxRightTrigger() - OI.getINSTANCE().getPrimaryXboxLeftTrigger());
+        double zRotation = powerCurve(OI.getINSTANCE().getPrimaryXboxLeftX());
+        DriveTrain.getInstance().arcadeDrive(xSpeed, zRotation, false);
     }
 
     private static double powerCurve(double x) {
@@ -35,5 +35,6 @@ public class Drive extends CommandBase {
 
     @Override
     public void end(boolean interrupted) {
+        DriveTrain.getInstance().stop();
     }
 }
