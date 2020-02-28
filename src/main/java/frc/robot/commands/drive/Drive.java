@@ -1,5 +1,6 @@
 package frc.robot.commands.drive;
 
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.OI;
 import frc.robot.RobotConfig;
@@ -20,6 +21,8 @@ public class Drive extends CommandBase {
     public void execute() {
         double xSpeed = powerCurve(OI.getINSTANCE().getPrimaryXboxRightTrigger() - OI.getINSTANCE().getPrimaryXboxLeftTrigger());
         double zRotation = powerCurve(OI.getINSTANCE().getPrimaryXboxLeftX());
+        xSpeed *= SmartDashboard.getNumber("Drive Max Power", 1.0);
+        zRotation *= SmartDashboard.getNumber("Drive Max Power", 1.0);
         DriveTrain.getInstance().arcadeDrive(xSpeed, zRotation, false);
     }
 

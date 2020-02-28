@@ -12,13 +12,14 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
-import frc.robot.commands.CalibrateIMU;
 import frc.robot.commands.RunIntake;
 import frc.robot.commands.RunMagazine;
 import frc.robot.commands.Shoot;
-import frc.robot.sensors.IMU;
 import frc.robot.sensors.Linebreaker;
-import frc.robot.subsystems.*;
+import frc.robot.subsystems.Intake;
+import frc.robot.subsystems.Magazine;
+import frc.robot.subsystems.Pneumatics;
+import frc.robot.subsystems.Shooter;
 
 
 /**
@@ -46,7 +47,7 @@ public class Robot extends TimedRobot {
         String[] SDDoubles = {"Left Y", "Shooter Max Power", "Distance Sensor", "Angle", "Calibrate1", "Calibrate2",
                 "Tuning/PID P", "Tuning/PID I", "Tuning/PID D", "DriveStraight Offset", "DriveTurn Offset", "Turn Power", "XboxLeftTrigger",
                 "Encoder Distance", "Inches to Drive", "Rotation(degrees)", "target-x", "target-y", "Turret Pos", "Pos Degrees",
-                        "Shooter RPM", "Shooter Power Current"};
+                        "Shooter RPM", "Shooter Power Current", "Drive Max Power"};
 
         for (String doubleName : SDDoubles) {
             if (!SmartDashboard.containsKey(doubleName)) {

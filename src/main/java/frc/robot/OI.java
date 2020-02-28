@@ -27,8 +27,8 @@ public class OI {
     private JoystickButton safetyClimber;
     private JoystickButton intakingRoutine;
     private JoystickButton spinHopperMagazine;
-    private JoystickButton shooterHood;
-    private JoystickButton shooterLimit;
+    //private JoystickButton shooterHood;
+    //private JoystickButton shooterLimit;
     private JoystickButton quickTurretLimits;
 
     private ButtonBoard bb;
@@ -73,8 +73,6 @@ public class OI {
         runMagazine.whenReleased(new RunMagazine(false, false, false));
 
         runShooter = new JoystickButton(secondaryXbox, RobotMap.OI.RUN_SHOOTER);
-        shooterPositionBackward = new JoystickButton(secondaryXbox, RobotMap.OI.SHOOTER_BACKWARD);
-        shooterPositionForward = new JoystickButton(secondaryXbox, RobotMap.OI.SHOOTER_FORWARD);
         runShooter.whileHeld(new Shoot());
 
         runHopper = new JoystickButton(bb, RobotMap.OI.RUN_HOPPER);
@@ -95,12 +93,12 @@ public class OI {
 
         intakingRoutine = new JoystickButton(secondaryXbox, RobotMap.OI.INTAKING_ROUTINE);
         intakingRoutine.whenPressed(new IntakingRoutine());
-        shooterHood = new JoystickButton(secondaryXbox, RobotMap.OI.SHOOTER_HOOD);
+        /**shooterHood = new JoystickButton(secondaryXbox, RobotMap.OI.SHOOTER_HOOD);
         shooterHood.whenPressed(new InstantCommand(() ->
                 Shooter.getInstance().setPosition(Shooter.Position.TWO)));
         shooterLimit = new JoystickButton(secondaryXbox, RobotMap.OI.SHOOTER_LIMIT);
         shooterLimit.whenPressed(new InstantCommand(() ->
-                Shooter.getInstance().setPosition(Shooter.Position.THREE)));
+                Shooter.getInstance().setPosition(Shooter.Position.THREE)));*/
 
         shooterPositionBackward = new JoystickButton(secondaryXbox, RobotMap.OI.SHOOTER_BACKWARD);
         shooterPositionBackward.whenPressed(new InstantCommand(() ->

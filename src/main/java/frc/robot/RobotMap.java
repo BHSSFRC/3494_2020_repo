@@ -60,8 +60,8 @@ public class RobotMap {
         public static int SHOOTER_HOOD = 3;
 
         public static int RUN_SHOOTER = 6;
-        public static int SHOOTER_FORWARD = 8;
-        public static int SHOOTER_BACKWARD = 7;
+        public static int SHOOTER_FORWARD = 2;
+        public static int SHOOTER_BACKWARD = 3;
 
         //button board bindings
         public static int RUN_MAGAZINE = 7;
