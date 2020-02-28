@@ -131,6 +131,10 @@ public class OI {
         return this.primaryXbox.getX(GenericHID.Hand.kLeft);
     }
 
+    public boolean getPrimaryXboxA(){
+        return this.primaryXbox.getAButton();
+    }
+
     public double getXboxRightY(){
         return this.secondaryXbox.getY(GenericHID.Hand.kRight);
     }
