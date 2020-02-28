@@ -32,14 +32,30 @@ public final class RobotConfig
 
         public static final double TURN_SPEED = 1.0;
         public static final double ENCODER_TICKS_PER_INCH = 793.7;
+
+        public static final double AUTO_LINE_INCHES = 40;
     }
     public static class SENSORS {
         public static double IMU_OFFSET_PER_SECOND_PHASE_ONE = -0.794775;
         public static double IMU_OFFSET_PER_SECOND_PHASE_TWO = 0.985840;
         public static double IMU_CALIBRATION_TIME = 60;
     }
+    public static class TURRET {
+        public static double DEFAULT_SPIN_POWER = 0.3;
+    }
 
     public static class MAGAZINE {
         public static double MOTOR_DEFAULT_POWER = 0.3;
+        public static double TIME_AFTER_2ND_LINEBREAK_SENSOR = 1.0;
+    }
+
+    public static class SHOOTER {
+        public static double RPM_PER_POWER = 1000;
+        public static double PRESHOOTER_POWER = 0.3;
+        public final double 
+            kP = 0.0,
+            kI = 0.0,
+            kD = 0.0,
+            kF = 0.0;
     }
 }

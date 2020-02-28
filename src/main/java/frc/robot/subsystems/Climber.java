@@ -7,10 +7,14 @@
 
 package frc.robot.subsystems;
 
+import edu.wpi.first.wpilibj2.command.SubsystemBase;
+
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
+
+import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.Solenoid;
-import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.RobotMap;
 
 public class Climber extends SubsystemBase {
@@ -27,6 +31,9 @@ public class Climber extends SubsystemBase {
 		this.wheelOfFortune = new Solenoid(RobotMap.COMPRESSOR.PCM1, RobotMap.CLIMBER.WHEEL_OF_FORTUNE);
 		this.left = new TalonSRX(RobotMap.CLIMBER.LEFT);
 		this.right = new TalonSRX(RobotMap.CLIMBER.RIGHT);
+
+		left.configClosedloopRamp(RobotMap.CLIMBER.CLIMB_UP_RAMPRATE);
+		right.configClosedloopRamp(RobotMap.CLIMBER.CLIMB_UP_RAMPRATE);
 		this.resetEncoder();
 	}
 
@@ -49,6 +56,16 @@ public class Climber extends SubsystemBase {
 
 	public void resetEncoder(){
 		this.left.getSensorCollection().setQuadraturePosition(0, 10);
+	}
+
+	public void drive(double power) {
+		right.set(ControlMode.PercentOutput, power);
+		left.set(ControlMode.PercentOutput, power);
+	}
+
+	public void stop() {
+		right.set(ControlMode.PercentOutput, 0);
+		left.set(ControlMode.PercentOutput, 0);
 	}
 
 	@Override

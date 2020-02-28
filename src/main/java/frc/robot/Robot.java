@@ -12,8 +12,10 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
-import frc.robot.commands.*;
-import frc.robot.sensors.Dist2m;
+import frc.robot.commands.CalibrateIMU;
+import frc.robot.commands.RunIntake;
+import frc.robot.commands.RunMagazine;
+import frc.robot.commands.Shoot;
 import frc.robot.sensors.IMU;
 import frc.robot.sensors.Linebreaker;
 import frc.robot.subsystems.*;
@@ -34,64 +36,44 @@ public class Robot extends TimedRobot {
     private static Linebreaker bottom;
     private static Linebreaker top;
 
-    /**
-     * This method is run when the robot is first started up and should be used for any
-     * initialization code.
-     */
     @Override
     public void robotInit() {
-        // Instantiate our RobotContainer.  This will perform all our button bindings, and put our
-        // autonomous chooser on the dashboard.
-        Intake.getInstance();
-        DriveTrain.getInstance();
-        IMU.getInstance();
-        Pneumatics.getInstance();
-        Magazine.getInstance();
-        Climber.getInstance();
         robotContainer = new RobotContainer();
 
         bottom = new Linebreaker(RobotMap.SENSORS.LINEBREAK_BOT);
         top = new Linebreaker(RobotMap.SENSORS.LINEBREAK_TOP);
 
         String[] SDDoubles = {"Left Y", "Shooter Max Power", "Distance Sensor", "Angle", "Calibrate1", "Calibrate2",
-        "Tuning/PID P", "Tuning/PID I", "Tuning/PID D", "DriveStraight Offset", "DriveTurn Offset", "Turn Power", "XboxLeftTrigger",
-                "Encoder Distance", "Inches to Drive", "Rotation(degrees)"};
+                "Tuning/PID P", "Tuning/PID I", "Tuning/PID D", "DriveStraight Offset", "DriveTurn Offset", "Turn Power", "XboxLeftTrigger",
+                "Encoder Distance", "Inches to Drive", "Rotation(degrees)", "target-x", "target-y", "Turret Pos", "Pos Degrees",
+                        "Shooter RPM", "Shooter Power Current"};
 
-        for(String doubleName :SDDoubles)
-        {
+        for (String doubleName : SDDoubles) {
             if (!SmartDashboard.containsKey(doubleName)) {
                 SmartDashboard.putNumber(doubleName, 1);
                 SmartDashboard.setPersistent(doubleName);
             }
         }
 
-        CommandScheduler.getInstance().setDefaultCommand(DriveTrain.getInstance(), new Drive());
-        //CommandScheduler.getInstance().setDefaultCommand(Shooter.getInstance(), new Shoot());
-        CommandScheduler.getInstance().setDefaultCommand(Magazine.getInstance(), new RunMagazine());
-
+        //If either of these lines are uncommented out, the null exception error shows
+        CommandScheduler.getInstance().setDefaultCommand(Shooter.getInstance(), new Shoot());
         CommandScheduler.getInstance().setDefaultCommand(Intake.getInstance(), new RunIntake());
-        CommandScheduler.getInstance().setDefaultCommand(Climber.getInstance(), new Climb());
+
+        CommandScheduler.getInstance().setDefaultCommand(Magazine.getInstance(), new RunMagazine());
 
         CommandScheduler.getInstance().schedule(new InstantCommand(Pneumatics.getInstance()::startCompressor));
 
-        String[] SDBooleans = {"Dist Sensor Error", "DriveStraight?", "Calibrate IMU?", "DriveDistance?", "Drive?", "Shoot?",
-                "Distance Drive done?"};
+        String[] SDBooleans = {"Dist Sensor Error", "DriveStraight?", "Calibrate IMU?", "DriveDistance?",
+                "Drive?", "Shoot?", "Distance Drive done?"};
 
-        for (String booleanName: SDBooleans){
-            if(!SmartDashboard.containsKey(booleanName)){
+        for (String booleanName : SDBooleans) {
+            if (!SmartDashboard.containsKey(booleanName)) {
                 SmartDashboard.putBoolean(booleanName, false);
                 SmartDashboard.setPersistent(booleanName);
             }
         }
     }
 
-    /**
-     * This method is called every robot packet, no matter the mode. Use this for items like
-     * diagnostics that you want ran during disabled, autonomous, teleoperated and test.
-     *
-     * <p>This runs after the mode specific periodic functions, but before
-     * LiveWindow and SmartDashboard integrated updating.
-     */
     @Override
     public void robotPeriodic() {
         // Runs the Scheduler.  This is responsible for polling buttons, adding newly-scheduled
@@ -100,17 +82,9 @@ public class Robot extends TimedRobot {
         // block in order for anything in the Command-based framework to work.
         CommandScheduler.getInstance().run();
 
-
-        //update SmartDash values
-        //SmartDashboard.putNumber("Distance Sensor", Distance2M.getInstance().getDist());
-        SmartDashboard.putBoolean("Dist Sensor Error", Dist2m.getInstance().isNotEnabled());
-        //SmartDashboard.putNumber("Encoder Distance", DriveTrain.getInstance().getEncoderPosition());
+        //SmartDashboard.putBoolean("Dist Sensor Error", Dist2m.getInstance().isNotEnabled());
     }
 
-
-    /**
-     * This method is called once each time the robot enters Disabled mode.
-     */
     @Override
     public void disabledInit() {
     }
@@ -119,9 +93,6 @@ public class Robot extends TimedRobot {
     public void disabledPeriodic() {
     }
 
-    /**
-     * This autonomous runs the autonomous command selected by your {@link RobotContainer} class.
-     */
     @Override
     public void autonomousInit() {
         autonomousCommand = robotContainer.getAutonomousCommand();
@@ -153,21 +124,17 @@ public class Robot extends TimedRobot {
         //new Drive();
         //new ScheduleCommand(new Drive());
         //CommandScheduler.getInstance().schedule(new Drive());
-        CommandScheduler.getInstance().schedule(new Shoot());
         //CommandScheduler.getInstance().schedule(new Drive());
-        if (SmartDashboard.getBoolean("Calibrate IMU?", false)) {
+        /**if (SmartDashboard.getBoolean("Calibrate IMU?", false)) {
             CommandScheduler.getInstance().schedule(new CalibrateIMU());
-        }
+        }*/
     }
 
-    /**
-     * This method is called periodically during operator control.
-     */
     @Override
     public void teleopPeriodic() {
-        //SmartDashboard.putNumber("Left Y", OI.getINSTANCE().getLeftY());
-        //SmartDashboard.putNumber("Distance Sensor", Dist2m.getInstance().getDist());
-        SmartDashboard.putNumber("XboxLeftTrigger", OI.getINSTANCE().getXboxLeftTrigger());
+        /**SmartDashboard.putNumber("Angle", IMU.getInstance().getYaw());
+        SmartDashboard.putNumber("Shooter RPM", Shooter.getInstance().getRPM());
+        SmartDashboard.putNumber("Turret Pos", Turret.getInstance().getPosition());*/
     }
 
     @Override
@@ -176,18 +143,15 @@ public class Robot extends TimedRobot {
         CommandScheduler.getInstance().cancelAll();
     }
 
-    /**
-     * This method is called periodically during test mode.
-     */
     @Override
     public void testPeriodic() {
     }
 
-    public static Linebreaker getLinebreakBottom(){
+    public static Linebreaker getLinebreakBottom() {
         return bottom;
     }
 
-    public static Linebreaker getLinebreakTop(){
+    public static Linebreaker getLinebreakTop() {
         return top;
     }
 }
