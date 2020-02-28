@@ -2,27 +2,20 @@ package frc.robot;
 
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.XboxController;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.commands.*;
-import frc.robot.commands.drive.DistanceDrive;
-import frc.robot.commands.drive.Drive;
-import frc.robot.commands.drive.DriveStraight;
-import frc.robot.commands.drive.TurnDegrees;
 import frc.robot.commands.teleop.IntakingRoutine;
 import frc.robot.commands.turret.QuickTurretLimit;
-
-;
+import frc.robot.subsystems.Shooter;
 
 public class OI {
     private static OI INSTANCE = new OI();
     private XboxController primaryXbox;
     private XboxController secondaryXbox;
-    private JoystickButton driveStraight;
-    private JoystickButton driveTurn;
-    private JoystickButton driveDistance;
+
     private JoystickButton runMagazine;
 
     private JoystickButton runShooter;
@@ -72,15 +65,6 @@ public class OI {
         bb = new ButtonBoard(RobotMap.OI.BUTTON_BOARD);
         boardButtons = new JoystickButton[15];
 
-        driveStraight = new JoystickButton(bb, RobotMap.OI.DRIVE_STRAIGHT);
-        driveStraight.whenPressed(new DriveStraight());
-        driveStraight.whenReleased(new Drive());
-        driveTurn = new JoystickButton(bb, RobotMap.OI.DRIVE_TURN);
-        driveTurn.whenPressed(new TurnDegrees(SmartDashboard.getNumber("Rotation(degrees)", 0)));
-        driveDistance = new JoystickButton(bb, RobotMap.OI.DRIVE_DISTANCE);
-        //driveDistance.whenPressed(() -> SmartDashboard.putBoolean())
-        driveDistance.whenPressed(new DistanceDrive(SmartDashboard.getNumber("Inches to Drive", 0)), false);
-
         spinHopperMagazine = new JoystickButton(bb, RobotMap.OI.SPIN_HOPPER_MAGAZINE);
         spinHopperMagazine.whenPressed(new ParallelCommandGroup(new RunHopper(), new RunMagazine(true, true, false)));
 
@@ -92,21 +76,13 @@ public class OI {
         shooterPositionBackward = new JoystickButton(secondaryXbox, RobotMap.OI.SHOOTER_BACKWARD);
         shooterPositionForward = new JoystickButton(secondaryXbox, RobotMap.OI.SHOOTER_FORWARD);
         runShooter.whileHeld(new Shoot());
-        //shooterPositionForward.whenPressed(new RollShooterPosition(true));
-        //shooterPositionBackward.whenPressed(new RollShooterPosition(false));
-        //runMagazine.whenPressed(new RunHopper());
-        //runMagazine.whenReleased(new InstantCommand(() -> Hopper.getInstance().stop()));
-
 
         runHopper = new JoystickButton(bb, RobotMap.OI.RUN_HOPPER);
         runHopper.whenPressed(new RunHopper());
 
         quickTurretLimits = new JoystickButton(bb, RobotMap.OI.QUICK_TURRET_LIMITS);
         quickTurretLimits.whenPressed(new QuickTurretLimit());
-        
-        /**releaseClimber = new JoystickButton(bb, RobotMap.OI.RELEASE_CLIMBER);
-        retractClimber = new JoystickButton(bb, RobotMap.OI.REVERSE_CLIMBER);
-        extendClimber = new JoystickButton(bb, RobotMap.OI.DRIVE_CLIMBER);*/
+
         safetyClimber = new JoystickButton(bb, RobotMap.OI.SAFETY_CLIMBER);
         retractClimber = new JoystickButton(bb, RobotMap.OI.REVERSE_CLIMBER).and(safetyClimber);
         extendClimber = new JoystickButton(bb, RobotMap.OI.DRIVE_CLIMBER).and(safetyClimber);
@@ -119,8 +95,12 @@ public class OI {
 
         intakingRoutine = new JoystickButton(secondaryXbox, RobotMap.OI.INTAKING_ROUTINE);
         intakingRoutine.whenPressed(new IntakingRoutine());
-
-        //climber safety button
+        shooterHood = new JoystickButton(secondaryXbox, RobotMap.OI.SHOOTER_HOOD);
+        shooterHood.whenPressed(new InstantCommand(() ->
+                Shooter.getInstance().setPosition(Shooter.Position.TWO)));
+        shooterLimit = new JoystickButton(secondaryXbox, RobotMap.OI.SHOOTER_LIMIT);
+        shooterLimit.whenPressed(new InstantCommand(() ->
+                Shooter.getInstance().setPosition(Shooter.Position.THREE)));
     }
 
     /**public double getLeftY(){
