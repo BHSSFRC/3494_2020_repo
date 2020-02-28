@@ -8,6 +8,7 @@ import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.commands.*;
 import frc.robot.commands.teleop.IntakingRoutine;
+import frc.robot.commands.turret.AimBot;
 import frc.robot.commands.turret.QuickTurretLimit;
 import frc.robot.subsystems.Shooter;
 
@@ -30,6 +31,7 @@ public class OI {
     //private JoystickButton shooterHood;
     //private JoystickButton shooterLimit;
     private JoystickButton quickTurretLimits;
+    private JoystickButton aimBot;
 
     private ButtonBoard bb;
     private JoystickButton[] boardButtons;
@@ -81,6 +83,9 @@ public class OI {
         quickTurretLimits = new JoystickButton(bb, RobotMap.OI.QUICK_TURRET_LIMITS);
         quickTurretLimits.whenPressed(new QuickTurretLimit());
 
+        aimBot = new JoystickButton(bb, RobotMap.OI.AIM_BOT);
+        aimBot.toggleWhenPressed(new AimBot());
+
         safetyClimber = new JoystickButton(bb, RobotMap.OI.SAFETY_CLIMBER);
         retractClimber = new JoystickButton(bb, RobotMap.OI.REVERSE_CLIMBER).and(safetyClimber);
         extendClimber = new JoystickButton(bb, RobotMap.OI.DRIVE_CLIMBER).and(safetyClimber);
@@ -93,12 +98,6 @@ public class OI {
 
         intakingRoutine = new JoystickButton(secondaryXbox, RobotMap.OI.INTAKING_ROUTINE);
         intakingRoutine.whenPressed(new IntakingRoutine());
-        /**shooterHood = new JoystickButton(secondaryXbox, RobotMap.OI.SHOOTER_HOOD);
-        shooterHood.whenPressed(new InstantCommand(() ->
-                Shooter.getInstance().setPosition(Shooter.Position.TWO)));
-        shooterLimit = new JoystickButton(secondaryXbox, RobotMap.OI.SHOOTER_LIMIT);
-        shooterLimit.whenPressed(new InstantCommand(() ->
-                Shooter.getInstance().setPosition(Shooter.Position.THREE)));*/
 
         shooterPositionBackward = new JoystickButton(secondaryXbox, RobotMap.OI.SHOOTER_BACKWARD);
         shooterPositionBackward.whenPressed(new InstantCommand(() ->
