@@ -49,7 +49,10 @@ public class Robot extends TimedRobot {
         PreShooter.getInstance();
         Shooter.getInstance();
         Climber.getInstance();
+
+        //If this line is uncommented out, the null exception error shows
         //Turret.getInstance();
+        
         Hopper.getInstance();
         robotContainer = new RobotContainer();
 
@@ -67,10 +70,14 @@ public class Robot extends TimedRobot {
                 SmartDashboard.setPersistent(doubleName);
             }
         }
+
+        //If either of these lines are uncommented out, the null exception error shows
         //CommandScheduler.getInstance().setDefaultCommand(Shooter.getInstance(), new Shoot());
+        //CommandScheduler.getInstance().setDefaultCommand(Intake.getInstance(), new RunIntake());
+
+
         CommandScheduler.getInstance().setDefaultCommand(Magazine.getInstance(), new RunMagazine());
 
-        CommandScheduler.getInstance().setDefaultCommand(Intake.getInstance(), new RunIntake());
         CommandScheduler.getInstance().schedule(new InstantCommand(Pneumatics.getInstance()::startCompressor));
 
         String[] SDBooleans = {"Dist Sensor Error", "DriveStraight?", "Calibrate IMU?", "DriveDistance?",
