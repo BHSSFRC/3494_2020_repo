@@ -17,11 +17,11 @@ import frc.robot.subsystems.Shooter;
 // https://docs.wpilib.org/en/latest/docs/software/commandbased/convenience-features.html
 public class RollShooterPosition extends InstantCommand {
 
-  private int pov;
-  public RollShooterPosition(int pov){
+  boolean dir;
+  public RollShooterPosition(boolean dir){
     // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(Shooter.getInstance());
-    this.pov = pov;
+    this.dir = dir;
   }
 
   // Called when the command is initially scheduled.
@@ -29,16 +29,14 @@ public class RollShooterPosition extends InstantCommand {
   public void initialize() {
     Shooter.Position pos = Shooter.getInstance().getPosition();
 
-    if (this.pov == 90 || this.pov == 180){
-      if(pov == 90) { // forward
+      if(this.dir) { // forward
         if (pos != Shooter.Position.THREE)
           Shooter.getInstance().setPosition(pos.next());
       } 
-      else if (pov == 180) {
+      else { // backward
         if (pos != Shooter.Position.ONE)
           Shooter.getInstance().setPosition(pos.prev());
       }
-    }
 
 
   }

@@ -4,11 +4,15 @@ package frc.robot.subsystems;
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkMaxLowLevel;
 import edu.wpi.first.wpilibj.DoubleSolenoid;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.RobotMap;
 
+import edu.wpi.first.wpilibj.Timer;
+
 public class Shooter extends SubsystemBase {
 
+    //TODO: get method for whether shooter is at target speed yet
     /**
      * Shooter routine
      * 1 Ramp up shooter, turn on AimBot
@@ -33,7 +37,7 @@ public class Shooter extends SubsystemBase {
 
         private final DoubleSolenoid.Value hood, limiter;
         
-        private Position(DoubleSolenoid.Value hood, DoubleSolenoid.Value limiter){
+        Position(DoubleSolenoid.Value hood, DoubleSolenoid.Value limiter){
             this.hood = hood; // "long piston"
             this.limiter = limiter; // "pancake piston"
         }
@@ -86,12 +90,31 @@ public class Shooter extends SubsystemBase {
         this.left = new CANSparkMax(RobotMap.SHOOTER.LEFT, CANSparkMaxLowLevel.MotorType.kBrushless);
         this.right= new CANSparkMax(RobotMap.SHOOTER.RIGHT, CANSparkMaxLowLevel.MotorType.kBrushless);
 
+        this.left.setInverted(true);
+        this.right.setInverted(true);
+
         this.setPosition(Position.ONE);
     }
 
     public void shoot(double power) {
         this.left.set(power);
-        this.right.set(power);
+        this.right.set(-power);
+        SmartDashboard.putNumber("Shooter Power Current", power);
+    }
+
+    public boolean atTargetSpeed(double targetRPM) {
+        return Math.abs(this.getRPM() - targetRPM) < 10;
+    }
+
+    public double getRPM() {
+        return (this.left.getEncoder().getVelocity()
+                + this.right.getEncoder().getVelocity()) / 2;
+    }
+
+    public void stop()
+    {
+        //this.left.set(0);
+        this.right.set(0);
     }
 
     public Position getPosition()
@@ -99,14 +122,17 @@ public class Shooter extends SubsystemBase {
         return this.currentPosition;
     }
 
+    /*
     public double getVelocity() {
         return ((this.left.getVelocity() + this.left.getVelocity()) / 2);
     }
+    */
 
     public void setPosition(Position position) {
         if (position != this.currentPosition){
             if (position != Position.THREE) {
                 this.hood.set(position.getHood());
+                Timer.delay(50E-3);
                 this.limiter.set(position.getLimiter());
             }
             else
@@ -117,6 +143,7 @@ public class Shooter extends SubsystemBase {
                 this.limiter.set(position.getLimiter());
             }
         }
+        System.out.println(position);
         
         this.currentPosition = position;
     }
