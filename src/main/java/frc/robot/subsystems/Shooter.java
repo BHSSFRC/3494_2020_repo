@@ -37,7 +37,7 @@ public class Shooter extends SubsystemBase {
 
         private final DoubleSolenoid.Value hood, limiter;
         
-        private Position(DoubleSolenoid.Value hood, DoubleSolenoid.Value limiter){
+        Position(DoubleSolenoid.Value hood, DoubleSolenoid.Value limiter){
             this.hood = hood; // "long piston"
             this.limiter = limiter; // "pancake piston"
         }
