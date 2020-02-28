@@ -17,6 +17,7 @@ import frc.robot.commands.drive.Drive;
 import frc.robot.commands.drive.DriveStraight;
 import frc.robot.commands.drive.TurnDegrees;
 import frc.robot.commands.teleop.IntakingRoutine;
+import frc.robot.commands.turret.QuickTurretLimit;
 
 ;
 
@@ -108,6 +109,7 @@ public class OI {
         runHopper.whenPressed(new RunHopper());
 
         quickTurretLimits = new JoystickButton(bb, RobotMap.OI.QUICK_TURRET_LIMITS);
+        quickTurretLimits.whenPressed(new QuickTurretLimit());
         
         /**releaseClimber = new JoystickButton(bb, RobotMap.OI.RELEASE_CLIMBER);
         retractClimber = new JoystickButton(bb, RobotMap.OI.REVERSE_CLIMBER);
