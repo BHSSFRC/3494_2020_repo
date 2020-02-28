@@ -101,6 +101,13 @@ public class OI {
         shooterLimit = new JoystickButton(secondaryXbox, RobotMap.OI.SHOOTER_LIMIT);
         shooterLimit.whenPressed(new InstantCommand(() ->
                 Shooter.getInstance().setPosition(Shooter.Position.THREE)));
+
+        shooterPositionBackward = new JoystickButton(secondaryXbox, RobotMap.OI.SHOOTER_BACKWARD);
+        shooterPositionBackward.whenPressed(new InstantCommand(() ->
+                Shooter.getInstance().setPosition(Shooter.getInstance().prev())));
+        shooterPositionForward = new JoystickButton(secondaryXbox, RobotMap.OI.SHOOTER_FORWARD);
+        shooterPositionBackward.whenPressed(new InstantCommand(() ->
+                Shooter.getInstance().setPosition(Shooter.getInstance().next())));
     }
 
     /**public double getLeftY(){
