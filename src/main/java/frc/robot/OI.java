@@ -10,6 +10,7 @@ import frc.robot.commands.*;
 import frc.robot.commands.teleop.IntakingRoutine;
 import frc.robot.commands.turret.AimBot;
 import frc.robot.commands.turret.QuickTurretLimit;
+import frc.robot.commands.turret.SpinToSetpoint;
 import frc.robot.subsystems.Shooter;
 
 public class OI {
@@ -32,6 +33,7 @@ public class OI {
     //private JoystickButton shooterLimit;
     private JoystickButton quickTurretLimits;
     private JoystickButton aimBot;
+    private JoystickButton turretToStartPos;
 
     private ButtonBoard bb;
     private JoystickButton[] boardButtons;
@@ -85,6 +87,8 @@ public class OI {
 
         aimBot = new JoystickButton(bb, RobotMap.OI.AIM_BOT);
         aimBot.toggleWhenPressed(new AimBot());
+        turretToStartPos = new JoystickButton(bb, RobotMap.OI.TURRET_TO_START_POS);
+        turretToStartPos.whenPressed(new SpinToSetpoint(0));
 
         safetyClimber = new JoystickButton(bb, RobotMap.OI.SAFETY_CLIMBER);
         retractClimber = new JoystickButton(bb, RobotMap.OI.REVERSE_CLIMBER).and(safetyClimber);

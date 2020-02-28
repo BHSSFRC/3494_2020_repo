@@ -19,11 +19,17 @@ public class SpinToSetpoint extends CommandBase {
         this.setpoint = RobotMap.TURRET.RANGE_OF_MOTION / 2;
     }
 
-    public SpinToSetpoint(double degreesToRotate){
+    public SpinToSetpoint(double degreesPosGoal){
+        addRequirements(Turret.getInstance());
+        this.power = RobotConfig.TURRET.DEFAULT_SPIN_POWER;
+        this.setpoint = degreesPosGoal;
+    }
+
+    /**public SpinToSetpoint(double degreesToRotate){
         addRequirements(Turret.getInstance());
         this.power = RobotConfig.TURRET.DEFAULT_SPIN_POWER;
         this.setpoint = Turret.getInstance().getDegreesPosition() + degreesToRotate;
-    }
+    }*/
 
     @Override
     public void initialize() {
