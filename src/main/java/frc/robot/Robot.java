@@ -38,22 +38,6 @@ public class Robot extends TimedRobot {
 
     @Override
     public void robotInit() {
-        // Instantiate our RobotContainer.  This will perform all our button bindings, and put our
-        // autonomous chooser on the dashboard.
-        Intake.getInstance();
-        DriveTrain.getInstance();
-        IMU.getInstance();
-        Pneumatics.getInstance();
-
-        Magazine.getInstance();
-        PreShooter.getInstance();
-        Shooter.getInstance();
-        Climber.getInstance();
-
-        //If this line is uncommented out, the null exception error shows
-        //Turret.getInstance();
-        
-        Hopper.getInstance();
         robotContainer = new RobotContainer();
 
         bottom = new Linebreaker(RobotMap.SENSORS.LINEBREAK_BOT);
@@ -74,7 +58,6 @@ public class Robot extends TimedRobot {
         //If either of these lines are uncommented out, the null exception error shows
         //CommandScheduler.getInstance().setDefaultCommand(Shooter.getInstance(), new Shoot());
         //CommandScheduler.getInstance().setDefaultCommand(Intake.getInstance(), new RunIntake());
-
 
         CommandScheduler.getInstance().setDefaultCommand(Magazine.getInstance(), new RunMagazine());
 
