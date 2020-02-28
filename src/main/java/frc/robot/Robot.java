@@ -56,8 +56,8 @@ public class Robot extends TimedRobot {
         }
 
         //If either of these lines are uncommented out, the null exception error shows
-        //CommandScheduler.getInstance().setDefaultCommand(Shooter.getInstance(), new Shoot());
-        //CommandScheduler.getInstance().setDefaultCommand(Intake.getInstance(), new RunIntake());
+        CommandScheduler.getInstance().setDefaultCommand(Shooter.getInstance(), new Shoot());
+        CommandScheduler.getInstance().setDefaultCommand(Intake.getInstance(), new RunIntake());
 
         CommandScheduler.getInstance().setDefaultCommand(Magazine.getInstance(), new RunMagazine());
 

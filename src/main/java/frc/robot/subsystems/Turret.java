@@ -56,11 +56,10 @@ public class Turret extends PIDSubsystem {
         //       such as SpeedControllers, Encoders, DigitalInputs, etc.
         super(new PIDController(0.5,0,0));
         this.turret = new TalonSRX(RobotMap.TURRET.MOTOR);
-        this.turret.configFactoryDefault();
+        //this.turret.configFactoryDefault();
         this.turret.setNeutralMode(NeutralMode.Brake);
         //this.turret.configOpenloopRamp(2);
         //this.turret.configContinuousCurrentLimit(2);
-        setDefaultCommand(new SpinTurret());
 
         getController().enableContinuousInput(-1,1);
         getController().setTolerance(.03);
