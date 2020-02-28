@@ -4,7 +4,6 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.OI;
 import frc.robot.RobotConfig;
-import frc.robot.RobotMap;
 import frc.robot.sensors.IMU;
 import frc.robot.subsystems.DriveTrain;
 import frc.robot.util.QuadTimer;
@@ -74,13 +73,18 @@ public class DriveStraight extends CommandBase {
     public void execute() {
         double input = IMU.getInstance().getYaw();
         if(!this.steadyPower){
-            power = OI.getINSTANCE().getLeftY();
+            powerCurve(OI.getINSTANCE().getPrimaryXboxRightTrigger() - OI.getINSTANCE().getPrimaryXboxLeftTrigger());
         }
         //double output = this.pidController.calculate(input, this.timer.delta());
         double output = (input - this.initialYaw) * RobotConfig.DRIVE_STRAIGHT.kP_DUMB;
         //double output = this.pidController.calculate(this.initialYaw, this.timer.delta());
         SmartDashboard.putNumber("DriveStraight Offset", output);
         DriveTrain.getInstance().tankDrive(power - output, power + output);
+    }
+
+    private static double powerCurve(double x) {
+        double curve = Math.pow(Math.sin(Math.PI / 2 * Math.abs(x)), RobotConfig.DRIVE.POWER_CURVE_EXPONENT) * Math.signum(x);
+        return Math.copySign(curve, x);
     }
 
     @Override
