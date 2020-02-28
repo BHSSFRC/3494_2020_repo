@@ -104,10 +104,10 @@ public class OI {
 
         shooterPositionBackward = new JoystickButton(secondaryXbox, RobotMap.OI.SHOOTER_BACKWARD);
         shooterPositionBackward.whenPressed(new InstantCommand(() ->
-                Shooter.getInstance().setPosition(Shooter.getInstance().prev())));
+                Shooter.getInstance().setPosition(Shooter.getInstance().getPosition().prev())));
         shooterPositionForward = new JoystickButton(secondaryXbox, RobotMap.OI.SHOOTER_FORWARD);
         shooterPositionBackward.whenPressed(new InstantCommand(() ->
-                Shooter.getInstance().setPosition(Shooter.getInstance().next())));
+                Shooter.getInstance().setPosition(Shooter.getInstance().getPosition().next())));
     }
 
     /**public double getLeftY(){
