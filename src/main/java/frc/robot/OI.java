@@ -30,6 +30,7 @@ public class OI {
     private JoystickButton runHopper;
     private Trigger releaseClimber;
     private Trigger retractClimber;
+    private Trigger reverseClimberSlow;
     private Trigger extendClimber;
     private JoystickButton safetyClimber;
     private JoystickButton intakingRoutine;
@@ -104,12 +105,14 @@ public class OI {
 
         safetyClimber = new JoystickButton(bb, RobotMap.OI.SAFETY_CLIMBER);
         retractClimber = new JoystickButton(bb, RobotMap.OI.REVERSE_CLIMBER).and(safetyClimber);
+        reverseClimberSlow = new JoystickButton(bb, RobotMap.OI.REVERSE_CLIMBER).and(safetyClimber);
         extendClimber = new JoystickButton(bb, RobotMap.OI.DRIVE_CLIMBER).and(safetyClimber);
         releaseClimber = new JoystickButton(bb, RobotMap.OI.RELEASE_CLIMBER).and(safetyClimber);
         //- = down
         //+ = up
         releaseClimber.whenActive(new Climb());
         retractClimber.whileActiveContinuous(new DriveClimb(RobotMap.CLIMBER.CLIMB_DOWN_POWER));
+        reverseClimberSlow.whileActiveContinuous(new DriveClimb(RobotMap.CLIMBER.CLIMB_DOWN_SLOW_POWER));
         extendClimber.whileActiveContinuous(new DriveClimb(RobotMap.CLIMBER.CLIMB_UP_POWER));
 
         //intakingRoutine = new Trigger(() -> this.getXboxLeftBumperPressed());
@@ -128,10 +131,10 @@ public class OI {
 
         shooterPositionBackward = new JoystickButton(secondaryXbox, RobotMap.OI.SHOOTER_BACKWARD);
         shooterPositionBackward.whenPressed(new InstantCommand(() ->
-                Shooter.getInstance().setPosition(Shooter.getInstance().getPosition().prev())));
+                Shooter.getInstance().setPosition(Shooter.getInstance().getPosition().next())));
         shooterPositionForward = new JoystickButton(secondaryXbox, RobotMap.OI.SHOOTER_FORWARD);
         shooterPositionBackward.whenPressed(new InstantCommand(() ->
-                Shooter.getInstance().setPosition(Shooter.getInstance().getPosition().next())));
+                Shooter.getInstance().setPosition(Shooter.getInstance().getPosition().prev())));
 
         toggleLED = new JoystickButton(bb, RobotMap.OI.TOGGLE_LED);
         toggleLED.whenPressed(new InstantCommand(() -> DriveTrain.getInstance().toggleLED()));

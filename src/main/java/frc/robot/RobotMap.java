@@ -70,6 +70,7 @@ public class RobotMap {
         public static int RELEASE_CLIMBER = 12;
         public static int DRIVE_CLIMBER = 14;
         public static int REVERSE_CLIMBER = 13;
+        public static int REVERSE_CLIMBER_SLOW = 5;
         public static int SAFETY_CLIMBER  = 9;
 
         public static int QUICK_TURRET_LIMITS = 2;
@@ -90,6 +91,7 @@ public class RobotMap {
         public static int MOTOR2 = 3;
         public static double CLIMB_UP_POWER = 0.2;
         public static double CLIMB_DOWN_POWER = -.7;
+        public static double CLIMB_DOWN_SLOW_POWER = -0.2;
         public static double CLIMB_UP_RAMPRATE = 0.5;
     }
 

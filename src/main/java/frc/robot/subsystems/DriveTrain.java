@@ -3,8 +3,10 @@ package frc.robot.subsystems;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
+import com.ctre.phoenix.motorcontrol.StatorCurrentLimitConfiguration;
 import com.ctre.phoenix.motorcontrol.can.TalonFX;
 import edu.wpi.first.wpilibj.Relay;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.RobotMap;
 
@@ -23,16 +25,26 @@ public class DriveTrain extends SubsystemBase {
     private final static DriveTrain INSTANCE = new DriveTrain();
 
     private DriveTrain() {
+        StatorCurrentLimitConfiguration currentLimitConfiguration = new StatorCurrentLimitConfiguration(true, 40, 45, 1.0);
         this.leftMaster = new TalonFX(RobotMap.DRIVETRAIN.LEFT_MASTER);
         this.leftMaster.setNeutralMode(NeutralMode.Brake);
+        this.leftMaster.configOpenloopRamp(.025);
+        this.leftMaster.configStatorCurrentLimit(currentLimitConfiguration);
         this.leftSlave = new TalonFX(RobotMap.DRIVETRAIN.LEFT_SLAVE);
         this.leftSlave.setNeutralMode(NeutralMode.Brake);
+        //this.leftSlave.configStatorCurrentLimit(currentLimitConfiguration);
+        this.leftSlave.configOpenloopRamp(.025);
         this.leftMaster.setInverted(true);
         this.leftSlave.setInverted(true);
+
         this.rightMaster = new TalonFX(RobotMap.DRIVETRAIN.RIGHT_MASTER);
+        this.rightMaster.configStatorCurrentLimit(currentLimitConfiguration);
+        this.rightMaster.configOpenloopRamp(.025);
         this.rightMaster.setNeutralMode(NeutralMode.Brake);
         this.rightSlave = new TalonFX(RobotMap.DRIVETRAIN.RIGHT_SLAVE);
-        this.rightSlave.setNeutralMode(NeutralMode.Brake);
+        this.leftSlave.configStatorCurrentLimit(currentLimitConfiguration);
+        //this.rightSlave.setNeutralMode(NeutralMode.Brake);
+        this.rightSlave.configOpenloopRamp(.025);
 
         this.leftSlave.follow(this.leftMaster);
         this.rightSlave.follow(this.rightMaster);
@@ -92,6 +104,7 @@ public class DriveTrain extends SubsystemBase {
             }
         }
         double[] stickSpeeds = normalize(new double[]{leftMotorOutput, rightMotorOutput});
+        SmartDashboard.putNumber("Turn Power", stickSpeeds[0]);
         this.tankDrive(stickSpeeds[0], stickSpeeds[1]);
     }
 

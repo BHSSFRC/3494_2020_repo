@@ -43,8 +43,7 @@ public class Robot extends TimedRobot {
         bottom = new Linebreaker(RobotMap.SENSORS.LINEBREAK_BOT);
         top = new Linebreaker(RobotMap.SENSORS.LINEBREAK_TOP);
 
-        String[] SDDoubles = {"Left Y", "Shooter Max Power", "Distance Sensor", "Angle", "Calibrate1", "Calibrate2",
-                "Tuning/PID P", "Tuning/PID I", "Tuning/PID D", "DriveStraight Offset", "DriveTurn Offset", "Turn Power",
+        String[] SDDoubles = {"Shooter Max Power", "Angle", "Calibrate1", "Calibrate2", "Turn Power",
                 "Encoder Distance", "Inches to Drive", "Rotation(degrees)", "target-x", "target-y", "Turret Pos", "Pos Degrees",
                 "Shooter RPM", "Shooter Power Current", "Drive Max Power", "Flex Shooter Power"};
 
@@ -65,7 +64,7 @@ public class Robot extends TimedRobot {
 
         CommandScheduler.getInstance().schedule(new InstantCommand(Pneumatics.getInstance()::startCompressor));
 
-        String[] SDBooleans = {"Calibrate IMU?", "DriveDistance?", "Distance Drive done?", "Intaking Routine", "Reverse Intake", "Vomit",
+        String[] SDBooleans = {"Calibrate IMU?",
         "Front Limit", "Back Limit"};
 
         for (String booleanName : SDBooleans) {

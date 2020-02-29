@@ -20,10 +20,18 @@ public class Drive extends CommandBase {
     @Override
     public void execute() {
         double xSpeed = powerCurve(OI.getINSTANCE().getPrimaryXboxRightTrigger() - OI.getINSTANCE().getPrimaryXboxLeftTrigger());
-        double zRotation = powerCurve(OI.getINSTANCE().getPrimaryXboxLeftX());
+        double zRotation = OI.getINSTANCE().getPrimaryXboxLeftX();
+        if(zRotation > 0.1){
+            zRotation = .9;
+        }else if(zRotation < -0.1){
+            zRotation = -.9;
+        }
         if(OI.getINSTANCE().getPrimaryXboxA()){
-            xSpeed *= SmartDashboard.getNumber("Drive Max Power", .2);
-            zRotation *= SmartDashboard.getNumber("Drive Max Power", .2);
+            xSpeed *= 0.2;
+            //zRotation *= 0.2;
+        }else{
+            xSpeed *= SmartDashboard.getNumber("Drive Max Power", 1.0);
+            //zRotation *= SmartDashboard.getNumber("Drive Max Power", 1.0);
         }
         DriveTrain.getInstance().arcadeDrive(xSpeed, zRotation, false);
     }
