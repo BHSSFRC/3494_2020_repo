@@ -38,8 +38,8 @@ public class Shoot extends CommandBase {
         double shootPower = OI.getINSTANCE().getXboxLeftTrigger() *
                 SmartDashboard.getNumber("Shooter Max Power", 1);
         Shooter.getInstance().shoot(shootPower);
-        //if (timer.get() > 1 && shootPower > 0.01) {
-        if(shootPower > 0.01){
+        if (timer.get() > 0.5 && shootPower > 0.01) {
+        //if(shootPower > 0.01){
             PreShooter.getInstance().spin(RobotConfig.SHOOTER.PRESHOOTER_POWER);
         }else{
             timer.reset();
