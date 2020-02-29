@@ -18,7 +18,7 @@ public class SpinTurret extends CommandBase {
 
     @Override
     public void execute() {
-        double power = OI.getINSTANCE().getXboxRightX();
+        double power = OI.getINSTANCE().getXboxRightX() * 0.5;
         Turret.getInstance().spin(power);
     }
 
