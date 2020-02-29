@@ -4,6 +4,7 @@ package frc.robot.subsystems;
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkMaxLowLevel;
 import edu.wpi.first.wpilibj.DoubleSolenoid;
+import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.RobotMap;
@@ -132,8 +133,42 @@ public class Shooter extends SubsystemBase {
         if (position != this.currentPosition) {
             if (this.currentPosition == Position.ONE) {
                 switch(position){
-                    this.hood.set(position.getHood());
-                    this.limiter.set(position.getLimiter());
+                    case TWO:
+                        this.hood.set(DoubleSolenoid.Value.kForward);
+                        this.limiter.set(DoubleSolenoid.Value.kReverse);
+                        break;
+                    case THREE:
+                        this.limiter.set(DoubleSolenoid.Value.kForward);
+                        Timer.delay(50E-3);
+                        this.hood.set(DoubleSolenoid.Value.kForward);
+                        break;
+                }
+            } else if (this.currentPosition == Position.TWO) {
+                switch(position){
+                    case ONE:
+                        this.hood.set(DoubleSolenoid.Value.kReverse);
+                        this.limiter.set(DoubleSolenoid.Value.kReverse);
+                        break;
+                    case THREE:
+                        this.hood.set(DoubleSolenoid.Value.kReverse);
+                        Timer.delay(50E-3);
+                        this.limiter.set(DoubleSolenoid.Value.kForward);
+                        Timer.delay(50E-3);
+                        this.hood.set(DoubleSolenoid.Value.kForward);
+                        break;
+                }
+            } else if (this.currentPosition == Position.THREE) {
+                switch(position){
+                    case ONE:
+                        this.hood.set(DoubleSolenoid.Value.kReverse);
+                        this.limiter.set(DoubleSolenoid.Value.kReverse);
+                        break;
+                    case TWO:
+                        this.hood.set(DoubleSolenoid.Value.kReverse);
+                        this.limiter.set(DoubleSolenoid.Value.kReverse);
+                        Timer.delay(100E-3);
+                        this.hood.set(DoubleSolenoid.Value.kForward);
+                        break;
                 }
             }
 
