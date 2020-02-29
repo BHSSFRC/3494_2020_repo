@@ -130,23 +130,55 @@ public class Shooter extends SubsystemBase {
     public void setPosition(Position position) {
         // hood = "long piston"
         // limiter = "pancake"
-        if (position != this.currentPosition){
-            if (position == Position.ONE)
-            {
-                this.limiter.set(position.getLimiter());
-                this.hood.set(position.getHood());
+        System.out.println(position);
+        if (position != this.currentPosition) {
+            System.out.println("if 1");
+            if (this.currentPosition == Position.ONE) {
+                switch(position){
+                    case TWO:
+                        this.hood.set(DoubleSolenoid.Value.kForward);
+                        this.limiter.set(DoubleSolenoid.Value.kReverse);
+                        break;
+                    case THREE:
+                        this.limiter.set(DoubleSolenoid.Value.kForward);
+                        Timer.delay(500E-3);
+                        this.hood.set(DoubleSolenoid.Value.kForward);
+                        break;
+                }
+            } else if (this.currentPosition == Position.TWO) {
+                System.out.println("if 2");
+                switch(position){
+                    case ONE:
+                        this.hood.set(DoubleSolenoid.Value.kReverse);
+                        this.limiter.set(DoubleSolenoid.Value.kReverse);
+                        break;
+                    case THREE:
+                        this.hood.set(DoubleSolenoid.Value.kReverse);
+                        Timer.delay(500E-3);
+                        this.limiter.set(DoubleSolenoid.Value.kForward);
+                        Timer.delay(500E-3);
+                        this.hood.set(DoubleSolenoid.Value.kForward);
+                        break;
+                }
+            } else if (this.currentPosition == Position.THREE) {
+                System.out.println("if 3");
+                switch(position){
+                    case ONE:
+                        this.hood.set(DoubleSolenoid.Value.kReverse);
+                        this.limiter.set(DoubleSolenoid.Value.kReverse);
+                        break;
+                    case TWO:
+                        this.hood.set(DoubleSolenoid.Value.kReverse);
+                        this.limiter.set(DoubleSolenoid.Value.kReverse);
+                        Timer.delay(500E-3);
+                        this.hood.set(DoubleSolenoid.Value.kForward);
+                        break;
+                }
             }
-            else
-            {
-                this.setPosition(Position.ONE);
-                Timer.delay(50E-3);
-                this.limiter.set(position.getLimiter());
-                Timer.delay(50E-3);
-                this.hood.set(position.getHood());
-            }
+
+            this.currentPosition = position;
         }
-        
-        this.currentPosition = position;
+
     }
 
     public static Shooter getInstance() {
