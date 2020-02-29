@@ -130,7 +130,9 @@ public class Shooter extends SubsystemBase {
     public void setPosition(Position position) {
         // hood = "long piston"
         // limiter = "pancake"
+        System.out.println(position);
         if (position != this.currentPosition) {
+            System.out.println("if 1");
             if (this.currentPosition == Position.ONE) {
                 switch(position){
                     case TWO:
@@ -139,11 +141,12 @@ public class Shooter extends SubsystemBase {
                         break;
                     case THREE:
                         this.limiter.set(DoubleSolenoid.Value.kForward);
-                        Timer.delay(50E-3);
+                        Timer.delay(500E-3);
                         this.hood.set(DoubleSolenoid.Value.kForward);
                         break;
                 }
             } else if (this.currentPosition == Position.TWO) {
+                System.out.println("if 2");
                 switch(position){
                     case ONE:
                         this.hood.set(DoubleSolenoid.Value.kReverse);
@@ -151,13 +154,14 @@ public class Shooter extends SubsystemBase {
                         break;
                     case THREE:
                         this.hood.set(DoubleSolenoid.Value.kReverse);
-                        Timer.delay(50E-3);
+                        Timer.delay(500E-3);
                         this.limiter.set(DoubleSolenoid.Value.kForward);
-                        Timer.delay(50E-3);
+                        Timer.delay(500E-3);
                         this.hood.set(DoubleSolenoid.Value.kForward);
                         break;
                 }
             } else if (this.currentPosition == Position.THREE) {
+                System.out.println("if 3");
                 switch(position){
                     case ONE:
                         this.hood.set(DoubleSolenoid.Value.kReverse);
@@ -166,7 +170,7 @@ public class Shooter extends SubsystemBase {
                     case TWO:
                         this.hood.set(DoubleSolenoid.Value.kReverse);
                         this.limiter.set(DoubleSolenoid.Value.kReverse);
-                        Timer.delay(100E-3);
+                        Timer.delay(500E-3);
                         this.hood.set(DoubleSolenoid.Value.kForward);
                         break;
                 }

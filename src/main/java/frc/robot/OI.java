@@ -16,7 +16,6 @@ import frc.robot.commands.turret.SpinToPosition;
 import frc.robot.subsystems.DriveTrain;
 import frc.robot.subsystems.Hopper;
 import frc.robot.subsystems.Magazine;
-import frc.robot.subsystems.Shooter;
 
 public class OI {
     private static OI INSTANCE = new OI();
@@ -130,11 +129,9 @@ public class OI {
         //        new InstantCommand(() -> Hopper.getInstance().stop())));
 
         shooterPositionBackward = new JoystickButton(secondaryXbox, RobotMap.OI.SHOOTER_BACKWARD);
-        shooterPositionBackward.whenPressed(new InstantCommand(() ->
-                Shooter.getInstance().setPosition(Shooter.getInstance().getPosition().next())));
+        shooterPositionBackward.whenPressed(new RollShooterPosition(false));
         shooterPositionForward = new JoystickButton(secondaryXbox, RobotMap.OI.SHOOTER_FORWARD);
-        shooterPositionBackward.whenPressed(new InstantCommand(() ->
-                Shooter.getInstance().setPosition(Shooter.getInstance().getPosition().prev())));
+        shooterPositionForward.whenPressed(new RollShooterPosition(true));
 
         toggleLED = new JoystickButton(bb, RobotMap.OI.TOGGLE_LED);
         toggleLED.whenPressed(new InstantCommand(() -> DriveTrain.getInstance().toggleLED()));
