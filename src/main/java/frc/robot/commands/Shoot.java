@@ -14,17 +14,25 @@ public class Shoot extends CommandBase {
     boolean releasedUp = true;
     boolean releasedDown = true;
     boolean doneMoving = true;
-    boolean spinPreShooter;
     private double targetRPM;
     private QuadTimer timer;
+    private double shootPower;
+    private boolean fixedSpeed;
 
     public Shoot() {
         addRequirements(Shooter.getInstance(), PreShooter.getInstance());
-        this.spinPreShooter = false;
         /**this.targetRPM = OI.getINSTANCE().getXboxLeftTrigger() *
                 SmartDashboard.getNumber("Shooter Max Power", 1) *
                 RobotConfig.SHOOTER.RPM_PER_POWER;*/
         this.timer = new QuadTimer();
+        this.fixedSpeed = false;
+    }
+
+    public Shoot(double fixedPower) {
+        addRequirements(Shooter.getInstance(), PreShooter.getInstance());
+        this.timer = new QuadTimer();
+        this.fixedSpeed = true;
+        this.shootPower = fixedPower;
     }
 
     @Override
@@ -35,20 +43,21 @@ public class Shoot extends CommandBase {
 
     @Override
     public void execute() {
-        double shootPower;
-        if(SmartDashboard.getNumber("Shooter Max Power", .8) != -1){
-            shootPower = OI.getINSTANCE().getXboxLeftTrigger() *
-                    SmartDashboard.getNumber("Shooter Max Power", 1);
-        }else{
-            shootPower = OI.getINSTANCE().getXboxLeftTrigger() *
-                    RobotConfig.SHOOTER.SHOOTER_MAX_POWER;
+        if(!this.fixedSpeed){
+            if(SmartDashboard.getNumber("Shooter Max Power", .8) != -1){
+                shootPower = OI.getINSTANCE().getXboxLeftTrigger() *
+                        SmartDashboard.getNumber("Shooter Max Power", 1);
+            }else{
+                shootPower = OI.getINSTANCE().getXboxLeftTrigger() *
+                        RobotConfig.SHOOTER.SHOOTER_MAX_POWER;
+            }
         }
         Shooter.getInstance().shoot(shootPower);
         //if (timer.get() > 0.5 && shootPower > 0.01) {
         if(shootPower > 0.01){
             PreShooter.getInstance().spin(RobotConfig.SHOOTER.PRESHOOTER_POWER);
         }else{
-            timer.reset();
+            //timer.reset();
             PreShooter.getInstance().stop();
         }
     }
