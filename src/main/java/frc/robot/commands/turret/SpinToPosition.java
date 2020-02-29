@@ -6,20 +6,20 @@ import frc.robot.RobotConfig;
 import frc.robot.RobotMap;
 import frc.robot.subsystems.Turret;
 
-public class SpinToSetpoint extends CommandBase {
+public class SpinToPosition extends CommandBase {
     private double setpoint;
     private double power;
     private boolean alwaysUpdateSetpoint;
 
     //when called without an argument, will spin to the center position of the turret
-    public SpinToSetpoint() {
+    public SpinToPosition() {
         // If any subsystems are needed, you will need to pass them into the requires() method
         addRequirements(Turret.getInstance());
         this.power = RobotConfig.TURRET.DEFAULT_SPIN_POWER;
         this.setpoint = RobotMap.TURRET.RANGE_OF_MOTION / 2;
     }
 
-    public SpinToSetpoint(double degreesPosGoal){
+    public SpinToPosition(double degreesPosGoal){
         addRequirements(Turret.getInstance());
         this.power = RobotConfig.TURRET.DEFAULT_SPIN_POWER;
         this.setpoint = degreesPosGoal;

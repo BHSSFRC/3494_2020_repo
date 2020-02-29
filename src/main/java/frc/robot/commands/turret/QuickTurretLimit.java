@@ -33,6 +33,6 @@ public class QuickTurretLimit extends CommandBase {
         Turret.getInstance().spin(0);
         Turret.getInstance().resetEncoder();
         Turret.getInstance().setAllLimits();
-        CommandScheduler.getInstance().schedule(new SpinToSetpoint(130));
+        CommandScheduler.getInstance().schedule(new SpinToPosition(130));
     }
 }

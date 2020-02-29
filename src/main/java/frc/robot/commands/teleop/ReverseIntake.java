@@ -1,5 +1,6 @@
 package frc.robot.commands.teleop;
 
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.RobotConfig;
 import frc.robot.subsystems.Hopper;
@@ -19,7 +20,7 @@ public class ReverseIntake extends CommandBase {
 
     @Override
     public void initialize() {
-
+        SmartDashboard.putBoolean("Reverse Intake", true);
     }
 
     @Override
@@ -38,6 +39,7 @@ public class ReverseIntake extends CommandBase {
 
     @Override
     public void end(boolean interrupted) {
+        SmartDashboard.putBoolean("Reverse Intake", false);
         PreShooter.getInstance().stop();
         Magazine.getInstance().stop();
         Hopper.getInstance().stop();

@@ -64,8 +64,7 @@ public class Robot extends TimedRobot {
 
         CommandScheduler.getInstance().schedule(new InstantCommand(Pneumatics.getInstance()::startCompressor));
 
-        String[] SDBooleans = {"Dist Sensor Error", "DriveStraight?", "Calibrate IMU?", "DriveDistance?",
-                "Drive?", "Shoot?", "Distance Drive done?"};
+        String[] SDBooleans = {"Calibrate IMU?", "DriveDistance?", "Distance Drive done?", "Intaking Routine", "Reverse Intake"};
 
         for (String booleanName : SDBooleans) {
             if (!SmartDashboard.containsKey(booleanName)) {

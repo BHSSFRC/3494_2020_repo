@@ -18,7 +18,7 @@ public class Hopper extends SubsystemBase {
     }
 
     public void spin(double power) {
-        this.motor.set(ControlMode.PercentOutput, power);
+        this.motor.set(ControlMode.PercentOutput, -power);
     }
 
     public void stop() {

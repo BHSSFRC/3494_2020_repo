@@ -11,7 +11,9 @@ import frc.robot.commands.teleop.IntakingRoutine;
 import frc.robot.commands.teleop.ReverseIntake;
 import frc.robot.commands.turret.AimBot;
 import frc.robot.commands.turret.QuickTurretLimit;
-import frc.robot.commands.turret.SpinToSetpoint;
+import frc.robot.commands.turret.SpinToPosition;
+import frc.robot.subsystems.Hopper;
+import frc.robot.subsystems.Magazine;
 import frc.robot.subsystems.Shooter;
 
 public class OI {
@@ -71,10 +73,13 @@ public class OI {
         bb = new ButtonBoard(RobotMap.OI.BUTTON_BOARD);
         boardButtons = new JoystickButton[15];
 
-        spinHopperMagazine = new JoystickButton(secondaryXbox, RobotMap.OI.SPIN_HOPPER_MAGAZINE);
+        spinHopperMagazine = new JoystickButton(bb, RobotMap.OI.SPIN_HOPPER_MAGAZINE);
+        //spinHopperMagazine.whenPressed(new RunHopper(), new RunMagazine());
         spinHopperMagazine.whenPressed(new ParallelCommandGroup(new RunHopper(), new RunMagazine(true, true, false)));
+        spinHopperMagazine.whenReleased(new ParallelCommandGroup(new InstantCommand(() -> Hopper.getInstance().stop()),
+                                                               new RunMagazine(false, false, false)));
         reverseIntake = new JoystickButton(bb, RobotMap.OI.REVERSE_INTAKE);
-        reverseIntake.whenPressed(new ReverseIntake());
+        reverseIntake.whileHeld(new ReverseIntake());
 
         runMagazine = new JoystickButton(bb, RobotMap.OI.RUN_MAGAZINE);
         runMagazine.whenPressed(new RunMagazine(true, true, true));
@@ -92,7 +97,7 @@ public class OI {
         aimBot = new JoystickButton(bb, RobotMap.OI.AIM_BOT);
         aimBot.toggleWhenPressed(new AimBot());
         turretToStartPos = new JoystickButton(bb, RobotMap.OI.TURRET_TO_START_POS);
-        turretToStartPos.whenPressed(new SpinToSetpoint(0));
+        turretToStartPos.whenPressed(new SpinToPosition(0.0));
 
         safetyClimber = new JoystickButton(bb, RobotMap.OI.SAFETY_CLIMBER);
         retractClimber = new JoystickButton(bb, RobotMap.OI.REVERSE_CLIMBER).and(safetyClimber);
@@ -104,8 +109,8 @@ public class OI {
         retractClimber.whenActive(new DriveClimb(-RobotMap.CLIMBER.CLIMB_UP_POWER));
         extendClimber.whenActive(new DriveClimb(RobotMap.CLIMBER.CLIMB_UP_POWER));
 
-        intakingRoutine = new Trigger(() -> secondaryXbox.getBumper(GenericHID.Hand.kLeft));
-        intakingRoutine.whenActive(new IntakingRoutine());
+        intakingRoutine = new Trigger(() -> this.getXboxLeftBumper());
+        intakingRoutine.whenActive(new IntakingRoutine(Magazine.getInstance(), Hopper.getInstance()));
 
         shooterPositionBackward = new JoystickButton(secondaryXbox, RobotMap.OI.SHOOTER_BACKWARD);
         shooterPositionBackward.whenPressed(new InstantCommand(() ->

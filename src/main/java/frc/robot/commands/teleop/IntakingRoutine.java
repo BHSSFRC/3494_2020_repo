@@ -1,6 +1,7 @@
 package frc.robot.commands.teleop;
 
 
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
 import edu.wpi.first.wpilibj2.command.ParallelDeadlineGroup;
@@ -11,12 +12,14 @@ import frc.robot.commands.RunHopper;
 import frc.robot.commands.RunMagazine;
 import frc.robot.subsystems.Hopper;
 import frc.robot.Robot;
+import frc.robot.subsystems.Magazine;
 
 import java.awt.*;
 
 public class IntakingRoutine extends SequentialCommandGroup {
-    public IntakingRoutine() {
-        super(
+    public IntakingRoutine(Magazine mag, Hopper hop) {
+        SmartDashboard.putBoolean("Intaking Routine", true);
+        addCommands(
                 new ParallelDeadlineGroup(
                         new SequentialCommandGroup(
                                 new RunMagazine(true, false, false).withInterrupt(() -> Robot.getLinebreakBottom().lineBroken()),
@@ -27,7 +30,7 @@ public class IntakingRoutine extends SequentialCommandGroup {
                         new RunHopper()
                 ),
                 new InstantCommand(() -> Hopper.getInstance().stop()),
-                new RunMagazine(false, false, false)
+                new InstantCommand(() -> Magazine.getInstance().stop())
                 /**new ParallelCommandGroup(
                         //new RunHopper(),
                         new RunMagazine(true, false, false)
@@ -42,5 +45,6 @@ public class IntakingRoutine extends SequentialCommandGroup {
                 ).withInterrupt(() -> Robot.getLinebreakBottom().lineBroken()), //withInterrupt(sensor 1 sees a ball, magazine is full)*/
                 //new InstantCommand(() -> Hopper.getInstance().stop()),
         );
+        SmartDashboard.putBoolean("Intaking Routine", false);
     }
 }
