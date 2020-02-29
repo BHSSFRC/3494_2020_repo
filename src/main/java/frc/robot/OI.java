@@ -82,7 +82,7 @@ public class OI {
         boardButtons = new JoystickButton[15];
 
         reverseIntake = new JoystickButton(bb, RobotMap.OI.REVERSE_INTAKE);
-        reverseIntake.whileHeld(new ReverseIntake());
+        reverseIntake.toggleWhenPressed(new ReverseIntake());
 
         runMagazine = new JoystickButton(bb, RobotMap.OI.RUN_MAGAZINE);
         runMagazine.whenPressed(new RunMagazine(true, true, true));
@@ -104,7 +104,7 @@ public class OI {
 
         safetyClimber = new JoystickButton(bb, RobotMap.OI.SAFETY_CLIMBER);
         retractClimber = new JoystickButton(bb, RobotMap.OI.REVERSE_CLIMBER).and(safetyClimber);
-        reverseClimberSlow = new JoystickButton(bb, RobotMap.OI.REVERSE_CLIMBER).and(safetyClimber);
+        reverseClimberSlow = new JoystickButton(bb, RobotMap.OI.REVERSE_CLIMBER_SLOW).and(safetyClimber);
         extendClimber = new JoystickButton(bb, RobotMap.OI.DRIVE_CLIMBER).and(safetyClimber);
         releaseClimber = new JoystickButton(bb, RobotMap.OI.RELEASE_CLIMBER).and(safetyClimber);
         //- = down
