@@ -40,8 +40,8 @@ public class RobotMap {
     public static final class TURRET {
         public static final int MOTOR = 3;
 
-        public static final int ENCODER_CHANNEL_A = 2;
-        public static final int ENCODER_CHANNEL_B = 3;
+        public static final int ENCODER_CHANNEL_A = 3;
+        public static final int ENCODER_CHANNEL_B = 4;
         public static final int LIMIT_SWITCH_BACK = 0;
         public static final int LIMIT_SWITCH_FRONT = 1;
 
