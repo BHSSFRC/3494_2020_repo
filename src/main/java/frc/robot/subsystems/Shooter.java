@@ -4,11 +4,10 @@ package frc.robot.subsystems;
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkMaxLowLevel;
 import edu.wpi.first.wpilibj.DoubleSolenoid;
+import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.RobotMap;
-
-import edu.wpi.first.wpilibj.Timer;
 
 public class Shooter extends SubsystemBase {
 
@@ -129,21 +128,23 @@ public class Shooter extends SubsystemBase {
     */
 
     public void setPosition(Position position) {
+        // hood = "long piston"
+        // limiter = "pancake"
         if (position != this.currentPosition){
-            if (position != Position.THREE) {
-                this.hood.set(position.getHood());
-                Timer.delay(50E-3);
+            if (position == Position.ONE)
+            {
                 this.limiter.set(position.getLimiter());
+                this.hood.set(position.getHood());
             }
             else
             {
                 this.setPosition(Position.ONE);
-                this.hood.set(position.getHood());
-                Timer.delay(50E-3); // 50ms
+                Timer.delay(50E-3);
                 this.limiter.set(position.getLimiter());
+                Timer.delay(50E-3);
+                this.hood.set(position.getHood());
             }
         }
-        System.out.println(position);
         
         this.currentPosition = position;
     }
