@@ -38,7 +38,7 @@ public class RobotMap {
     }
 
     public static final class TURRET {
-        public static final int MOTOR = 3;
+        public static final int MOTOR = 5;
 
         public static final int ENCODER_CHANNEL_A = 3;
         public static final int ENCODER_CHANNEL_B = 4;
@@ -74,6 +74,8 @@ public class RobotMap {
         public static int QUICK_TURRET_LIMITS = 2;
         public static int TURRET_TO_START_POS = 3;
         public static int AIM_BOT = 10;
+
+        public static int TOGGLE_LED = 8;
     }
 
     public static class CLIMBER {
@@ -90,6 +92,8 @@ public class RobotMap {
 
         public static int LINEBREAK_BOT = 6;
         public static int LINEBREAK_TOP = 5;
+
+        public static int SPIKE = 0;
     }
     
     public static class COMPRESSOR {

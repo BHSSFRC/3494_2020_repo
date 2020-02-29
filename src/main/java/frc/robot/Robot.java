@@ -15,11 +15,10 @@ import edu.wpi.first.wpilibj2.command.InstantCommand;
 import frc.robot.commands.RunIntake;
 import frc.robot.commands.RunMagazine;
 import frc.robot.commands.Shoot;
+import frc.robot.commands.drive.Drive;
+import frc.robot.commands.turret.SpinTurret;
 import frc.robot.sensors.Linebreaker;
-import frc.robot.subsystems.Intake;
-import frc.robot.subsystems.Magazine;
-import frc.robot.subsystems.Pneumatics;
-import frc.robot.subsystems.Shooter;
+import frc.robot.subsystems.*;
 
 
 /**
@@ -59,12 +58,15 @@ public class Robot extends TimedRobot {
         //If either of these lines are uncommented out, the null exception error shows
         CommandScheduler.getInstance().setDefaultCommand(Shooter.getInstance(), new Shoot());
         CommandScheduler.getInstance().setDefaultCommand(Intake.getInstance(), new RunIntake());
+        CommandScheduler.getInstance().setDefaultCommand(Turret.getInstance(), new SpinTurret());
+        CommandScheduler.getInstance().setDefaultCommand(DriveTrain.getInstance(), new Drive());
 
         CommandScheduler.getInstance().setDefaultCommand(Magazine.getInstance(), new RunMagazine());
 
         CommandScheduler.getInstance().schedule(new InstantCommand(Pneumatics.getInstance()::startCompressor));
 
-        String[] SDBooleans = {"Calibrate IMU?", "DriveDistance?", "Distance Drive done?", "Intaking Routine", "Reverse Intake"};
+        String[] SDBooleans = {"Calibrate IMU?", "DriveDistance?", "Distance Drive done?", "Intaking Routine", "Reverse Intake", "Vomit",
+        "Front Limit", "Back Limit"};
 
         for (String booleanName : SDBooleans) {
             if (!SmartDashboard.containsKey(booleanName)) {
@@ -135,6 +137,8 @@ public class Robot extends TimedRobot {
         /**SmartDashboard.putNumber("Angle", IMU.getInstance().getYaw());
         SmartDashboard.putNumber("Shooter RPM", Shooter.getInstance().getRPM());
         SmartDashboard.putNumber("Turret Pos", Turret.getInstance().getPosition());*/
+        SmartDashboard.putBoolean("Front Limit", Turret.getInstance().atFrontLimit());
+        SmartDashboard.putBoolean("Back Limit", Turret.getInstance().atBackLimit());
     }
 
     @Override

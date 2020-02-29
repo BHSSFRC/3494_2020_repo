@@ -4,6 +4,7 @@ import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
+import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.commands.*;
@@ -12,6 +13,7 @@ import frc.robot.commands.teleop.ReverseIntake;
 import frc.robot.commands.turret.AimBot;
 import frc.robot.commands.turret.QuickTurretLimit;
 import frc.robot.commands.turret.SpinToPosition;
+import frc.robot.subsystems.DriveTrain;
 import frc.robot.subsystems.Hopper;
 import frc.robot.subsystems.Magazine;
 import frc.robot.subsystems.Shooter;
@@ -32,12 +34,15 @@ public class OI {
     private JoystickButton safetyClimber;
     private Trigger intakingRoutine;
     private JoystickButton spinHopperMagazine;
+    private Trigger stopHopperMagazine;
     private JoystickButton reverseIntake;
     //private JoystickButton shooterHood;
     //private JoystickButton shooterLimit;
     private JoystickButton quickTurretLimits;
     private JoystickButton aimBot;
     private JoystickButton turretToStartPos;
+
+    private JoystickButton toggleLED;
 
     private ButtonBoard bb;
     private JoystickButton[] boardButtons;
@@ -75,9 +80,9 @@ public class OI {
 
         spinHopperMagazine = new JoystickButton(bb, RobotMap.OI.SPIN_HOPPER_MAGAZINE);
         //spinHopperMagazine.whenPressed(new RunHopper(), new RunMagazine());
-        spinHopperMagazine.whenPressed(new ParallelCommandGroup(new RunHopper(), new RunMagazine(true, true, false)));
+        spinHopperMagazine.whileHeld(new ParallelCommandGroup(new RunHopper(), new RunMagazine(true, true, false)));
         spinHopperMagazine.whenReleased(new ParallelCommandGroup(new InstantCommand(() -> Hopper.getInstance().stop()),
-                                                               new RunMagazine(false, false, false)));
+                                                               new InstantCommand(() -> Magazine.getInstance().stop())));
         reverseIntake = new JoystickButton(bb, RobotMap.OI.REVERSE_INTAKE);
         reverseIntake.whileHeld(new ReverseIntake());
 
@@ -109,8 +114,11 @@ public class OI {
         retractClimber.whenActive(new DriveClimb(-RobotMap.CLIMBER.CLIMB_UP_POWER));
         extendClimber.whenActive(new DriveClimb(RobotMap.CLIMBER.CLIMB_UP_POWER));
 
-        intakingRoutine = new Trigger(() -> this.getXboxLeftBumper());
+        intakingRoutine = new Trigger(() -> this.getXboxLeftBumperPressed());
         intakingRoutine.whenActive(new IntakingRoutine(Magazine.getInstance(), Hopper.getInstance()));
+        stopHopperMagazine = new Trigger(() -> this.getXboxLeftBumperReleased());
+        stopHopperMagazine.whenActive(new SequentialCommandGroup(new InstantCommand(() -> Magazine.getInstance().stop()),
+                new InstantCommand(() -> Hopper.getInstance().stop())));
 
         shooterPositionBackward = new JoystickButton(secondaryXbox, RobotMap.OI.SHOOTER_BACKWARD);
         shooterPositionBackward.whenPressed(new InstantCommand(() ->
@@ -118,6 +126,9 @@ public class OI {
         shooterPositionForward = new JoystickButton(secondaryXbox, RobotMap.OI.SHOOTER_FORWARD);
         shooterPositionBackward.whenPressed(new InstantCommand(() ->
                 Shooter.getInstance().setPosition(Shooter.getInstance().getPosition().next())));
+
+        toggleLED = new JoystickButton(bb, RobotMap.OI.TOGGLE_LED);
+        toggleLED.whenPressed(new InstantCommand(() -> DriveTrain.getInstance().toggleLED()));
     }
 
     /**public double getLeftY(){
@@ -166,6 +177,14 @@ public class OI {
 
     public boolean getXboxLeftBumper(){
         return this.secondaryXbox.getBumper(GenericHID.Hand.kLeft);
+    }
+
+    public boolean getXboxLeftBumperPressed(){
+        return this.secondaryXbox.getBumperPressed(GenericHID.Hand.kLeft);
+    }
+
+    public boolean getXboxLeftBumperReleased(){
+        return this.secondaryXbox.getBumperReleased(GenericHID.Hand.kLeft);
     }
 
     public boolean getXboxDpadUp(){

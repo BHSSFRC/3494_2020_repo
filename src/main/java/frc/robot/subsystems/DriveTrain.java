@@ -4,6 +4,7 @@ package frc.robot.subsystems;
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.can.TalonFX;
+import edu.wpi.first.wpilibj.Relay;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.RobotMap;
 
@@ -16,6 +17,8 @@ public class DriveTrain extends SubsystemBase {
     private TalonFX leftSlave;
     private TalonFX rightMaster;
     private TalonFX rightSlave;
+
+    private Relay led;
 
     private final static DriveTrain INSTANCE = new DriveTrain();
 
@@ -33,11 +36,21 @@ public class DriveTrain extends SubsystemBase {
 
         this.leftSlave.follow(this.leftMaster);
         this.rightSlave.follow(this.rightMaster);
+
+        this.led = new Relay(RobotMap.SENSORS.SPIKE);
+    }
+
+    public void toggleLED(){
+        if(this.led.get() == Relay.Value.kOn){
+            this.led.set(Relay.Value.kOff);
+        }else{
+            this.led.set(Relay.Value.kOn);
+        }
     }
 
     public void tankDrive(double leftPower, double rightPower){
-        this.leftMaster.set(ControlMode.PercentOutput, leftPower);
-        this.rightMaster.set(ControlMode.PercentOutput, rightPower);
+        this.leftMaster.set(ControlMode.PercentOutput, -leftPower);
+        this.rightMaster.set(ControlMode.PercentOutput, -rightPower);
     }
 
     public void arcadeDrive(double xSpeed, double zRotation, boolean squaredInputs) {
