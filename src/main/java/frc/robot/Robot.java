@@ -46,8 +46,7 @@ public class Robot extends TimedRobot {
         String[] SDDoubles = {"Left Y", "Shooter Max Power", "Distance Sensor", "Angle", "Calibrate1", "Calibrate2",
                 "Tuning/PID P", "Tuning/PID I", "Tuning/PID D", "DriveStraight Offset", "DriveTurn Offset", "Turn Power",
                 "Encoder Distance", "Inches to Drive", "Rotation(degrees)", "target-x", "target-y", "Turret Pos", "Pos Degrees",
-                "Shooter RPM", "Shooter Power Current", "Drive Max Power",
-                "S Low", "S Med", "S High"};
+                "Shooter RPM", "Shooter Power Current", "Drive Max Power", "Flex Shooter Power"};
 
         for (String doubleName : SDDoubles) {
             if (!SmartDashboard.containsKey(doubleName)) {
@@ -140,6 +139,7 @@ public class Robot extends TimedRobot {
         SmartDashboard.putNumber("Turret Pos", Turret.getInstance().getPosition());*/
         SmartDashboard.putBoolean("Front Limit", Turret.getInstance().atFrontLimit());
         SmartDashboard.putBoolean("Back Limit", Turret.getInstance().atBackLimit());
+        SmartDashboard.putNumber("Flex Shooter Power", RobotConfig.SHOOTER.SHOOTER_MAX_POWER);
     }
 
     @Override

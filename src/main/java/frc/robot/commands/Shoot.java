@@ -35,8 +35,14 @@ public class Shoot extends CommandBase {
 
     @Override
     public void execute() {
-        double shootPower = OI.getINSTANCE().getXboxLeftTrigger() *
-                SmartDashboard.getNumber("Shooter Max Power", 1);
+        double shootPower;
+        if(SmartDashboard.getNumber("Shooter Max Power", .8) != -1){
+            shootPower = OI.getINSTANCE().getXboxLeftTrigger() *
+                    SmartDashboard.getNumber("Shooter Max Power", 1);
+        }else{
+            shootPower = OI.getINSTANCE().getXboxLeftTrigger() *
+                    RobotConfig.SHOOTER.SHOOTER_MAX_POWER;
+        }
         Shooter.getInstance().shoot(shootPower);
         if (timer.get() > 0.5 && shootPower > 0.01) {
         //if(shootPower > 0.01){
