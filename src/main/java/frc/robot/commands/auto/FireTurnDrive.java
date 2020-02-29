@@ -17,7 +17,7 @@ public class FireTurnDrive extends SequentialCommandGroup {
                 new ParallelCommandGroup(
                         new Shoot(0.7),
                         new RunHopperMagazine()).withTimeout(5),
-                new TurnDegrees(90).withTimeout(4),
+                new TurnDegrees(80).withTimeout(4),
                 new DistanceDrive(40)
         );
     }
