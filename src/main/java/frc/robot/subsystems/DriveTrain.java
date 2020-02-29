@@ -49,8 +49,8 @@ public class DriveTrain extends SubsystemBase {
     }
 
     public void tankDrive(double leftPower, double rightPower){
-        this.leftMaster.set(ControlMode.PercentOutput, -leftPower);
-        this.rightMaster.set(ControlMode.PercentOutput, -rightPower);
+        this.leftMaster.set(ControlMode.PercentOutput, leftPower);
+        this.rightMaster.set(ControlMode.PercentOutput, rightPower);
     }
 
     public void arcadeDrive(double xSpeed, double zRotation, boolean squaredInputs) {

@@ -2,6 +2,7 @@ package frc.robot;
 
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.XboxController;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
@@ -41,6 +42,9 @@ public class OI {
     private JoystickButton quickTurretLimits;
     private JoystickButton aimBot;
     private JoystickButton turretToStartPos;
+    private JoystickButton shooterLow;
+    private JoystickButton shooterMed;
+    private JoystickButton shooterHigh;
 
     private JoystickButton toggleLED;
 
@@ -129,6 +133,16 @@ public class OI {
 
         toggleLED = new JoystickButton(bb, RobotMap.OI.TOGGLE_LED);
         toggleLED.whenPressed(new InstantCommand(() -> DriveTrain.getInstance().toggleLED()));
+
+        shooterLow = new JoystickButton(bb, RobotMap.OI.SHOOTER_LOW);
+        shooterLow.whenPressed(new InstantCommand(() ->
+                SmartDashboard.putNumber("Shooter Max Power", SmartDashboard.getNumber("S Low", .2))));
+        shooterMed = new JoystickButton(bb, RobotMap.OI.SHOOTER_MED);
+        shooterLow.whenPressed(new InstantCommand(() ->
+                SmartDashboard.putNumber("Shooter Max Power", SmartDashboard.getNumber("S Med", .2))));
+        shooterHigh = new JoystickButton(bb, RobotMap.OI.SHOOTER_HIGH);
+        shooterLow.whenPressed(new InstantCommand(() ->
+                SmartDashboard.putNumber("Shooter Max Power", SmartDashboard.getNumber("S High", .2))));
     }
 
     /**public double getLeftY(){

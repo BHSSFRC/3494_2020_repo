@@ -44,9 +44,10 @@ public class Robot extends TimedRobot {
         top = new Linebreaker(RobotMap.SENSORS.LINEBREAK_TOP);
 
         String[] SDDoubles = {"Left Y", "Shooter Max Power", "Distance Sensor", "Angle", "Calibrate1", "Calibrate2",
-                "Tuning/PID P", "Tuning/PID I", "Tuning/PID D", "DriveStraight Offset", "DriveTurn Offset", "Turn Power", "XboxLeftTrigger",
+                "Tuning/PID P", "Tuning/PID I", "Tuning/PID D", "DriveStraight Offset", "DriveTurn Offset", "Turn Power",
                 "Encoder Distance", "Inches to Drive", "Rotation(degrees)", "target-x", "target-y", "Turret Pos", "Pos Degrees",
-                        "Shooter RPM", "Shooter Power Current", "Drive Max Power"};
+                "Shooter RPM", "Shooter Power Current", "Drive Max Power",
+                "S Low", "S Med", "S High"};
 
         for (String doubleName : SDDoubles) {
             if (!SmartDashboard.containsKey(doubleName)) {

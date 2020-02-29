@@ -75,6 +75,10 @@ public class RobotMap {
         public static int TURRET_TO_START_POS = 3;
         public static int AIM_BOT = 10;
 
+        public static int SHOOTER_LOW = 1;
+        public static int SHOOTER_MED = 3;
+        public static int SHOOTER_HIGH = 6;
+
         public static int TOGGLE_LED = 8;
     }
 
