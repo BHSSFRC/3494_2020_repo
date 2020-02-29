@@ -44,8 +44,8 @@ public class Shoot extends CommandBase {
                     RobotConfig.SHOOTER.SHOOTER_MAX_POWER;
         }
         Shooter.getInstance().shoot(shootPower);
-        if (timer.get() > 0.5 && shootPower > 0.01) {
-        //if(shootPower > 0.01){
+        //if (timer.get() > 0.5 && shootPower > 0.01) {
+        if(shootPower > 0.01){
             PreShooter.getInstance().spin(RobotConfig.SHOOTER.PRESHOOTER_POWER);
         }else{
             timer.reset();

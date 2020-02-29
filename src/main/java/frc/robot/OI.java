@@ -4,12 +4,12 @@ import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
-import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.commands.*;
 import frc.robot.commands.teleop.IntakingRoutine;
 import frc.robot.commands.teleop.ReverseIntake;
+import frc.robot.commands.teleop.StopHopperMagazine;
 import frc.robot.commands.turret.AimBot;
 import frc.robot.commands.turret.QuickTurretLimit;
 import frc.robot.commands.turret.SpinToPosition;
@@ -33,7 +33,7 @@ public class OI {
     private Trigger extendClimber;
     private JoystickButton safetyClimber;
     private JoystickButton intakingRoutine;
-    private Trigger spinHopperMagazine;
+    private JoystickButton spinHopperMagazine;
     private Trigger stopHopperMagazine;
     private JoystickButton reverseIntake;
     //private JoystickButton shooterHood;
@@ -109,22 +109,22 @@ public class OI {
         //- = down
         //+ = up
         releaseClimber.whenActive(new Climb());
-        retractClimber.whenActive(new DriveClimb(-RobotMap.CLIMBER.CLIMB_UP_POWER));
-        extendClimber.whenActive(new DriveClimb(RobotMap.CLIMBER.CLIMB_UP_POWER));
+        retractClimber.whileActiveContinuous(new DriveClimb(RobotMap.CLIMBER.CLIMB_DOWN_POWER));
+        extendClimber.whileActiveContinuous(new DriveClimb(RobotMap.CLIMBER.CLIMB_UP_POWER));
 
         //intakingRoutine = new Trigger(() -> this.getXboxLeftBumperPressed());
         intakingRoutine = new JoystickButton(bb, RobotMap.OI.SPIN_HOPPER_MAGAZINE);
         intakingRoutine.whenActive(new IntakingRoutine(Magazine.getInstance(), Hopper.getInstance()));
         //spinHopperMagazine = new JoystickButton(bb, RobotMap.OI.SPIN_HOPPER_MAGAZINE);
-        spinHopperMagazine = new Trigger(() -> this.getXboxLeftBumperPressed());
+        //spinHopperMagazine = new Trigger(() -> this.getXboxLeftBumperPressed());
+        spinHopperMagazine = new JoystickButton(secondaryXbox, RobotMap.OI.SPIN_HOPPER_MAGAZINE);
         //spinHopperMagazine.whenPressed(new RunHopper(), new RunMagazine());
-        spinHopperMagazine.whenActive(new ParallelCommandGroup(new RunHopper(), new RunMagazine(true, true, false)));
-        spinHopperMagazine.whenInactive(new ParallelCommandGroup(new InstantCommand(() -> Hopper.getInstance().stop()),
-                new InstantCommand(() -> Magazine.getInstance().stop())));
+        spinHopperMagazine.whenPressed(new ParallelCommandGroup(new RunHopper(), new RunMagazine(true, true, false)));
+        spinHopperMagazine.whenReleased(new StopHopperMagazine());
 
-        stopHopperMagazine = new Trigger(() -> this.getXboxLeftBumperReleased());
-        stopHopperMagazine.whenActive(new SequentialCommandGroup(new InstantCommand(() -> Magazine.getInstance().stop()),
-                new InstantCommand(() -> Hopper.getInstance().stop())));
+        //stopHopperMagazine = new Trigger(() -> this.getXboxLeftBumperReleased());
+        //stopHopperMagazine.whenActive(new SequentialCommandGroup(new InstantCommand(() -> Magazine.getInstance().stop()),
+        //        new InstantCommand(() -> Hopper.getInstance().stop())));
 
         shooterPositionBackward = new JoystickButton(secondaryXbox, RobotMap.OI.SHOOTER_BACKWARD);
         shooterPositionBackward.whenPressed(new InstantCommand(() ->

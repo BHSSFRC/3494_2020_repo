@@ -22,8 +22,8 @@ public class Drive extends CommandBase {
         double xSpeed = powerCurve(OI.getINSTANCE().getPrimaryXboxRightTrigger() - OI.getINSTANCE().getPrimaryXboxLeftTrigger());
         double zRotation = powerCurve(OI.getINSTANCE().getPrimaryXboxLeftX());
         if(OI.getINSTANCE().getPrimaryXboxA()){
-            xSpeed *= SmartDashboard.getNumber("Drive Max Power", 1.0);
-            zRotation *= SmartDashboard.getNumber("Drive Max Power", 1.0);
+            xSpeed *= SmartDashboard.getNumber("Drive Max Power", .2);
+            zRotation *= SmartDashboard.getNumber("Drive Max Power", .2);
         }
         DriveTrain.getInstance().arcadeDrive(xSpeed, zRotation, false);
     }
