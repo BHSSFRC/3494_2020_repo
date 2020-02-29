@@ -33,8 +33,8 @@ public class OI {
     private Trigger retractClimber;
     private Trigger extendClimber;
     private JoystickButton safetyClimber;
-    private Trigger intakingRoutine;
-    private JoystickButton spinHopperMagazine;
+    private JoystickButton intakingRoutine;
+    private Trigger spinHopperMagazine;
     private Trigger stopHopperMagazine;
     private JoystickButton reverseIntake;
     //private JoystickButton shooterHood;
@@ -82,11 +82,6 @@ public class OI {
         bb = new ButtonBoard(RobotMap.OI.BUTTON_BOARD);
         boardButtons = new JoystickButton[15];
 
-        spinHopperMagazine = new JoystickButton(bb, RobotMap.OI.SPIN_HOPPER_MAGAZINE);
-        //spinHopperMagazine.whenPressed(new RunHopper(), new RunMagazine());
-        spinHopperMagazine.whileHeld(new ParallelCommandGroup(new RunHopper(), new RunMagazine(true, true, false)));
-        spinHopperMagazine.whenReleased(new ParallelCommandGroup(new InstantCommand(() -> Hopper.getInstance().stop()),
-                                                               new InstantCommand(() -> Magazine.getInstance().stop())));
         reverseIntake = new JoystickButton(bb, RobotMap.OI.REVERSE_INTAKE);
         reverseIntake.whileHeld(new ReverseIntake());
 
@@ -118,8 +113,16 @@ public class OI {
         retractClimber.whenActive(new DriveClimb(-RobotMap.CLIMBER.CLIMB_UP_POWER));
         extendClimber.whenActive(new DriveClimb(RobotMap.CLIMBER.CLIMB_UP_POWER));
 
-        intakingRoutine = new Trigger(() -> this.getXboxLeftBumperPressed());
+        //intakingRoutine = new Trigger(() -> this.getXboxLeftBumperPressed());
+        intakingRoutine = new JoystickButton(bb, RobotMap.OI.SPIN_HOPPER_MAGAZINE);
         intakingRoutine.whenActive(new IntakingRoutine(Magazine.getInstance(), Hopper.getInstance()));
+        //spinHopperMagazine = new JoystickButton(bb, RobotMap.OI.SPIN_HOPPER_MAGAZINE);
+        spinHopperMagazine = new Trigger(() -> this.getXboxLeftBumperPressed());
+        //spinHopperMagazine.whenPressed(new RunHopper(), new RunMagazine());
+        spinHopperMagazine.whenActive(new ParallelCommandGroup(new RunHopper(), new RunMagazine(true, true, false)));
+        spinHopperMagazine.whenInactive(new ParallelCommandGroup(new InstantCommand(() -> Hopper.getInstance().stop()),
+                new InstantCommand(() -> Magazine.getInstance().stop())));
+
         stopHopperMagazine = new Trigger(() -> this.getXboxLeftBumperReleased());
         stopHopperMagazine.whenActive(new SequentialCommandGroup(new InstantCommand(() -> Magazine.getInstance().stop()),
                 new InstantCommand(() -> Hopper.getInstance().stop())));
