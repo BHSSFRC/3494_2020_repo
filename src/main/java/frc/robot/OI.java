@@ -137,7 +137,7 @@ public class OI {
         toggleLED.whenPressed(new InstantCommand(() -> DriveTrain.getInstance().toggleLED()));
 
         shooterLow = new JoystickButton(bb, RobotMap.OI.SHOOTER_LOW);
-        shooterLow.whenPressed(new InstantCommand(() -> RobotConfig.SHOOTER.SHOOTER_MAX_POWER = .5));
+        shooterLow.whenPressed(new InstantCommand(() -> RobotConfig.SHOOTER.SHOOTER_MAX_POWER = .2));
         //shooterLow.whenPressed(new InstantCommand(() ->
         //        SmartDashboard.putNumber("Shooter Max Power", SmartDashboard.getNumber("S Low", .2))));
         shooterMed = new JoystickButton(bb, RobotMap.OI.SHOOTER_MED);
@@ -145,7 +145,7 @@ public class OI {
         //shooterLow.whenPressed(new InstantCommand(() ->
         //        SmartDashboard.putNumber("Shooter Max Power", SmartDashboard.getNumber("S Med", .2))));
         shooterHigh = new JoystickButton(bb, RobotMap.OI.SHOOTER_HIGH);
-        shooterLow.whenPressed(new InstantCommand(() -> RobotConfig.SHOOTER.SHOOTER_MAX_POWER = .8));
+        shooterHigh.whenPressed(new InstantCommand(() -> RobotConfig.SHOOTER.SHOOTER_MAX_POWER = .8));
         //shooterLow.whenPressed(new InstantCommand(() ->
         //        SmartDashboard.putNumber("Shooter Max Power", SmartDashboard.getNumber("S High", .2))));
     }
