@@ -7,6 +7,11 @@
 
 package frc.robot;
 
+import edu.wpi.cscore.CvSink;
+import edu.wpi.cscore.CvSource;
+import edu.wpi.cscore.UsbCamera;
+import edu.wpi.cscore.VideoMode;
+import edu.wpi.first.cameraserver.CameraServer;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
@@ -20,6 +25,7 @@ import frc.robot.commands.turret.SpinTurret;
 import frc.robot.sensors.IMU;
 import frc.robot.sensors.Linebreaker;
 import frc.robot.subsystems.*;
+import org.opencv.core.Mat;
 
 
 /**
@@ -80,6 +86,18 @@ public class Robot extends TimedRobot {
                 SmartDashboard.setPersistent(booleanName);
             }
         }
+
+        UsbCamera camera = CameraServer.getInstance().startAutomaticCapture();
+        camera.setVideoMode(VideoMode.PixelFormat.kMJPEG, 320, 240, 120);
+        new Thread(() -> {
+                CvSink cvSink = CameraServer.getInstance().getVideo();
+                CvSource outputStream = CameraServer.getInstance().putVideo("camera stream", 320, 240);
+                Mat source = new Mat();
+                while(!Thread.interrupted()) {
+                    cvSink.grabFrame(source);
+                    outputStream.putFrame(source);
+                    }
+        }).start();
     }
 
     @Override
