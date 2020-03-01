@@ -24,8 +24,13 @@ public class RunIntake extends CommandBase {
 
     @Override
     public void execute() {
-        Intake.getInstance().runIntake(OI.getINSTANCE().getXboxRightTrigger());
-        Intake.getInstance().setDeployed(OI.getINSTANCE().getXboxRightBumper());
+        boolean deploy = OI.getINSTANCE().getXboxRightBumper();
+        if(deploy){
+            Intake.getInstance().runIntake(OI.getINSTANCE().getXboxRightTrigger() * .4);
+        }else{
+            Intake.getInstance().stop();
+        }
+        Intake.getInstance().setDeployed(deploy);
     }
 
     @Override

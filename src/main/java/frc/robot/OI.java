@@ -8,14 +8,14 @@ import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.commands.*;
 import frc.robot.commands.teleop.IntakingRoutine;
-import frc.robot.commands.teleop.ReverseIntake;
+import frc.robot.commands.teleop.ReverseHopper;
 import frc.robot.commands.teleop.StopHopperMagazine;
 import frc.robot.commands.turret.AimBot;
 import frc.robot.commands.turret.QuickTurretLimit;
-import frc.robot.commands.turret.SpinToPosition;
 import frc.robot.subsystems.DriveTrain;
 import frc.robot.subsystems.Hopper;
 import frc.robot.subsystems.Magazine;
+import frc.robot.subsystems.Shooter;
 
 public class OI {
     private static OI INSTANCE = new OI();
@@ -35,15 +35,16 @@ public class OI {
     private JoystickButton intakingRoutine;
     private JoystickButton spinHopperMagazine;
     private Trigger stopHopperMagazine;
-    private JoystickButton reverseIntake;
+    private JoystickButton reverseHopper;
     //private JoystickButton shooterHood;
     //private JoystickButton shooterLimit;
     private JoystickButton quickTurretLimits;
     private JoystickButton aimBot;
     private JoystickButton turretToStartPos;
-    private JoystickButton shooterLow;
-    private JoystickButton shooterMed;
-    private JoystickButton shooterHigh;
+    private Trigger shooterLow;
+    private Trigger shooterMed;
+    private Trigger shooterHigh;
+    private Trigger leftTriggerPressed;
 
     private JoystickButton toggleLED;
 
@@ -81,8 +82,8 @@ public class OI {
         bb = new ButtonBoard(RobotMap.OI.BUTTON_BOARD);
         boardButtons = new JoystickButton[15];
 
-        reverseIntake = new JoystickButton(bb, RobotMap.OI.REVERSE_INTAKE);
-        reverseIntake.toggleWhenPressed(new ReverseIntake());
+        reverseHopper = new JoystickButton(bb, RobotMap.OI.REVERSE_HOPPER);
+        reverseHopper.whileHeld(new ReverseHopper());
 
         runMagazine = new JoystickButton(bb, RobotMap.OI.RUN_MAGAZINE);
         runMagazine.whenPressed(new RunMagazine(true, true, true));
@@ -99,8 +100,8 @@ public class OI {
 
         aimBot = new JoystickButton(bb, RobotMap.OI.AIM_BOT);
         aimBot.toggleWhenPressed(new AimBot());
-        turretToStartPos = new JoystickButton(bb, RobotMap.OI.TURRET_TO_START_POS);
-        turretToStartPos.whenPressed(new SpinToPosition(0.0));
+        //turretToStartPos = new JoystickButton(bb, RobotMap.OI.TURRET_TO_START_POS);
+        //turretToStartPos.whenPressed(new SpinToPosition(0.0));
 
         safetyClimber = new JoystickButton(bb, RobotMap.OI.SAFETY_CLIMBER);
         retractClimber = new JoystickButton(bb, RobotMap.OI.REVERSE_CLIMBER).and(safetyClimber);
@@ -136,7 +137,17 @@ public class OI {
         toggleLED = new JoystickButton(bb, RobotMap.OI.TOGGLE_LED);
         toggleLED.whenPressed(new InstantCommand(() -> DriveTrain.getInstance().toggleLED()));
 
-        shooterLow = new JoystickButton(bb, RobotMap.OI.SHOOTER_LOW);
+        leftTriggerPressed = new Trigger(() -> getSecondaryXboxLeftTriggerPressed());
+        leftTriggerPressed.whenInactive(new InstantCommand(() -> Shooter.getInstance().setPosition(Shooter.Position.ONE)));
+        shooterLow = new JoystickButton(bb, RobotMap.OI.SHOOTER_LOW).and(leftTriggerPressed);
+        shooterMed = new JoystickButton(bb, RobotMap.OI.SHOOTER_MED).and(leftTriggerPressed);
+        shooterHigh = new JoystickButton(bb, RobotMap.OI.SHOOTER_HIGH).and(leftTriggerPressed);
+
+        shooterLow.whenActive(new InstantCommand(() -> Shooter.getInstance().setPosition(Shooter.Position.ONE)));
+        shooterMed.whenActive(new InstantCommand(() -> Shooter.getInstance().setPosition(Shooter.Position.TWO)));
+        shooterHigh.whenActive(new InstantCommand(() -> Shooter.getInstance().setPosition(Shooter.Position.THREE)));
+
+        /**shooterLow = new JoystickButton(bb, RobotMap.OI.SHOOTER_LOW);
         shooterLow.whenPressed(new InstantCommand(() -> RobotConfig.SHOOTER.SHOOTER_MAX_POWER = .2));
         //shooterLow.whenPressed(new InstantCommand(() ->
         //        SmartDashboard.putNumber("Shooter Max Power", SmartDashboard.getNumber("S Low", .2))));
@@ -147,7 +158,7 @@ public class OI {
         shooterHigh = new JoystickButton(bb, RobotMap.OI.SHOOTER_HIGH);
         shooterHigh.whenPressed(new InstantCommand(() -> RobotConfig.SHOOTER.SHOOTER_MAX_POWER = .8));
         //shooterLow.whenPressed(new InstantCommand(() ->
-        //        SmartDashboard.putNumber("Shooter Max Power", SmartDashboard.getNumber("S High", .2))));
+        //        SmartDashboard.putNumber("Shooter Max Power", SmartDashboard.getNumber("S High", .2))));*/
     }
 
     /**public double getLeftY(){
@@ -172,6 +183,10 @@ public class OI {
 
     public boolean getPrimaryXboxA(){
         return this.primaryXbox.getAButton();
+    }
+
+    public boolean getSecondaryXboxB(){
+        return this.secondaryXbox.getAButton();
     }
 
     public double getXboxRightY(){
@@ -204,6 +219,10 @@ public class OI {
 
     public boolean getXboxLeftBumperReleased(){
         return this.secondaryXbox.getBumperReleased(GenericHID.Hand.kLeft);
+    }
+
+    public boolean getSecondaryXboxLeftTriggerPressed(){
+        return this.secondaryXbox.getTriggerAxis(GenericHID.Hand.kLeft) > 0.05;
     }
 
     public boolean getXboxDpadUp(){

@@ -15,10 +15,10 @@ public class RobotMap {
     public static class SHOOTER {
         public static final int RIGHT = 12;
         public static final int LEFT = 13;
-        public static final int HOOD_MAIN_UP = 4;
-        public static final int HOOD_MAIN_DOWN = 5;
-        public static final int HOOD_LIMIT_UP = 2;
-        public static final int HOOD_LIMIT_DOWN = 3;
+        public static final int HOOD_MAIN_UP = 5;
+        public static final int HOOD_MAIN_DOWN = 4;
+        public static final int HOOD_LIMIT_UP = 3;
+        public static final int HOOD_LIMIT_DOWN = 2;
     }
 
     public static class INTAKE {
@@ -65,7 +65,7 @@ public class RobotMap {
         public static int RUN_MAGAZINE = 7;
         public static int RUN_HOPPER = 8;
 
-        public static int REVERSE_INTAKE = 4;
+        public static int REVERSE_HOPPER = 11;
 
         public static int RELEASE_CLIMBER = 12;
         public static int DRIVE_CLIMBER = 14;
@@ -74,7 +74,7 @@ public class RobotMap {
         public static int SAFETY_CLIMBER  = 9;
 
         public static int QUICK_TURRET_LIMITS = 2;
-        public static int TURRET_TO_START_POS = 11;
+        //public static int TURRET_TO_START_POS = 11;
         public static int AIM_BOT = 10;
 
         public static int SHOOTER_LOW = 1;
@@ -89,7 +89,7 @@ public class RobotMap {
         public static int WHEEL_OF_FORTUNE = 7;
         public static int MOTOR1 = 2;
         public static int MOTOR2 = 3;
-        public static double CLIMB_UP_POWER = 0.2;
+        public static double CLIMB_UP_POWER = 0.4;
         public static double CLIMB_DOWN_POWER = -.7;
         public static double CLIMB_DOWN_SLOW_POWER = -0.2;
         public static double CLIMB_UP_RAMPRATE = 0.5;
