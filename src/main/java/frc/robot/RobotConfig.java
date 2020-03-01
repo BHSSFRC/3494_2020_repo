@@ -23,7 +23,7 @@ public final class RobotConfig
 {
     public static class FIRE_TURN_DRIVE {
         public static final double
-                SHOOTER_POWER = 0.7,
+                SHOOTER_POWER = 0.50,
                 TURN_AMOUNT_DEGREES = 80,
                 DRIVE_DISTANCE_INCHES = 40;
         public static final double
