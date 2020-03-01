@@ -137,6 +137,7 @@ public class Shooter extends SubsystemBase {
                 switch(position){
                     case TWO:
                         this.hood.set(DoubleSolenoid.Value.kForward);
+                        Timer.delay(500E-3);
                         this.limiter.set(DoubleSolenoid.Value.kReverse);
                         break;
                     case THREE:
@@ -150,6 +151,7 @@ public class Shooter extends SubsystemBase {
                 switch(position){
                     case ONE:
                         this.hood.set(DoubleSolenoid.Value.kReverse);
+                        Timer.delay(500E-3);
                         this.limiter.set(DoubleSolenoid.Value.kReverse);
                         break;
                     case THREE:
@@ -164,11 +166,13 @@ public class Shooter extends SubsystemBase {
                 System.out.println("if 3");
                 switch(position){
                     case ONE:
-                        this.hood.set(DoubleSolenoid.Value.kReverse);
                         this.limiter.set(DoubleSolenoid.Value.kReverse);
+                        Timer.delay(500E-3);
+                        this.hood.set(DoubleSolenoid.Value.kReverse);
                         break;
                     case TWO:
                         this.hood.set(DoubleSolenoid.Value.kReverse);
+                        Timer.delay(500E-3);
                         this.limiter.set(DoubleSolenoid.Value.kReverse);
                         Timer.delay(500E-3);
                         this.hood.set(DoubleSolenoid.Value.kForward);

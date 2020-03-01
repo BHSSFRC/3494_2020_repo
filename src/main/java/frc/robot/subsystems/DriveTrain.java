@@ -26,7 +26,7 @@ public class DriveTrain extends SubsystemBase {
 
     private DriveTrain() {
         StatorCurrentLimitConfiguration currentLimitConfiguration = new StatorCurrentLimitConfiguration(true, 40, 45, 1.0);
-        double rampRate = 0.005;
+        double rampRate = 0.001;
         this.leftMaster = new TalonFX(RobotMap.DRIVETRAIN.LEFT_MASTER);
         this.leftMaster.setNeutralMode(NeutralMode.Brake);
         this.leftMaster.configOpenloopRamp(rampRate);
