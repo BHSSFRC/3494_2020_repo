@@ -7,11 +7,8 @@
 
 package frc.robot;
 
-import edu.wpi.cscore.CvSink;
-import edu.wpi.cscore.CvSource;
 import edu.wpi.cscore.UsbCamera;
-import edu.wpi.cscore.VideoMode;
-import edu.wpi.first.cameraserver.CameraServer;
+import edu.wpi.cscore.UsbCameraInfo;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
@@ -25,7 +22,6 @@ import frc.robot.commands.turret.SpinTurret;
 import frc.robot.sensors.IMU;
 import frc.robot.sensors.Linebreaker;
 import frc.robot.subsystems.*;
-import org.opencv.core.Mat;
 
 
 /**
@@ -87,9 +83,21 @@ public class Robot extends TimedRobot {
             }
         }
 
-        UsbCamera camera = CameraServer.getInstance().startAutomaticCapture();
-        camera.setVideoMode(VideoMode.PixelFormat.kMJPEG, 320, 240, 120);
-        camera.setResolution(320, 240);
+        CommandScheduler.getInstance().run();
+        UsbCameraInfo[] arr = UsbCamera.enumerateUsbCameras();
+        if (arr.length == 0)
+        {
+            System.out.println("No.");
+        }
+        for (UsbCameraInfo info : arr)
+        {
+            System.out.println(info.dev);
+        }
+
+        //UsbCamera camera = CameraServer.getInstance().startAutomaticCapture(0);
+        //camera.setVideoMode(VideoMode.PixelFormat.kMJPEG, 320, 240, 120);
+        //camera.setConnectVerbose(0);
+        /*camera.setResolution(320, 240);
         new Thread(() -> {
                 CvSink cvSink = CameraServer.getInstance().getVideo();
                 CvSource outputStream = CameraServer.getInstance().putVideo("camera stream", 320, 240);
@@ -98,7 +106,8 @@ public class Robot extends TimedRobot {
                     cvSink.grabFrame(source);
                     outputStream.putFrame(source);
                     }
-        }).start();
+        }).start();*/
+
     }
 
     @Override
@@ -108,6 +117,15 @@ public class Robot extends TimedRobot {
         // and running subsystem periodic() methods.  This must be called from the robot's periodic
         // block in order for anything in the Command-based framework to work.
         CommandScheduler.getInstance().run();
+        /*UsbCameraInfo[] arr = UsbCamera.enumerateUsbCameras();
+        if (arr.length == 0)
+        {
+            System.out.println("HRM.");
+        }
+        for (UsbCameraInfo info : arr)
+        {
+            System.out.println(info.dev);
+        }*/
 
         //SmartDashboard.putBoolean("Dist Sensor Error", Dist2m.getInstance().isNotEnabled());
     }
