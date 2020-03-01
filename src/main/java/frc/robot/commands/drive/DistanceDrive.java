@@ -22,8 +22,12 @@ public class DistanceDrive extends CommandBase {
     public void initialize() {
         SmartDashboard.putBoolean("DriveDistance?", true);
         this.distEncoderInitial = DriveTrain.getInstance().getEncoderPosition();
-        this.distEncoderGoal = this.dist * RobotConfig.DRIVE_STRAIGHT.ENCODER_TICKS_PER_INCH;
-        this.speed = .3;
+        this.distEncoderGoal = Math.abs(this.dist) * RobotConfig.DRIVE_STRAIGHT.ENCODER_TICKS_PER_INCH;
+        if(this.dist > 0){
+            this.speed = 0.3;
+        }else{
+            this.speed = -.3;
+        }
         this.distEncoderTraveled = 0;
     }
 

@@ -3,12 +3,12 @@ package frc.robot;
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
-import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.commands.*;
 import frc.robot.commands.teleop.IntakingRoutine;
 import frc.robot.commands.teleop.ReverseHopper;
+import frc.robot.commands.teleop.RunHopperMagazine;
 import frc.robot.commands.teleop.StopHopperMagazine;
 import frc.robot.commands.turret.AimBot;
 import frc.robot.commands.turret.QuickTurretLimit;
@@ -122,7 +122,8 @@ public class OI {
         //spinHopperMagazine = new Trigger(() -> this.getXboxLeftBumperPressed());
         spinHopperMagazine = new JoystickButton(secondaryXbox, RobotMap.OI.SPIN_HOPPER_MAGAZINE);
         //spinHopperMagazine.whenPressed(new RunHopper(), new RunMagazine());
-        spinHopperMagazine.whenPressed(new ParallelCommandGroup(new RunHopper(), new RunMagazine(true, true, false)));
+        //spinHopperMagazine.whenPressed(new ParallelCommandGroup(new RunHopper(), new RunMagazine(true, true, false)));
+        spinHopperMagazine.whenPressed(new RunHopperMagazine());
         spinHopperMagazine.whenReleased(new StopHopperMagazine());
 
         //stopHopperMagazine = new Trigger(() -> this.getXboxLeftBumperReleased());
