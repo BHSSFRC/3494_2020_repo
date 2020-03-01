@@ -12,7 +12,6 @@ import frc.robot.commands.teleop.RunHopperMagazine;
 import frc.robot.commands.teleop.StopHopperMagazine;
 import frc.robot.commands.turret.AimBot;
 import frc.robot.commands.turret.QuickTurretLimit;
-import frc.robot.subsystems.DriveTrain;
 import frc.robot.subsystems.Hopper;
 import frc.robot.subsystems.Magazine;
 import frc.robot.subsystems.Shooter;
@@ -85,9 +84,9 @@ public class OI {
         reverseHopper = new JoystickButton(bb, RobotMap.OI.REVERSE_HOPPER);
         reverseHopper.whileHeld(new ReverseHopper());
 
-        runMagazine = new JoystickButton(bb, RobotMap.OI.RUN_MAGAZINE);
-        runMagazine.whenPressed(new RunMagazine(true, true, true));
-        runMagazine.whenReleased(new RunMagazine(false, false, false));
+        //runMagazine = new JoystickButton(bb, RobotMap.OI.RUN_MAGAZINE);
+        //runMagazine.whenPressed(new RunMagazine(true, true, true));
+        //runMagazine.whenReleased(new RunMagazine(false, false, false));
 
         runShooter = new JoystickButton(secondaryXbox, RobotMap.OI.RUN_SHOOTER);
         runShooter.whileHeld(new Shoot());
@@ -116,8 +115,9 @@ public class OI {
         extendClimber.whileActiveContinuous(new DriveClimb(RobotMap.CLIMBER.CLIMB_UP_POWER));
 
         //intakingRoutine = new Trigger(() -> this.getXboxLeftBumperPressed());
-        intakingRoutine = new JoystickButton(bb, RobotMap.OI.SPIN_HOPPER_MAGAZINE);
-        intakingRoutine.whenActive(new IntakingRoutine(Magazine.getInstance(), Hopper.getInstance()));
+        intakingRoutine = new JoystickButton(bb, RobotMap.OI.INTAKING_ROUTINE);
+        intakingRoutine.whenPressed(new IntakingRoutine(Magazine.getInstance(), Hopper.getInstance()).withTimeout(10).andThen(
+                new InstantCommand(() -> System.out.println("Finish Intaking Routine"))));
         //spinHopperMagazine = new JoystickButton(bb, RobotMap.OI.SPIN_HOPPER_MAGAZINE);
         //spinHopperMagazine = new Trigger(() -> this.getXboxLeftBumperPressed());
         spinHopperMagazine = new JoystickButton(secondaryXbox, RobotMap.OI.SPIN_HOPPER_MAGAZINE);
@@ -135,8 +135,8 @@ public class OI {
         shooterPositionForward = new JoystickButton(secondaryXbox, RobotMap.OI.SHOOTER_FORWARD);
         shooterPositionForward.whenPressed(new RollShooterPosition(true));
 
-        toggleLED = new JoystickButton(bb, RobotMap.OI.TOGGLE_LED);
-        toggleLED.whenPressed(new InstantCommand(() -> DriveTrain.getInstance().toggleLED()));
+        //toggleLED = new JoystickButton(bb, RobotMap.OI.TOGGLE_LED);
+        //toggleLED.whenPressed(new InstantCommand(() -> DriveTrain.getInstance().toggleLED()));
 
         leftTriggerPressed = new Trigger(() -> getSecondaryXboxLeftTriggerPressed());
         leftTriggerPressed.whenInactive(new InstantCommand(() -> Shooter.getInstance().setPosition(Shooter.Position.ONE)));

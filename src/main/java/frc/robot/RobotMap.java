@@ -62,8 +62,9 @@ public class RobotMap {
         public static int SPIN_HOPPER_MAGAZINE = 5;
 
         //button board bindings
-        public static int RUN_MAGAZINE = 7;
+        //public static int RUN_MAGAZINE = 7;
         public static int RUN_HOPPER = 8;
+        public static int INTAKING_ROUTINE = 7;
 
         public static int REVERSE_HOPPER = 11;
 
@@ -81,7 +82,7 @@ public class RobotMap {
         public static int SHOOTER_MED = 3;
         public static int SHOOTER_HIGH = 6;
 
-        public static int TOGGLE_LED = 8;
+        //public static int TOGGLE_LED = 8;
     }
 
     public static class CLIMBER {
