@@ -10,7 +10,7 @@ import frc.robot.commands.drive.TurnDegrees;
 import frc.robot.commands.teleop.RunHopperMagazine;
 
 public class FireTurnDrive extends SequentialCommandGroup {
-    public FireTurnDrive() {
+    public FireTurnDrive(double distance) {
         // TODO: Add your sequential commands in the super() call, e.g.
         //           super(new FooCommand(), new BarCommand());
         super(
@@ -20,7 +20,7 @@ public class FireTurnDrive extends SequentialCommandGroup {
                         new RunHopperMagazine()).withTimeout(RobotConfig.FIRE_TURN_DRIVE.HOPPER_MAGAZINE_TIMEOUT),
                 new TurnDegrees(RobotConfig.FIRE_TURN_DRIVE.TURN_AMOUNT_DEGREES)
                         .withTimeout(RobotConfig.FIRE_TURN_DRIVE.TURN_DEGREES_TIMEOUT),
-                new DistanceDrive(40).withTimeout(RobotConfig.FIRE_TURN_DRIVE.DISTANCE_DRIVE_TIMEOUT)
+                new DistanceDrive(distance).withTimeout(RobotConfig.FIRE_TURN_DRIVE.DISTANCE_DRIVE_TIMEOUT)
         );
     }
 }

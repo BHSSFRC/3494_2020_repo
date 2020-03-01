@@ -72,7 +72,7 @@ public class Robot extends TimedRobot {
         CommandScheduler.getInstance().schedule(new InstantCommand(Pneumatics.getInstance()::startCompressor));
 
         String[] SDBooleans = {"Calibrate IMU?",
-        "Front Limit", "Back Limit"};
+        "Front Limit", "Back Limit", "Auto Forward?"};
 
         for (String booleanName : SDBooleans) {
             if (!SmartDashboard.containsKey(booleanName)) {
