@@ -28,23 +28,23 @@ public class DriveTrain extends SubsystemBase {
         StatorCurrentLimitConfiguration currentLimitConfiguration = new StatorCurrentLimitConfiguration(true, 40, 45, 1.0);
         this.leftMaster = new TalonFX(RobotMap.DRIVETRAIN.LEFT_MASTER);
         this.leftMaster.setNeutralMode(NeutralMode.Brake);
-        this.leftMaster.configOpenloopRamp(.025);
+        this.leftMaster.configOpenloopRamp(.015);
         this.leftMaster.configStatorCurrentLimit(currentLimitConfiguration);
         this.leftSlave = new TalonFX(RobotMap.DRIVETRAIN.LEFT_SLAVE);
         this.leftSlave.setNeutralMode(NeutralMode.Brake);
         //this.leftSlave.configStatorCurrentLimit(currentLimitConfiguration);
-        this.leftSlave.configOpenloopRamp(.025);
+        this.leftSlave.configOpenloopRamp(.015);
         this.leftMaster.setInverted(true);
         this.leftSlave.setInverted(true);
 
         this.rightMaster = new TalonFX(RobotMap.DRIVETRAIN.RIGHT_MASTER);
         this.rightMaster.configStatorCurrentLimit(currentLimitConfiguration);
-        this.rightMaster.configOpenloopRamp(.025);
+        this.rightMaster.configOpenloopRamp(.015);
         this.rightMaster.setNeutralMode(NeutralMode.Brake);
         this.rightSlave = new TalonFX(RobotMap.DRIVETRAIN.RIGHT_SLAVE);
         this.leftSlave.configStatorCurrentLimit(currentLimitConfiguration);
         //this.rightSlave.setNeutralMode(NeutralMode.Brake);
-        this.rightSlave.configOpenloopRamp(.025);
+        this.rightSlave.configOpenloopRamp(.015);
 
         this.leftSlave.follow(this.leftMaster);
         this.rightSlave.follow(this.rightMaster);
