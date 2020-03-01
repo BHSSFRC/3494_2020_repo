@@ -7,6 +7,8 @@
 
 package frc.robot;
 
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+
 /**
  * The Constants class provides a convenient place for teams to hold robot-wide numerical or boolean
  * constants.  This class should not be used for any other purpose.  All constants should be
@@ -45,8 +47,8 @@ public final class RobotConfig
     }
 
     public static class MAGAZINE {
-        public static double MOTOR_DEFAULT_POWER = 0.7;
-        public static double HOPPER_DEFAULT_POWER = .8;
+        public static double MOTOR_DEFAULT_POWER = SmartDashboard.getNumber("Magazine Power", 0.7);
+        public static double HOPPER_DEFAULT_POWER = SmartDashboard.getNumber("Hopper Power", 0.8);
         public static double TIME_AFTER_2ND_LINEBREAK_SENSOR = 1.0;
     }
 
