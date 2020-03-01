@@ -8,17 +8,20 @@ import frc.robot.commands.drive.DistanceDrive;
 import frc.robot.commands.drive.TurnDegrees;
 import frc.robot.commands.teleop.RunHopperMagazine;
 
+import frc.robot.RobotConfig;
+
 public class FireTurnDrive extends SequentialCommandGroup {
     public FireTurnDrive() {
         // TODO: Add your sequential commands in the super() call, e.g.
         //           super(new FooCommand(), new BarCommand());
         super(
-                new Shoot(0.7).withTimeout(2),
+                new Shoot(RobotConfig.FIRE_TURN_DRIVE.SHOOTER_POWER).withTimeout(RobotConfig.FIRE_TURN_DRIVE.SHOOT_TIMEOUT),
                 new ParallelCommandGroup(
-                        new Shoot(0.7),
-                        new RunHopperMagazine()).withTimeout(5),
-                new TurnDegrees(80).withTimeout(4),
-                new DistanceDrive(40)
+                        new Shoot(RobotConfig.FIRE_TURN_DRIVE.SHOOTER_POWER),
+                        new RunHopperMagazine()).withTimeout(RobotConfig.FIRE_TURN_DRIVE.HOPPER_MAGAZINE_TIMEOUT),
+                new TurnDegrees(RobotConfig.FIRE_TURN_DRIVE.TURN_AMOUNT_DEGREES)
+                        .withTimeout(RobotConfig.FIRE_TURN_DRIVE.TURN_DEGREES_TIMEOUT),
+                new DistanceDrive(40).withTimeout(RobotConfig.FIRE_TURN_DRIVE.DISTANCE_DRIVE_TIMEOUT)
         );
     }
 }
