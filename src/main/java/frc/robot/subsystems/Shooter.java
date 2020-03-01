@@ -136,13 +136,11 @@ public class Shooter extends SubsystemBase {
             if (this.currentPosition == Position.ONE) {
                 switch(position){
                     case TWO:
-                        this.hood.set(DoubleSolenoid.Value.kForward);
-                        Timer.delay(500E-3);
-                        this.limiter.set(DoubleSolenoid.Value.kReverse);
-                        break;
-                    case THREE:
                         this.limiter.set(DoubleSolenoid.Value.kForward);
                         Timer.delay(500E-3);
+                        this.hood.set(DoubleSolenoid.Value.kForward);
+                        break;
+                    case THREE:
                         this.hood.set(DoubleSolenoid.Value.kForward);
                         break;
                 }
@@ -157,7 +155,7 @@ public class Shooter extends SubsystemBase {
                     case THREE:
                         this.hood.set(DoubleSolenoid.Value.kReverse);
                         Timer.delay(500E-3);
-                        this.limiter.set(DoubleSolenoid.Value.kForward);
+                        this.limiter.set(DoubleSolenoid.Value.kReverse);
                         Timer.delay(500E-3);
                         this.hood.set(DoubleSolenoid.Value.kForward);
                         break;
@@ -171,9 +169,11 @@ public class Shooter extends SubsystemBase {
                         this.hood.set(DoubleSolenoid.Value.kReverse);
                         break;
                     case TWO:
+                        this.limiter.set(DoubleSolenoid.Value.kReverse);
+                        Timer.delay(500E-3);
                         this.hood.set(DoubleSolenoid.Value.kReverse);
                         Timer.delay(500E-3);
-                        this.limiter.set(DoubleSolenoid.Value.kReverse);
+                        this.limiter.set(DoubleSolenoid.Value.kForward);
                         Timer.delay(500E-3);
                         this.hood.set(DoubleSolenoid.Value.kForward);
                         break;
