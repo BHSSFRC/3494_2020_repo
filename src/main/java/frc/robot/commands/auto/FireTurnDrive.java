@@ -6,7 +6,6 @@ import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import frc.robot.RobotConfig;
 import frc.robot.commands.Shoot;
 import frc.robot.commands.drive.DistanceDrive;
-import frc.robot.commands.drive.TurnDegrees;
 import frc.robot.commands.teleop.RunHopperMagazine;
 
 public class FireTurnDrive extends SequentialCommandGroup {
@@ -18,8 +17,8 @@ public class FireTurnDrive extends SequentialCommandGroup {
                 new ParallelCommandGroup(
                         new Shoot(RobotConfig.FIRE_TURN_DRIVE.SHOOTER_POWER),
                         new RunHopperMagazine()).withTimeout(RobotConfig.FIRE_TURN_DRIVE.HOPPER_MAGAZINE_TIMEOUT),
-                new TurnDegrees(RobotConfig.FIRE_TURN_DRIVE.TURN_AMOUNT_DEGREES)
-                        .withTimeout(RobotConfig.FIRE_TURN_DRIVE.TURN_DEGREES_TIMEOUT),
+                //new TurnDegrees(RobotConfig.FIRE_TURN_DRIVE.TURN_AMOUNT_DEGREES)
+                //        .withTimeout(RobotConfig.FIRE_TURN_DRIVE.TURN_DEGREES_TIMEOUT),
                 new DistanceDrive(distance).withTimeout(RobotConfig.FIRE_TURN_DRIVE.DISTANCE_DRIVE_TIMEOUT)
         );
     }
