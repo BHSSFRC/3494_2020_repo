@@ -89,6 +89,7 @@ public class Robot extends TimedRobot {
 
         UsbCamera camera = CameraServer.getInstance().startAutomaticCapture();
         camera.setVideoMode(VideoMode.PixelFormat.kMJPEG, 320, 240, 120);
+        camera.setResolution(320, 240);
         new Thread(() -> {
                 CvSink cvSink = CameraServer.getInstance().getVideo();
                 CvSource outputStream = CameraServer.getInstance().putVideo("camera stream", 320, 240);
