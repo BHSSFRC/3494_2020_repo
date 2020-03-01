@@ -21,6 +21,17 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 //this class store software variables such as PID constants that change from time to time
 public final class RobotConfig
 {
+    public static class FIRE_TURN_DRIVE {
+        public static final double
+                SHOOTER_POWER = 0.7,
+                TURN_AMOUNT_DEGREES = 80,
+                DRIVE_DISTANCE_INCHES = 40;
+        public static final double
+            SHOOT_TIMEOUT = 2,
+            HOPPER_MAGAZINE_TIMEOUT = 5,
+            TURN_DEGREES_TIMEOUT = 4,
+            DISTANCE_DRIVE_TIMEOUT = 4;
+    }
     public static class DRIVE {
         public static final double POWER_CURVE_EXPONENT = 2.8;
     }
