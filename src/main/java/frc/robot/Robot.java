@@ -17,7 +17,6 @@ import frc.robot.commands.RunMagazine;
 import frc.robot.commands.Shoot;
 import frc.robot.commands.drive.Drive;
 import frc.robot.commands.turret.SpinTurret;
-import frc.robot.sensors.IMU;
 import frc.robot.sensors.Linebreaker;
 import frc.robot.subsystems.*;
 
@@ -141,9 +140,9 @@ public class Robot extends TimedRobot {
 
     @Override
     public void teleopPeriodic() {
-        SmartDashboard.putNumber("Angle", IMU.getInstance().getYaw());
-        /**SmartDashboard.putNumber("Shooter RPM", Shooter.getInstance().getRPM());
-        SmartDashboard.putNumber("Turret Pos", Turret.getInstance().getPosition());*/
+        //SmartDashboard.putNumber("Angle", IMU.getInstance().getYaw());
+        SmartDashboard.putNumber("Shooter RPM", Shooter.getInstance().getRPM());
+        /**SmartDashboard.putNumber("Turret Pos", Turret.getInstance().getPosition());*/
         //SmartDashboard.putBoolean("Front Limit", Turret.getInstance().atFrontLimit());
         //SmartDashboard.putBoolean("Back Limit", Turret.getInstance().atBackLimit());
         SmartDashboard.putNumber("Gain/FSP", RobotConfig.SHOOTER.SHOOTER_MAX_POWER);

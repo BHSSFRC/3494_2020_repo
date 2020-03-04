@@ -1,8 +1,7 @@
 package frc.robot.subsystems;
 
 
-import com.revrobotics.CANSparkMax;
-import com.revrobotics.CANSparkMaxLowLevel;
+import com.revrobotics.*;
 import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -23,7 +22,14 @@ public class Shooter extends SubsystemBase {
     private final static Shooter INSTANCE = new Shooter();
 
     private CANSparkMax left;
+    private CANEncoder leftEnc;
+    private CANPIDController leftPID;
+
     private CANSparkMax right;
+    private CANEncoder rightEnc;
+    private CANPIDController rightPID;
+
+    private double kP, kI, kD, kIz, kFF, kMaxOutput, kMinOutput, maxRPM;
 
     private DoubleSolenoid hood = new DoubleSolenoid(RobotMap.COMPRESSOR.PCM1, RobotMap.SHOOTER.HOOD_MAIN_UP, RobotMap.SHOOTER.HOOD_MAIN_DOWN);
     private DoubleSolenoid limiter = new DoubleSolenoid(RobotMap.COMPRESSOR.PCM1, RobotMap.SHOOTER.HOOD_LIMIT_UP, RobotMap.SHOOTER.HOOD_LIMIT_DOWN);
@@ -88,9 +94,42 @@ public class Shooter extends SubsystemBase {
     private Shooter() {
         this.left = new CANSparkMax(RobotMap.SHOOTER.LEFT, CANSparkMaxLowLevel.MotorType.kBrushless);
         this.right= new CANSparkMax(RobotMap.SHOOTER.RIGHT, CANSparkMaxLowLevel.MotorType.kBrushless);
+        this.left.setOpenLoopRampRate(0.4);
+        this.right.setOpenLoopRampRate(0.4);
+        this.left.setClosedLoopRampRate(0.4);
+        this.right.setClosedLoopRampRate(0.4);
 
         this.left.setInverted(true);
         this.right.setInverted(true);
+
+        this.leftEnc = this.left.getEncoder();
+        this.leftPID = this.left.getPIDController();
+
+        this.rightEnc = this.right.getEncoder();
+        this.rightPID = this.right.getPIDController();
+
+        kP = 6e-5;
+        kI = 0;
+        kD = 0;
+        kIz = 0;
+        kFF = 0.000015;
+        kMaxOutput = 1;
+        kMinOutput = -1;
+        maxRPM = 5700;
+
+        leftPID.setP(kP);
+        leftPID.setI(kI);
+        leftPID.setD(kD);
+        leftPID.setIZone(kIz);
+        leftPID.setFF(kFF);
+        leftPID.setOutputRange(kMinOutput, kMaxOutput);
+
+        rightPID.setP(kP);
+        rightPID.setI(kI);
+        rightPID.setD(kD);
+        rightPID.setIZone(kIz);
+        rightPID.setFF(kFF);
+        rightPID.setOutputRange(kMinOutput, kMaxOutput);
 
         this.setPosition(Position.ONE);
     }
@@ -101,13 +140,25 @@ public class Shooter extends SubsystemBase {
         SmartDashboard.putNumber("Shooter Power Current", power);
     }
 
+    public void setRPM(double targetRPM) {
+        //this.left.setRef
+        this.leftPID.setReference(targetRPM, ControlType.kVelocity);
+        this.rightPID.setReference(-targetRPM, ControlType.kVelocity);
+    }
+
     public boolean atTargetSpeed(double targetRPM) {
         return Math.abs(this.getRPM() - targetRPM) < 10;
     }
 
     public double getRPM() {
-        return (this.left.getEncoder().getVelocity()
-                + this.right.getEncoder().getVelocity()) / 2;
+        return (Math.abs(this.getLeftRPM()) + Math.abs(this.getRightRPM())) / 2;
+    }
+
+    public double getLeftRPM() {
+        return this.left.getEncoder().getVelocity();
+    }
+    public double getRightRPM() {
+        return this.right.getEncoder().getVelocity();
     }
 
     public void stop()
@@ -183,6 +234,28 @@ public class Shooter extends SubsystemBase {
             this.currentPosition = position;
         }
 
+    }
+
+    public void updateMotorPID(){
+        double p = SmartDashboard.getNumber("P Gain", 0);
+        double i = SmartDashboard.getNumber("I Gain", 0);
+        double d = SmartDashboard.getNumber("D Gain", 0);
+        double iz = SmartDashboard.getNumber("I Zone", 0);
+        double ff = SmartDashboard.getNumber("Feed Forward", 0);
+        double max = SmartDashboard.getNumber("Max Output", 0);
+        double min = SmartDashboard.getNumber("Min Output", 0);
+
+        // if PID coefficients on SmartDashboard have changed, write new values to controller
+        if((p != kP)) { leftPID.setP(p); kP = p; rightPID.setP(p);}
+        if((i != kI)) { leftPID.setI(i); kI = i; rightPID.setI(i);}
+        if((d != kD)) { leftPID.setD(d); kD = d; rightPID.setD(d);}
+        if((iz != kIz)) { leftPID.setIZone(iz); kIz = iz; rightPID.setIZone(iz);}
+        if((ff != kFF)) { leftPID.setFF(ff); kFF = ff; rightPID.setFF(ff);}
+        if((max != kMaxOutput) || (min != kMinOutput)) {
+            leftPID.setOutputRange(min, max);
+            rightPID.setOutputRange(min, max);
+            kMinOutput = min; kMaxOutput = max;
+        }
     }
 
     public static Shooter getInstance() {

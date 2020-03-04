@@ -53,6 +53,10 @@ public class DriveTrain extends SubsystemBase {
         this.led = new Relay(RobotMap.SENSORS.SPIKE);
     }
 
+    public void getRPM(){
+
+    }
+
     public void toggleLED(){
         if(this.led.get() == Relay.Value.kOn){
             this.led.set(Relay.Value.kOff);
