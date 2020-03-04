@@ -141,7 +141,7 @@ public class Robot extends TimedRobot {
     @Override
     public void teleopPeriodic() {
         //SmartDashboard.putNumber("Angle", IMU.getInstance().getYaw());
-        SmartDashboard.putNumber("Shooter RPM", Shooter.getInstance().getRPM());
+        SmartDashboard.putNumber("Shooter RPM", Shooter.getInstance().getLeftRPM());
         /**SmartDashboard.putNumber("Turret Pos", Turret.getInstance().getPosition());*/
         //SmartDashboard.putBoolean("Front Limit", Turret.getInstance().atFrontLimit());
         //SmartDashboard.putBoolean("Back Limit", Turret.getInstance().atBackLimit());

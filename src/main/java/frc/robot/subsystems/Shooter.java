@@ -108,11 +108,11 @@ public class Shooter extends SubsystemBase {
         this.rightEnc = this.right.getEncoder();
         this.rightPID = this.right.getPIDController();
 
-        kP = 6e-5;
+        kP = 0;//6e-5;
         kI = 0;
         kD = 0;
         kIz = 0;
-        kFF = 0.000015;
+        kFF = 0.0000156;
         kMaxOutput = 1;
         kMinOutput = -1;
         maxRPM = 5700;
@@ -150,8 +150,10 @@ public class Shooter extends SubsystemBase {
 
     public void setRPM(double targetRPM) {
         //this.left.setRef
+        //targetRPM /= .2743;
         this.leftPID.setReference(targetRPM, ControlType.kVelocity);
         this.rightPID.setReference(-targetRPM, ControlType.kVelocity);
+        System.out.println("Voltage: " + this.left.getVoltageCompensationNominalVoltage());
     }
 
     public boolean atTargetSpeed(double targetRPM) {
@@ -163,10 +165,11 @@ public class Shooter extends SubsystemBase {
     }
 
     public double getLeftRPM() {
-        return this.left.getEncoder().getVelocity();
+        //return this.leftEnc.getPosition();
+        return this.leftEnc.getVelocity();
     }
     public double getRightRPM() {
-        return this.right.getEncoder().getVelocity();
+        return this.rightEnc.getVelocity();
     }
 
     public void stop()
