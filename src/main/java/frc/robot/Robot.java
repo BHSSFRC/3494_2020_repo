@@ -146,6 +146,7 @@ public class Robot extends TimedRobot {
         //SmartDashboard.putBoolean("Front Limit", Turret.getInstance().atFrontLimit());
         //SmartDashboard.putBoolean("Back Limit", Turret.getInstance().atBackLimit());
         SmartDashboard.putNumber("Gain/FSP", RobotConfig.SHOOTER.SHOOTER_MAX_POWER);
+        Shooter.getInstance().updateMotorPID();
     }
 
     @Override
