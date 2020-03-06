@@ -143,10 +143,10 @@ public class Robot extends TimedRobot {
     public void teleopPeriodic() {
         //SmartDashboard.putNumber("Angle", IMU.getInstance().getYaw());
         SmartDashboard.putNumber("Shooter RPM", Shooter.getInstance().getLeftRPM());
-        /**SmartDashboard.putNumber("Turret Pos", Turret.getInstance().getPosition());*/
-        //SmartDashboard.putBoolean("Front Limit", Turret.getInstance().atFrontLimit());
-        //SmartDashboard.putBoolean("Back Limit", Turret.getInstance().atBackLimit());
-        SmartDashboard.putNumber("Gain/FSP", RobotConfig.SHOOTER.SHOOTER_MAX_POWER);
+        SmartDashboard.putNumber("Turret Pos", Turret.getInstance().getPosition());
+        SmartDashboard.putNumber("Pos Degrees", Turret.getInstance().getDegreesPosition());
+        SmartDashboard.putBoolean("Front Limit", Turret.getInstance().atFrontLimit());
+        SmartDashboard.putBoolean("Back Limit", Turret.getInstance().atBackLimit());
         Shooter.getInstance().updateMotorPID();
     }
 
