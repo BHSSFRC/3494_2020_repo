@@ -61,7 +61,7 @@ public class Shoot extends CommandBase {
         }
         //if (timer.get() > 0.5 && shootPower > 0.01) {
         if(shootPower > 0.05){
-            PreShooter.getInstance().spin(RobotConfig.SHOOTER.PRESHOOTER_POWER);
+            PreShooter.getInstance().spin(SmartDashboard.getNumber("Preshooter Power", RobotConfig.SHOOTER.PRESHOOTER_POWER);
         }else{
             //timer.reset();
             PreShooter.getInstance().stop();
