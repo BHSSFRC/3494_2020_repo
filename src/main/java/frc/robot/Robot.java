@@ -7,8 +7,8 @@
 
 package frc.robot;
 
-import edu.wpi.cscore.UsbCamera;
-import edu.wpi.cscore.UsbCameraInfo;
+import edu.wpi.first.networktables.NetworkTable;
+import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
@@ -37,6 +37,7 @@ public class Robot extends TimedRobot {
 
     private static Linebreaker bottom;
     private static Linebreaker top;
+    private NetworkTable table;
 
     @Override
     public void robotInit() {
@@ -44,6 +45,8 @@ public class Robot extends TimedRobot {
 
         bottom = new Linebreaker(RobotMap.SENSORS.LINEBREAK_BOT);
         top = new Linebreaker(RobotMap.SENSORS.LINEBREAK_TOP);
+
+        this.table = NetworkTableInstance.getDefault().getTable("OpenSight");
 
         //remove SmartDash keys
         /**String[] smartDashKeys = SmartDashboard.getKeys().toArray(new String[0]);
@@ -84,7 +87,7 @@ public class Robot extends TimedRobot {
         }
 
         CommandScheduler.getInstance().run();
-        UsbCameraInfo[] arr = UsbCamera.enumerateUsbCameras();
+        /**UsbCameraInfo[] arr = UsbCamera.enumerateUsbCameras();
         if (arr.length == 0)
         {
             System.out.println("No.");
@@ -92,7 +95,7 @@ public class Robot extends TimedRobot {
         for (UsbCameraInfo info : arr)
         {
             System.out.println(info.dev);
-        }
+        }*/
 
         //UsbCamera camera = CameraServer.getInstance().startAutomaticCapture(0);
         //camera.setVideoMode(VideoMode.PixelFormat.kMJPEG, 320, 240, 120);
@@ -184,6 +187,8 @@ public class Robot extends TimedRobot {
         //SmartDashboard.putBoolean("Front Limit", Turret.getInstance().atFrontLimit());
         //SmartDashboard.putBoolean("Back Limit", Turret.getInstance().atBackLimit());
         SmartDashboard.putNumber("Gain/FSP", RobotConfig.SHOOTER.SHOOTER_MAX_POWER);
+        SmartDashboard.putNumber("target-x", this.table.getEntry("target-x").getDouble(666));
+        SmartDashboard.putNumber("target-y", this.table.getEntry("target-y").getDouble(666));
         Shooter.getInstance().updateMotorPID();
     }
 

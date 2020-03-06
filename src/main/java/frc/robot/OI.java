@@ -6,11 +6,11 @@ import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.commands.*;
-import frc.robot.commands.drive.TurnDegrees;
 import frc.robot.commands.teleop.IntakingRoutine;
 import frc.robot.commands.teleop.ReverseHopper;
 import frc.robot.commands.teleop.RunHopperMagazine;
 import frc.robot.commands.teleop.StopHopperMagazine;
+import frc.robot.commands.turret.AimBot;
 import frc.robot.commands.turret.QuickTurretLimit;
 import frc.robot.subsystems.Hopper;
 import frc.robot.subsystems.Magazine;
@@ -100,10 +100,10 @@ public class OI {
 
 
 
-        //aimBot = new JoystickButton(bb, RobotMap.OI.AIM_BOT);
-        //aimBot.toggleWhenPressed(new AimBot());
-        turnDegrees = new JoystickButton(bb, RobotMap.OI.TURN_DEGREES);
-        turnDegrees.whenPressed(new TurnDegrees(80));
+        aimBot = new JoystickButton(bb, RobotMap.OI.AIM_BOT);
+        aimBot.toggleWhenPressed(new AimBot());
+        //turnDegrees = new JoystickButton(bb, RobotMap.OI.TURN_DEGREES);
+        //turnDegrees.whenPressed(new TurnDegrees(80));
         //turretToStartPos = new JoystickButton(bb, RobotMap.OI.TURRET_TO_START_POS);
         //turretToStartPos.whenPressed(new SpinToPosition(0.0));
 
