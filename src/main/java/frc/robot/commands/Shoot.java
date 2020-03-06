@@ -52,10 +52,16 @@ public class Shoot extends CommandBase {
                         RobotConfig.SHOOTER.SHOOTER_MAX_POWER;
             }
         }
-        Shooter.getInstance().shoot(shootPower);
+        double targetRPM = SmartDashboard.getNumber("Shooter RPM Target", -1);
+        if(shootPower > 0.05 && targetRPM != -1){
+            //Shooter.getInstance().shoot(shootPower);
+            Shooter.getInstance().setRPM(targetRPM);
+        }else{
+            Shooter.getInstance().shoot(shootPower);
+        }
         //if (timer.get() > 0.5 && shootPower > 0.01) {
-        if(shootPower > 0.01){
-            PreShooter.getInstance().spin(RobotConfig.SHOOTER.PRESHOOTER_POWER);
+        if(shootPower > 0.05){
+            PreShooter.getInstance().spin(SmartDashboard.getNumber("Preshooter Power", RobotConfig.SHOOTER.PRESHOOTER_POWER);
         }else{
             //timer.reset();
             PreShooter.getInstance().stop();

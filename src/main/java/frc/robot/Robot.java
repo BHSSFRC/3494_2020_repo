@@ -19,7 +19,6 @@ import frc.robot.commands.RunMagazine;
 import frc.robot.commands.Shoot;
 import frc.robot.commands.drive.Drive;
 import frc.robot.commands.turret.SpinTurret;
-import frc.robot.sensors.IMU;
 import frc.robot.sensors.Linebreaker;
 import frc.robot.subsystems.*;
 
@@ -54,7 +53,8 @@ public class Robot extends TimedRobot {
 
         String[] SDDoubles = {"Shooter Max Power", "Angle", "Calibrate1", "Calibrate2", "TurnPower",
                 "Encoder Distance", "Inches to Drive", "Rotation(degrees)", "target-x", "target-y", "Turret Pos", "Pos Degrees",
-                "Shooter RPM", "Shooter Power Current", "Drive Max Power", "Gain/FSP", "Hopper Power", "Magazine Power"};
+                "Shooter RPM", "Shooter Power Current", "Drive Max Power", "Gain/FSP", "Hopper Power", "Magazine Power", "Shooter RPM Target",
+                "Preshooter Power"};
 
         for (String doubleName : SDDoubles) {
             if (!SmartDashboard.containsKey(doubleName)) {
@@ -161,6 +161,7 @@ public class Robot extends TimedRobot {
         // teleop starts running. If you want the autonomous to
         // continue until interrupted by another command, remove
         // this line or comment it out.
+        CommandScheduler.getInstance().cancelAll();
         if (autonomousCommand != null) {
             autonomousCommand.cancel();
         }
@@ -177,12 +178,13 @@ public class Robot extends TimedRobot {
 
     @Override
     public void teleopPeriodic() {
-        SmartDashboard.putNumber("Angle", IMU.getInstance().getYaw());
-        /**SmartDashboard.putNumber("Shooter RPM", Shooter.getInstance().getRPM());
-        SmartDashboard.putNumber("Turret Pos", Turret.getInstance().getPosition());*/
+        //SmartDashboard.putNumber("Angle", IMU.getInstance().getYaw());
+        SmartDashboard.putNumber("Shooter RPM", Shooter.getInstance().getLeftRPM());
+        /**SmartDashboard.putNumber("Turret Pos", Turret.getInstance().getPosition());*/
         //SmartDashboard.putBoolean("Front Limit", Turret.getInstance().atFrontLimit());
         //SmartDashboard.putBoolean("Back Limit", Turret.getInstance().atBackLimit());
         SmartDashboard.putNumber("Gain/FSP", RobotConfig.SHOOTER.SHOOTER_MAX_POWER);
+        Shooter.getInstance().updateMotorPID();
     }
 
     @Override
