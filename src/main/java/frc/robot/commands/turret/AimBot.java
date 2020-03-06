@@ -23,7 +23,14 @@ public class AimBot extends CommandBase {
     @Override
     public void execute() {
         this.targetOffset = SmartDashboard.getNumber("target-x", 0);
-        this.power = Math.abs(this.targetOffset) * .40;
+        if(targetOffset < 1.0 && targetOffset > -1.0){
+            this.power = Math.abs(this.targetOffset) * .40;
+        }else{
+            this.power = 0;
+        }
+
+        this.power = Math.min(this.power, 0.2);
+
         //SmartDashboard.putNumber("Pixel Offset", pixelsOffset);
         if(this.targetOffset < 0){
             Turret.getInstance().spin(this.power);

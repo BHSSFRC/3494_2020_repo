@@ -7,6 +7,8 @@
 
 package frc.robot;
 
+import edu.wpi.first.networktables.NetworkTable;
+import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
@@ -35,6 +37,7 @@ public class Robot extends TimedRobot {
 
     private static Linebreaker bottom;
     private static Linebreaker top;
+    private NetworkTable table;
 
     @Override
     public void robotInit() {
@@ -42,6 +45,8 @@ public class Robot extends TimedRobot {
 
         bottom = new Linebreaker(RobotMap.SENSORS.LINEBREAK_BOT);
         top = new Linebreaker(RobotMap.SENSORS.LINEBREAK_TOP);
+
+        this.table = NetworkTableInstance.getDefault().getTable("OpenSight");
 
         //remove SmartDash keys
         /**String[] smartDashKeys = SmartDashboard.getKeys().toArray(new String[0]);
@@ -80,6 +85,32 @@ public class Robot extends TimedRobot {
                 SmartDashboard.setPersistent(booleanName);
             }
         }
+
+        CommandScheduler.getInstance().run();
+        /**UsbCameraInfo[] arr = UsbCamera.enumerateUsbCameras();
+        if (arr.length == 0)
+        {
+            System.out.println("No.");
+        }
+        for (UsbCameraInfo info : arr)
+        {
+            System.out.println(info.dev);
+        }*/
+
+        //UsbCamera camera = CameraServer.getInstance().startAutomaticCapture(0);
+        //camera.setVideoMode(VideoMode.PixelFormat.kMJPEG, 320, 240, 120);
+        //camera.setConnectVerbose(0);
+        /*camera.setResolution(320, 240);
+        new Thread(() -> {
+                CvSink cvSink = CameraServer.getInstance().getVideo();
+                CvSource outputStream = CameraServer.getInstance().putVideo("camera stream", 320, 240);
+                Mat source = new Mat();
+                while(!Thread.interrupted()) {
+                    cvSink.grabFrame(source);
+                    outputStream.putFrame(source);
+                    }
+        }).start();*/
+
     }
 
     @Override
@@ -89,6 +120,15 @@ public class Robot extends TimedRobot {
         // and running subsystem periodic() methods.  This must be called from the robot's periodic
         // block in order for anything in the Command-based framework to work.
         CommandScheduler.getInstance().run();
+        /*UsbCameraInfo[] arr = UsbCamera.enumerateUsbCameras();
+        if (arr.length == 0)
+        {
+            System.out.println("HRM.");
+        }
+        for (UsbCameraInfo info : arr)
+        {
+            System.out.println(info.dev);
+        }*/
 
         //SmartDashboard.putBoolean("Dist Sensor Error", Dist2m.getInstance().isNotEnabled());
     }
@@ -147,6 +187,9 @@ public class Robot extends TimedRobot {
         SmartDashboard.putNumber("Pos Degrees", Turret.getInstance().getDegreesPosition());
         SmartDashboard.putBoolean("Front Limit", Turret.getInstance().atFrontLimit());
         SmartDashboard.putBoolean("Back Limit", Turret.getInstance().atBackLimit());
+
+        SmartDashboard.putNumber("target-x", this.table.getEntry("target-x").getDouble(666));
+        SmartDashboard.putNumber("target-y", this.table.getEntry("target-y").getDouble(666));
         Shooter.getInstance().updateMotorPID();
     }
 

@@ -76,8 +76,8 @@ public class RobotMap {
 
         public static int QUICK_TURRET_LIMITS = 2;
         //public static int TURRET_TO_START_POS = 11;
-        //public static int AIM_BOT = 10;
-        public static int TURN_DEGREES = 10;
+        public static int AIM_BOT = 10;
+        //public static int TURN_DEGREES = 10;
 
         public static int SHOOTER_LOW = 1;
         public static int SHOOTER_MED = 3;
