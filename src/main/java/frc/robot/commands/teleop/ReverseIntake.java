@@ -31,7 +31,7 @@ public class ReverseIntake extends CommandBase {
         Magazine.getInstance().runReverse();
         Hopper.getInstance().spin(-RobotConfig.MAGAZINE.HOPPER_DEFAULT_POWER);
         Intake.getInstance().setDeployed(true);
-        Intake.getInstance().runIntake(-.2);
+        Intake.getInstance().runIntake(-.4);
     }
 
     @Override

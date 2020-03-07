@@ -80,8 +80,8 @@ public class OI {
         boardButtons = new JoystickButton[15];
 
         reverseHopper = new JoystickButton(bb, RobotMap.OI.REVERSE_HOPPER);
-        reverseHopper.whenPressed(new InstantCommand(() -> new ReverseIntake().schedule(false)));
-        reverseHopper.whenReleased(new InstantCommand(() -> new ReverseIntake().end(false)));
+        //reverseHopper.whenPressed(new ReverseIntake());
+        reverseHopper.whenPressed(new InstantCommand(() -> new ReverseIntake().withInterrupt(() -> !reverseHopper.get()).schedule(false)));
 
         //runMagazine = new JoystickButton(bb, RobotMap.OI.RUN_MAGAZINE);
         //runMagazine.whenPressed(new RunMagazine(true, true, true));
