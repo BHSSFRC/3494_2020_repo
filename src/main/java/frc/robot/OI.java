@@ -141,8 +141,8 @@ public class OI {
         //toggleLED = new JoystickButton(bb, RobotMap.OI.TOGGLE_LED);
         //toggleLED.whenPressed(new InstantCommand(() -> DriveTrain.getInstance().toggleLED()));
 
-        //leftTriggerPressed = new Trigger(() -> getSecondaryXboxLeftTriggerPressed());
-        leftTriggerPressed = new Trigger(() -> true);
+        leftTriggerPressed = new Trigger(() -> getSecondaryXboxLeftTriggerPressed());
+        //leftTriggerPressed = new Trigger(() -> true);
         //leftTriggerPressed.whenInactive(new InstantCommand(() -> Shooter.getInstance().setPosition(Shooter.Position.ONE)));
         shooterLow = new JoystickButton(bb, RobotMap.OI.SHOOTER_LOW).and(leftTriggerPressed);
         shooterMed = new JoystickButton(bb, RobotMap.OI.SHOOTER_MED).and(leftTriggerPressed);
