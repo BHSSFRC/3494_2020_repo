@@ -19,18 +19,24 @@ import java.awt.*;
 public class IntakingRoutine extends SequentialCommandGroup {
     public IntakingRoutine(Magazine mag, Hopper hop) {
         SmartDashboard.putBoolean("Intaking Routine", true);
+        System.out.println("Start Intaking Routine");
         addCommands(
                 new ParallelDeadlineGroup(
                         new SequentialCommandGroup(
                                 new RunMagazine(true, false, false).withInterrupt(() -> Robot.getLinebreakBottom().lineBroken()),
+                                new InstantCommand(() -> System.out.println("First Linebreak Sensor Tripped")),
                                 new RunMagazine(true, true, false).withInterrupt(() -> Robot.getLinebreakTop().lineBroken()),
+                                new InstantCommand(() -> System.out.println("Second Linebreak Sensor Tripped, wait 1 second")),
                                 new RunMagazine(true, true, false).withTimeout(RobotConfig.MAGAZINE.TIME_AFTER_2ND_LINEBREAK_SENSOR),
-                                new RunMagazine(true, false, false).withInterrupt(() -> Robot.getLinebreakBottom().lineBroken())
+                                new InstantCommand(() -> System.out.println("1 second passed")),
+                                new RunMagazine(true, false, false).withInterrupt(() -> Robot.getLinebreakBottom().lineBroken()),
+                                new InstantCommand(() -> System.out.println("First Linebreak Sensor Tripped, Finish"))
                         ),
                         new RunHopper()
                 ),
                 new InstantCommand(() -> Hopper.getInstance().stop()),
-                new InstantCommand(() -> Magazine.getInstance().stop())
+                new InstantCommand(() -> Magazine.getInstance().stop()),
+                new InstantCommand(() -> System.out.println("Intaking Routine Finished"))
                 /**new ParallelCommandGroup(
                         //new RunHopper(),
                         new RunMagazine(true, false, false)

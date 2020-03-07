@@ -16,19 +16,22 @@ public class ReverseIntake extends CommandBase {
                 Intake.getInstance(),
                 Hopper.getInstance(),
                 Magazine.getInstance());
+        System.out.println("Construct Reverse Intaking");
     }
 
     @Override
     public void initialize() {
         SmartDashboard.putBoolean("Reverse Intake", true);
+        System.out.println("Start Reverse Intaking");
     }
 
     @Override
     public void execute() {
         PreShooter.getInstance().spin(-RobotConfig.SHOOTER.PRESHOOTER_POWER);
         Magazine.getInstance().runReverse();
-        Hopper.getInstance().spin(-RobotConfig.MAGAZINE.MOTOR_DEFAULT_POWER);
-        Intake.getInstance().runIntake(-.5);
+        Hopper.getInstance().spin(-RobotConfig.MAGAZINE.HOPPER_DEFAULT_POWER);
+        Intake.getInstance().setDeployed(true);
+        Intake.getInstance().runIntake(-.2);
     }
 
     @Override
@@ -40,6 +43,7 @@ public class ReverseIntake extends CommandBase {
     @Override
     public void end(boolean interrupted) {
         SmartDashboard.putBoolean("Reverse Intake", false);
+        System.out.println("Stop Reverse Intaking" + interrupted);
         PreShooter.getInstance().stop();
         Magazine.getInstance().stop();
         Hopper.getInstance().stop();

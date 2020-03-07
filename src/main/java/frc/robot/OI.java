@@ -6,10 +6,7 @@ import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.commands.*;
-import frc.robot.commands.teleop.IntakingRoutine;
-import frc.robot.commands.teleop.ReverseHopper;
-import frc.robot.commands.teleop.RunHopperMagazine;
-import frc.robot.commands.teleop.StopHopperMagazine;
+import frc.robot.commands.teleop.*;
 import frc.robot.commands.turret.AimBot;
 import frc.robot.commands.turret.QuickTurretLimit;
 import frc.robot.subsystems.Hopper;
@@ -83,7 +80,8 @@ public class OI {
         boardButtons = new JoystickButton[15];
 
         reverseHopper = new JoystickButton(bb, RobotMap.OI.REVERSE_HOPPER);
-        reverseHopper.whileHeld(new ReverseHopper());
+        reverseHopper.whenPressed(new InstantCommand(() -> new ReverseIntake().schedule(false)));
+        reverseHopper.whenReleased(new InstantCommand(() -> new ReverseIntake().end(false)));
 
         //runMagazine = new JoystickButton(bb, RobotMap.OI.RUN_MAGAZINE);
         //runMagazine.whenPressed(new RunMagazine(true, true, true));
@@ -143,8 +141,9 @@ public class OI {
         //toggleLED = new JoystickButton(bb, RobotMap.OI.TOGGLE_LED);
         //toggleLED.whenPressed(new InstantCommand(() -> DriveTrain.getInstance().toggleLED()));
 
-        leftTriggerPressed = new Trigger(() -> getSecondaryXboxLeftTriggerPressed());
-        leftTriggerPressed.whenInactive(new InstantCommand(() -> Shooter.getInstance().setPosition(Shooter.Position.ONE)));
+        //leftTriggerPressed = new Trigger(() -> getSecondaryXboxLeftTriggerPressed());
+        leftTriggerPressed = new Trigger(() -> true);
+        //leftTriggerPressed.whenInactive(new InstantCommand(() -> Shooter.getInstance().setPosition(Shooter.Position.ONE)));
         shooterLow = new JoystickButton(bb, RobotMap.OI.SHOOTER_LOW).and(leftTriggerPressed);
         shooterMed = new JoystickButton(bb, RobotMap.OI.SHOOTER_MED).and(leftTriggerPressed);
         shooterHigh = new JoystickButton(bb, RobotMap.OI.SHOOTER_HIGH).and(leftTriggerPressed);

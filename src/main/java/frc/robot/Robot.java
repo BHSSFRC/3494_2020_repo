@@ -77,7 +77,7 @@ public class Robot extends TimedRobot {
         CommandScheduler.getInstance().schedule(new InstantCommand(Pneumatics.getInstance()::startCompressor));
 
         String[] SDBooleans = {"Calibrate IMU?",
-        "Front Limit", "Back Limit", "Auto Forward?"};
+        "Front Limit", "Back Limit", "Auto Forward?", "LBottom", "LTop"};
 
         for (String booleanName : SDBooleans) {
             if (!SmartDashboard.containsKey(booleanName)) {
@@ -187,6 +187,9 @@ public class Robot extends TimedRobot {
         SmartDashboard.putNumber("Pos Degrees", Turret.getInstance().getDegreesPosition());
         SmartDashboard.putBoolean("Front Limit", Turret.getInstance().atFrontLimit());
         SmartDashboard.putBoolean("Back Limit", Turret.getInstance().atBackLimit());
+
+        SmartDashboard.putBoolean("LBottom", getLinebreakBottom().lineBroken());
+        SmartDashboard.putBoolean("LTop", getLinebreakTop().lineBroken());
 
         SmartDashboard.putNumber("target-x", this.table.getEntry("target-x").getDouble(666));
         SmartDashboard.putNumber("target-y", this.table.getEntry("target-y").getDouble(666));
