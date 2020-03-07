@@ -15,10 +15,10 @@ public class RobotMap {
     public static class SHOOTER {
         public static final int RIGHT = 12;
         public static final int LEFT = 13;
-        public static final int HOOD_MAIN_UP = 5;
-        public static final int HOOD_MAIN_DOWN = 4;
-        public static final int HOOD_LIMIT_UP = 3;
-        public static final int HOOD_LIMIT_DOWN = 2;
+        public static final int HOOD_MAIN_UP = 4;
+        public static final int HOOD_MAIN_DOWN = 5;
+        public static final int HOOD_LIMIT_UP = 2;
+        public static final int HOOD_LIMIT_DOWN = 3;
     }
 
     public static class INTAKE {
