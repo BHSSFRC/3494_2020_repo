@@ -37,8 +37,8 @@ public class Shooter extends SubsystemBase {
     public enum Position
     {
         ONE(DoubleSolenoid.Value.kReverse, DoubleSolenoid.Value.kReverse), 
-        TWO(DoubleSolenoid.Value.kForward, DoubleSolenoid.Value.kReverse), 
-        THREE(DoubleSolenoid.Value.kForward, DoubleSolenoid.Value.kForward);
+        TWO(DoubleSolenoid.Value.kForward, DoubleSolenoid.Value.kForward),
+        THREE(DoubleSolenoid.Value.kForward, DoubleSolenoid.Value.kReverse);
 
         private final DoubleSolenoid.Value hood, limiter;
         
@@ -213,11 +213,13 @@ public class Shooter extends SubsystemBase {
             /*if (this.currentPosition == Position.ONE) {
                 switch(position){
                     case TWO:
+                        System.out.println("1 to 2");
                         this.limiter.set(DoubleSolenoid.Value.kForward);
                         Timer.delay(500E-3);
                         this.hood.set(DoubleSolenoid.Value.kForward);
                         break;
                     case THREE:
+                        System.out.println("1 to 3");
                         this.hood.set(DoubleSolenoid.Value.kForward);
                         break;
                 }
@@ -235,6 +237,8 @@ public class Shooter extends SubsystemBase {
                         this.limiter.set(DoubleSolenoid.Value.kReverse);
                         Timer.delay(500E-3);
                         this.hood.set(DoubleSolenoid.Value.kForward);
+                        Timer.delay(500E-3);
+                        this.limiter.set(DoubleSolenoid.Value.kForward);
                         break;
                 }
             } else if (this.currentPosition == Position.THREE) {
