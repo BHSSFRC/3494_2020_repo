@@ -222,8 +222,8 @@ public class Shooter extends SubsystemBase {
                         this.limiter.set(DoubleSolenoid.Value.kReverse);
                         Timer.delay(500E-3);
                         this.hood.set(DoubleSolenoid.Value.kForward);
-                        Timer.delay(500E-3);
-                        this.limiter.set(DoubleSolenoid.Value.kForward);
+                        //Timer.delay(500E-3);
+                        //this.limiter.set(DoubleSolenoid.Value.kForward);
                         break;
                 }
             } else if (this.currentPosition == Position.THREE) {
