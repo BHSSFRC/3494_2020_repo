@@ -81,11 +81,11 @@ public class Turret extends PIDSubsystem {
         //SmartDashboard.putString("Spin", "spinning...");
         SmartDashboard.putString("Spin", "SpinTurret, power = " + power);
         if(this.getPosition() > this.backSoftLimit){
-            power = Math.max(-.1, power);
-            SmartDashboard.putString("Spin", "back soft limit " + this.getBackSoftLimit());
+            power = Math.max(-.2, power);
+            SmartDashboard.putString("Spin", "BSL: " + this.getBackSoftLimit());
         }
         if(this.getPosition() < this.getFrontSoftLimit()){
-            power = Math.min(0.1, power);
+            power = Math.min(0.2, power);
             SmartDashboard.putString("Spin", ("FSL: " + this.getFrontSoftLimit() + " FHL: " + this.frontHardLimit));
         }
         if(this.atBackLimit()){
@@ -94,7 +94,7 @@ public class Turret extends PIDSubsystem {
         }
         if(this.atFrontLimit()){
             power = Math.min(0, power);
-            SmartDashboard.putString("Spin", "front limit");
+            SmartDashboard.putString("Spin", "front limit " + this.getFrontSoftLimit());
         }
         if(Math.abs(power) < 0.02){
             power = 0;
