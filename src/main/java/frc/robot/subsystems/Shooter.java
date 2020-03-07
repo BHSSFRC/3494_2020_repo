@@ -209,57 +209,6 @@ public class Shooter extends SubsystemBase {
                     this.hood.set(DoubleSolenoid.Value.kForward);
                     break;
             }
-            //System.out.println("if 1");
-            /*if (this.currentPosition == Position.ONE) {
-                switch(position){
-                    case TWO:
-                        System.out.println("1 to 2");
-                        this.limiter.set(DoubleSolenoid.Value.kForward);
-                        Timer.delay(500E-3);
-                        this.hood.set(DoubleSolenoid.Value.kForward);
-                        break;
-                    case THREE:
-                        System.out.println("1 to 3");
-                        this.hood.set(DoubleSolenoid.Value.kForward);
-                        break;
-                }
-            } else if (this.currentPosition == Position.TWO) {
-                //System.out.println("if 2");
-                switch(position){
-                    case ONE:
-                        this.hood.set(DoubleSolenoid.Value.kReverse);
-                        Timer.delay(500E-3);
-                        this.limiter.set(DoubleSolenoid.Value.kReverse);
-                        break;
-                    case THREE:
-                        this.hood.set(DoubleSolenoid.Value.kReverse);
-                        Timer.delay(500E-3);
-                        this.limiter.set(DoubleSolenoid.Value.kReverse);
-                        Timer.delay(500E-3);
-                        this.hood.set(DoubleSolenoid.Value.kForward);
-                        Timer.delay(500E-3);
-                        this.limiter.set(DoubleSolenoid.Value.kForward);
-                        break;
-                }
-            } else if (this.currentPosition == Position.THREE) {
-                System.out.println("if 3");
-                switch(position){
-                    case ONE:
-                        this.limiter.set(DoubleSolenoid.Value.kReverse);
-                        Timer.delay(500E-3);
-                        this.hood.set(DoubleSolenoid.Value.kReverse);
-                        break;
-                    case TWO:
-                        this.limiter.set(DoubleSolenoid.Value.kReverse);
-                        Timer.delay(500E-3);
-                        this.hood.set(DoubleSolenoid.Value.kReverse);
-                        Timer.delay(500E-3);
-                        this.limiter.set(DoubleSolenoid.Value.kForward);
-                        Timer.delay(500E-3);
-                        this.hood.set(DoubleSolenoid.Value.kForward);
-                        break;
-                }
-            }*/
 
             this.currentPosition = position;
         }
