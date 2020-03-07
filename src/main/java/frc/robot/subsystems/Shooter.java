@@ -192,10 +192,25 @@ public class Shooter extends SubsystemBase {
     public void setPosition(Position position) {
         // hood = "long piston"
         // limiter = "pancake"
+
         System.out.println("Current Pos: " + this.currentPosition + " Goal Pos: " + position);
         if (position != this.currentPosition) {
+            this.limiter.set(DoubleSolenoid.Value.kReverse);
+            this.hood.set(DoubleSolenoid.Value.kReverse);
+            Timer.delay(500E-3);
+
+            switch(position){
+                case TWO:
+                    this.limiter.set(DoubleSolenoid.Value.kForward);
+                    Timer.delay(500E-3);
+                    this.hood.set(DoubleSolenoid.Value.kForward);
+                    break;
+                case THREE:
+                    this.hood.set(DoubleSolenoid.Value.kForward);
+                    break;
+            }
             //System.out.println("if 1");
-            if (this.currentPosition == Position.ONE) {
+            /*if (this.currentPosition == Position.ONE) {
                 switch(position){
                     case TWO:
                         System.out.println("1 to 2");
@@ -244,7 +259,7 @@ public class Shooter extends SubsystemBase {
                         this.hood.set(DoubleSolenoid.Value.kForward);
                         break;
                 }
-            }
+            }*/
 
             this.currentPosition = position;
         }
