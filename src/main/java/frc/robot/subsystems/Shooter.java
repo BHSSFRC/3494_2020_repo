@@ -93,7 +93,9 @@ public class Shooter extends SubsystemBase {
 
     private Shooter() {
         this.left = new CANSparkMax(RobotMap.SHOOTER.LEFT, CANSparkMaxLowLevel.MotorType.kBrushless);
+        this.left.setSmartCurrentLimit(40);
         this.right= new CANSparkMax(RobotMap.SHOOTER.RIGHT, CANSparkMaxLowLevel.MotorType.kBrushless);
+        this.right.setSmartCurrentLimit(40);
         this.left.setOpenLoopRampRate(0.4);
         this.right.setOpenLoopRampRate(0.4);
         this.left.setClosedLoopRampRate(0.4);
@@ -157,7 +159,7 @@ public class Shooter extends SubsystemBase {
     }
 
     public boolean atTargetSpeed(double targetRPM) {
-        return Math.abs(this.getRPM() - targetRPM) < 300;
+        return Math.abs(this.getRPM() - targetRPM) < 150;
     }
 
     public double getRPM() {
