@@ -157,11 +157,19 @@ public class Shooter extends SubsystemBase {
     }
 
     public boolean atTargetSpeed(double targetRPM) {
-        return Math.abs(this.getRPM() - targetRPM) < 10;
+        return Math.abs(this.getRPM() - targetRPM) < 300;
     }
 
     public double getRPM() {
         return (Math.abs(this.getLeftRPM()) + Math.abs(this.getRightRPM())) / 2;
+    }
+
+    public double getLeftPower(){
+        return this.left.get();
+    }
+
+    public double getRightPower(){
+        return this.right.get();
     }
 
     public double getLeftRPM() {

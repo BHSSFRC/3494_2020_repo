@@ -2,6 +2,7 @@ package frc.robot;
 
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.XboxController;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
@@ -42,6 +43,7 @@ public class OI {
     private Trigger shooterHigh;
     private Trigger leftTriggerPressed;
     private JoystickButton turnDegrees;
+    private JoystickButton aimAndShoot;
 
     private JoystickButton toggleLED;
 
@@ -151,6 +153,9 @@ public class OI {
         shooterLow.whenActive(new InstantCommand(() -> Shooter.getInstance().setPosition(Shooter.Position.ONE)));
         shooterMed.whenActive(new InstantCommand(() -> Shooter.getInstance().setPosition(Shooter.Position.TWO)));
         shooterHigh.whenActive(new InstantCommand(() -> Shooter.getInstance().setPosition(Shooter.Position.THREE)));
+
+        aimAndShoot = new JoystickButton(bb, RobotMap.OI.AIM_AND_SHOOT);
+        aimAndShoot.whenPressed(new AimAndShoot(SmartDashboard.getNumber("Shooter RPM Target", 0)));
 
         /**shooterLow = new JoystickButton(bb, RobotMap.OI.SHOOTER_LOW);
         shooterLow.whenPressed(new InstantCommand(() -> RobotConfig.SHOOTER.SHOOTER_MAX_POWER = .2));

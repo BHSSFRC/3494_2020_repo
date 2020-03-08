@@ -180,6 +180,10 @@ public class Turret extends PIDSubsystem {
         //return this.getController().atSetpoint();
     }
 
+    public boolean atCameraSetpoint(){
+        return Math.abs(SmartDashboard.getNumber("target-x", -1)) < .02;
+    }
+
     public double getOffset(){
         return this.getPosition() - this.getController().getSetpoint();
     }

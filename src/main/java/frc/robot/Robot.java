@@ -19,6 +19,7 @@ import frc.robot.commands.RunMagazine;
 import frc.robot.commands.Shoot;
 import frc.robot.commands.drive.Drive;
 import frc.robot.commands.turret.SpinTurret;
+import frc.robot.sensors.IMU;
 import frc.robot.sensors.Linebreaker;
 import frc.robot.subsystems.*;
 
@@ -57,7 +58,7 @@ public class Robot extends TimedRobot {
         String[] SDDoubles = {"Shooter Max Power", "Angle", "Calibrate1", "Calibrate2", "TurnPower",
                 "Encoder Distance", "Inches to Drive", "Rotation(degrees)", "target-x", "target-y", "Turret Pos", "Pos Degrees",
                 "Shooter RPM", "Shooter Power Current", "Drive Max Power", "Gain/FSP", "Hopper Power", "Magazine Power", "Shooter RPM Target",
-                "Preshooter Power"};
+                "Preshooter Power", "Shooter Left Power", "Shooter Right Power", "Shooter Left RPM", "Shooter Right RPM"};
 
         for (String doubleName : SDDoubles) {
             if (!SmartDashboard.containsKey(doubleName)) {
@@ -165,6 +166,7 @@ public class Robot extends TimedRobot {
         // continue until interrupted by another command, remove
         // this line or comment it out.
         CommandScheduler.getInstance().cancelAll();
+        IMU.getInstance().reset();
         if (autonomousCommand != null) {
             autonomousCommand.cancel();
         }
@@ -181,8 +183,8 @@ public class Robot extends TimedRobot {
 
     @Override
     public void teleopPeriodic() {
-        //SmartDashboard.putNumber("Angle", IMU.getInstance().getYaw());
-        SmartDashboard.putNumber("Shooter RPM", Shooter.getInstance().getLeftRPM());
+        SmartDashboard.putNumber("Angle", IMU.getInstance().getRawAngle());
+        SmartDashboard.putNumber("Shooter RPM", Shooter.getInstance().getRPM());
         SmartDashboard.putNumber("Turret Pos", Turret.getInstance().getPosition());
         SmartDashboard.putNumber("Pos Degrees", Turret.getInstance().getDegreesPosition());
         SmartDashboard.putBoolean("Front Limit", Turret.getInstance().atFrontLimit());
@@ -194,6 +196,13 @@ public class Robot extends TimedRobot {
         SmartDashboard.putNumber("target-x", this.table.getEntry("target-x").getDouble(666));
         SmartDashboard.putNumber("target-y", this.table.getEntry("target-y").getDouble(666));
         Shooter.getInstance().updateMotorPID();
+
+        if(true){
+            SmartDashboard.putNumber("Shooter Left Power", Shooter.getInstance().getLeftPower());
+            SmartDashboard.putNumber("Shooter Right Power", Shooter.getInstance().getRightPower());
+            SmartDashboard.putNumber("Shooter Left RPM", Shooter.getInstance().getLeftRPM());
+            SmartDashboard.putNumber("Shooter Right RPM", Shooter.getInstance().getRightRPM());
+        }
     }
 
     @Override

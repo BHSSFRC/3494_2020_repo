@@ -18,6 +18,7 @@ public class Shoot extends CommandBase {
     private QuadTimer timer;
     private double shootPower;
     private boolean fixedSpeed;
+    private boolean goToRPM;
 
     public Shoot() {
         addRequirements(Shooter.getInstance(), PreShooter.getInstance());
@@ -26,6 +27,8 @@ public class Shoot extends CommandBase {
                 RobotConfig.SHOOTER.RPM_PER_POWER;*/
         this.timer = new QuadTimer();
         this.fixedSpeed = false;
+        this.targetRPM = SmartDashboard.getNumber("Shooter RPM Target", -1);
+        this.goToRPM = false;
     }
 
     public Shoot(double fixedPower) {
@@ -33,6 +36,17 @@ public class Shoot extends CommandBase {
         this.timer = new QuadTimer();
         this.fixedSpeed = true;
         this.shootPower = fixedPower;
+        this.targetRPM = -1;
+        this.goToRPM = false;
+    }
+
+    public Shoot(double targetRPM, boolean RPM){
+        addRequirements(Shooter.getInstance(), PreShooter.getInstance());
+        this.targetRPM = targetRPM;
+        System.out.println("Shoot at RPM: " + targetRPM);
+        this.fixedSpeed = true;
+        this.timer = new QuadTimer();
+        this.goToRPM = true;
     }
 
     @Override
@@ -52,22 +66,28 @@ public class Shoot extends CommandBase {
                         RobotConfig.SHOOTER.SHOOTER_MAX_POWER;
             }
         }
-        double targetRPM = SmartDashboard.getNumber("Shooter RPM Target", -1);
-        if(shootPower > 0.05 && targetRPM != -1){
+
+        if(this.goToRPM || (shootPower > 0.05 && targetRPM != -1)){
             //Shooter.getInstance().shoot(shootPower);
             Shooter.getInstance().setRPM(targetRPM);
         }else{
             Shooter.getInstance().shoot(shootPower);
         }
+
         if (timer.get() > RobotConfig.SHOOTER.PRESHOOTER_DELAY && shootPower > 0.05) {
         //if(shootPower > 0.05){
             System.out.println("Time: " + timer.get());
             PreShooter.getInstance().spin(SmartDashboard.getNumber("Preshooter Power", RobotConfig.SHOOTER.PRESHOOTER_POWER));
+        }else if(this.goToRPM){
+            //System.out.println("Run Preshooter");
+            PreShooter.getInstance().spin(SmartDashboard.getNumber("Preshooter Power", RobotConfig.SHOOTER.PRESHOOTER_POWER));
         }else if (shootPower < .05) {
             timer.reset();
             PreShooter.getInstance().stop();
+            //System.out.println("stop preshooter");
         }else{
             System.out.println("powering up shooter: " + timer.get());
+            //System.out.println("stop preshooter");
             PreShooter.getInstance().stop();
         }
     }

@@ -79,6 +79,8 @@ public class RobotMap {
         public static int AIM_BOT = 10;
         //public static int TURN_DEGREES = 10;
 
+        public static int AIM_AND_SHOOT = 4;
+
         public static int SHOOTER_LOW = 1;
         public static int SHOOTER_MED = 3;
         public static int SHOOTER_HIGH = 6;
