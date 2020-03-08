@@ -24,9 +24,9 @@ public class DistanceDrive extends CommandBase {
         this.distEncoderInitial = DriveTrain.getInstance().getEncoderPosition();
         this.distEncoderGoal = Math.abs(this.dist) * RobotConfig.DRIVE_STRAIGHT.ENCODER_TICKS_PER_INCH;
         if(this.dist > 0){
-            this.speed = 0.3;
+            this.speed = 0.5;
         }else{
-            this.speed = -.3;
+            this.speed = -.5;
         }
         this.distEncoderTraveled = 0;
     }

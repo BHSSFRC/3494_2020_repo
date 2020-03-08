@@ -108,7 +108,7 @@ public class Shooter extends SubsystemBase {
         this.rightEnc = this.right.getEncoder();
         this.rightPID = this.right.getPIDController();
 
-        kP = 0.00008;
+        kP = 0.0004;
         kI = 0.000000;//0.000001;
         kD = 0.00032;
         kIz = 0.0;
