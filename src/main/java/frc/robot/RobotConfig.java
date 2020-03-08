@@ -60,6 +60,7 @@ public final class RobotConfig
     public static class MAGAZINE {
         public static double MOTOR_DEFAULT_POWER = SmartDashboard.getNumber("Magazine Power", 0.7);
         public static double HOPPER_DEFAULT_POWER = SmartDashboard.getNumber("Hopper Power", 0.8);
+        public static double INTAKE_DEFAULT_POWER = 0.6;
         public static double TIME_AFTER_2ND_LINEBREAK_SENSOR = 0;
     }
 

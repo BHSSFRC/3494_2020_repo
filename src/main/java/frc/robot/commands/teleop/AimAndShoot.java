@@ -1,5 +1,6 @@
 package frc.robot.commands.teleop;
 
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
 import edu.wpi.first.wpilibj2.command.ParallelDeadlineGroup;
@@ -28,5 +29,10 @@ public class AimAndShoot extends SequentialCommandGroup {
                 ).withTimeout(10),
                 new InstantCommand(() -> Shooter.getInstance().setPosition(Shooter.Position.ONE))
         );
+    }
+
+    //runs command with the target RPM specified by the SmartDashboard
+    public AimAndShoot(){
+        this(SmartDashboard.getNumber("Shooter RPM Target", 0));
     }
 }

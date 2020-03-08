@@ -2,12 +2,15 @@ package frc.robot;
 
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.XboxController;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.commands.*;
-import frc.robot.commands.teleop.*;
+import frc.robot.commands.auto.SixBallAuto;
+import frc.robot.commands.teleop.IntakingRoutine;
+import frc.robot.commands.teleop.ReverseIntake;
+import frc.robot.commands.teleop.RunHopperMagazine;
+import frc.robot.commands.teleop.StopHopperMagazine;
 import frc.robot.commands.turret.AimBot;
 import frc.robot.commands.turret.QuickTurretLimit;
 import frc.robot.subsystems.Hopper;
@@ -155,7 +158,8 @@ public class OI {
         shooterHigh.whenActive(new InstantCommand(() -> Shooter.getInstance().setPosition(Shooter.Position.THREE)));
 
         aimAndShoot = new JoystickButton(bb, RobotMap.OI.AIM_AND_SHOOT);
-        aimAndShoot.whenPressed(new AimAndShoot(SmartDashboard.getNumber("Shooter RPM Target", 0)));
+        //aimAndShoot.whenPressed(new AimAndShoot(SmartDashboard.getNumber("Shooter RPM Target", 0)));
+        aimAndShoot.whenPressed(new SixBallAuto());
 
         /**shooterLow = new JoystickButton(bb, RobotMap.OI.SHOOTER_LOW);
         shooterLow.whenPressed(new InstantCommand(() -> RobotConfig.SHOOTER.SHOOTER_MAX_POWER = .2));
