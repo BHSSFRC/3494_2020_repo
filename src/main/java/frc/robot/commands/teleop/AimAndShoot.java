@@ -2,6 +2,7 @@ package frc.robot.commands.teleop;
 
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
+import edu.wpi.first.wpilibj2.command.ParallelDeadlineGroup;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import frc.robot.commands.Shoot;
 import frc.robot.commands.turret.AimBot;
@@ -20,7 +21,8 @@ public class AimAndShoot extends SequentialCommandGroup {
                         new Shoot(targetRPM, true)).withInterrupt(() -> Shooter.getInstance().atTargetSpeed(targetRPM) &&
                                                             Turret.getInstance().atCameraSetpoint()),
                 new InstantCommand(() -> System.out.println("Turn on Hopper Magazine " + targetRPM)),
-                new ParallelCommandGroup(
+                new ParallelDeadlineGroup(
+                        new CountBallsShot(3),
                         new Shoot(targetRPM, true),
                         new RunHopperMagazine()
                 ).withTimeout(10),
