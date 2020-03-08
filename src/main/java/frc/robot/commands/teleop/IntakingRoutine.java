@@ -3,21 +3,18 @@ package frc.robot.commands.teleop;
 
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
-import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
 import edu.wpi.first.wpilibj2.command.ParallelDeadlineGroup;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
+import frc.robot.Robot;
 import frc.robot.RobotConfig;
-import frc.robot.RobotContainer;
 import frc.robot.commands.RunHopper;
 import frc.robot.commands.RunMagazine;
 import frc.robot.subsystems.Hopper;
-import frc.robot.Robot;
 import frc.robot.subsystems.Magazine;
 
-import java.awt.*;
-
 public class IntakingRoutine extends SequentialCommandGroup {
-    public IntakingRoutine(Magazine mag, Hopper hop) {
+    //
+    public IntakingRoutine() {
         SmartDashboard.putBoolean("Intaking Routine", true);
         System.out.println("Start Intaking Routine");
         addCommands(

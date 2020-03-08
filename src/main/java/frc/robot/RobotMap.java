@@ -63,7 +63,7 @@ public class RobotMap {
 
         //button board bindings
         //public static int RUN_MAGAZINE = 7;
-        public static int RUN_HOPPER = 8;
+        public static int FLOOR_PICKUP = 8;
         public static int INTAKING_ROUTINE = 7;
 
         public static int REVERSE_HOPPER = 11;

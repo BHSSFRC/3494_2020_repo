@@ -47,7 +47,7 @@ public class CountBallsShot extends CommandBase {
     public boolean isFinished() {
         // TODO: Make this return true when this Command no longer needs to run execute()
         System.out.println("Timer: " + this.timer.get());
-        return (this.timer.get() > 0.5);
+        return (this.timer.get() > 0.5) && !Robot.getLinebreakTop().lineBroken();
     }
 
     @Override

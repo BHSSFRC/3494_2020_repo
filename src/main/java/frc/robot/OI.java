@@ -5,16 +5,13 @@ import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
-import frc.robot.commands.*;
-import frc.robot.commands.auto.SixBallAuto;
-import frc.robot.commands.teleop.IntakingRoutine;
-import frc.robot.commands.teleop.ReverseIntake;
-import frc.robot.commands.teleop.RunHopperMagazine;
-import frc.robot.commands.teleop.StopHopperMagazine;
+import frc.robot.commands.Climb;
+import frc.robot.commands.DriveClimb;
+import frc.robot.commands.RollShooterPosition;
+import frc.robot.commands.Shoot;
+import frc.robot.commands.teleop.*;
 import frc.robot.commands.turret.AimBot;
 import frc.robot.commands.turret.QuickTurretLimit;
-import frc.robot.subsystems.Hopper;
-import frc.robot.subsystems.Magazine;
 import frc.robot.subsystems.Shooter;
 
 public class OI {
@@ -26,7 +23,7 @@ public class OI {
 
     private JoystickButton runShooter;
     private JoystickButton shooterPositionForward, shooterPositionBackward;
-    private JoystickButton runHopper;
+    private JoystickButton floorPickup;
     private Trigger releaseClimber;
     private Trigger retractClimber;
     private Trigger reverseClimberSlow;
@@ -95,8 +92,9 @@ public class OI {
         runShooter = new JoystickButton(secondaryXbox, RobotMap.OI.RUN_SHOOTER);
         runShooter.whileHeld(new Shoot());
 
-        runHopper = new JoystickButton(bb, RobotMap.OI.RUN_HOPPER);
-        runHopper.whenPressed(new RunHopper());
+        floorPickup = new JoystickButton(bb, RobotMap.OI.FLOOR_PICKUP);
+        floorPickup.whileHeld(new FloorPickup());
+        //floorPickup.whenPressed(new RunIntake());
 
         quickTurretLimits = new JoystickButton(bb, RobotMap.OI.QUICK_TURRET_LIMITS);
         quickTurretLimits.whenPressed(new QuickTurretLimit());
@@ -124,7 +122,7 @@ public class OI {
 
         //intakingRoutine = new Trigger(() -> this.getXboxLeftBumperPressed());
         intakingRoutine = new JoystickButton(bb, RobotMap.OI.INTAKING_ROUTINE);
-        intakingRoutine.whenPressed(new IntakingRoutine(Magazine.getInstance(), Hopper.getInstance()).withTimeout(10).andThen(
+        intakingRoutine.whenPressed(new IntakingRoutine().withTimeout(10).andThen(
                 new InstantCommand(() -> System.out.println("Finish Intaking Routine"))));
         //spinHopperMagazine = new JoystickButton(bb, RobotMap.OI.SPIN_HOPPER_MAGAZINE);
         //spinHopperMagazine = new Trigger(() -> this.getXboxLeftBumperPressed());
@@ -158,8 +156,8 @@ public class OI {
         shooterHigh.whenActive(new InstantCommand(() -> Shooter.getInstance().setPosition(Shooter.Position.THREE)));
 
         aimAndShoot = new JoystickButton(bb, RobotMap.OI.AIM_AND_SHOOT);
-        //aimAndShoot.whenPressed(new AimAndShoot(SmartDashboard.getNumber("Shooter RPM Target", 0)));
-        aimAndShoot.whenPressed(new SixBallAuto());
+        aimAndShoot.whenPressed(new AimAndShoot(3));
+        //aimAndShoot.whenPressed(new SixBallAuto());
 
         /**shooterLow = new JoystickButton(bb, RobotMap.OI.SHOOTER_LOW);
         shooterLow.whenPressed(new InstantCommand(() -> RobotConfig.SHOOTER.SHOOTER_MAX_POWER = .2));

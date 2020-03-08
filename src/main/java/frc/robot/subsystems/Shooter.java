@@ -209,9 +209,9 @@ public class Shooter extends SubsystemBase {
 
             switch(position){
                 case TWO:
-                    this.limiter.set(DoubleSolenoid.Value.kForward);
-                    Timer.delay(500E-3);
                     this.hood.set(DoubleSolenoid.Value.kForward);
+                    Timer.delay(100E-3);
+                    this.limiter.set(DoubleSolenoid.Value.kForward);
                     break;
                 case THREE:
                     this.hood.set(DoubleSolenoid.Value.kForward);

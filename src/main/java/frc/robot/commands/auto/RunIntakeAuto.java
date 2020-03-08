@@ -18,7 +18,7 @@ public class RunIntakeAuto extends CommandBase {
 
     @Override
     public void execute() {
-        Intake.getInstance().runIntake((RobotConfig.MAGAZINE.INTAKE_DEFAULT_POWER + 0.2));
+        Intake.getInstance().runIntake((RobotConfig.MAGAZINE.INTAKE_DEFAULT_POWER));
     }
 
     @Override
