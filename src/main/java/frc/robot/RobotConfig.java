@@ -68,7 +68,7 @@ public final class RobotConfig
         public static double RPM_PER_POWER = 1000;
         public static double PRESHOOTER_POWER = 0.3;
         public static double SHOOTER_MAX_POWER = .8;
-        public static double PRESHOOTER_DELAY = 1;
+        public static double PRESHOOTER_DELAY = 2;
         public final double 
             kP = 0.0,
             kI = 0.0,

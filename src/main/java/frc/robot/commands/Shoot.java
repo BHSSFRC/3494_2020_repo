@@ -45,6 +45,7 @@ public class Shoot extends CommandBase {
         this.targetRPM = targetRPM;
         System.out.println("Shoot at RPM: " + targetRPM);
         this.fixedSpeed = true;
+        this.shootPower = 0.5;
         this.timer = new QuadTimer();
         this.goToRPM = true;
     }
@@ -77,9 +78,6 @@ public class Shoot extends CommandBase {
         if (timer.get() > RobotConfig.SHOOTER.PRESHOOTER_DELAY && shootPower > 0.05) {
         //if(shootPower > 0.05){
             System.out.println("Time: " + timer.get());
-            PreShooter.getInstance().spin(SmartDashboard.getNumber("Preshooter Power", RobotConfig.SHOOTER.PRESHOOTER_POWER));
-        }else if(this.goToRPM && timer.get() > 1){
-            //System.out.println("Run Preshooter");
             PreShooter.getInstance().spin(SmartDashboard.getNumber("Preshooter Power", RobotConfig.SHOOTER.PRESHOOTER_POWER));
         }else if (shootPower < .05 && !this.goToRPM) {
             timer.reset();
