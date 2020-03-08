@@ -24,7 +24,7 @@ public class AimAndShoot extends SequentialCommandGroup {
                         new Shoot(targetRPM, true),
                         new RunHopperMagazine()
                 ).withTimeout(10),
-                new InstantCommand(() -> Shooter.getInstance().setPosition(Shooter.Position.TWO))
+                new InstantCommand(() -> Shooter.getInstance().setPosition(Shooter.Position.ONE))
         );
     }
 }
