@@ -111,7 +111,7 @@ public class Robot extends TimedRobot {
                     outputStream.putFrame(source);
                     }
         }).start();*/
-
+        //StopHopperMagazine
     }
 
     @Override
