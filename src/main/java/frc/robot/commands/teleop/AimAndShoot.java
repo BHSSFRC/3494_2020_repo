@@ -6,10 +6,8 @@ import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
 import edu.wpi.first.wpilibj2.command.ParallelDeadlineGroup;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import frc.robot.commands.Shoot;
-import frc.robot.commands.turret.AimBot;
-import frc.robot.subsystems.Turret;
 import frc.robot.subsystems.Shooter;
-import frc.robot.OI;
+import frc.robot.subsystems.Turret;
 
 public class AimAndShoot extends SequentialCommandGroup {
     public AimAndShoot(double targetRPM, int ballsToShoot) {
@@ -20,13 +18,13 @@ public class AimAndShoot extends SequentialCommandGroup {
                 new InstantCommand(() -> System.out.println("Aim and Shoot--RPM: " + targetRPM)),
                 new InstantCommand(() -> Shooter.getInstance().setPosition(Shooter.Position.TWO)),
                 new StopHopperMagazine(),
-                /*new ParallelCommandGroup(
+                new ParallelCommandGroup(
                         //new AimBot(),
                         new Shoot(targetRPM, true)).withInterrupt(() -> Shooter.getInstance().atTargetSpeed(targetRPM) &&
-                                                            Turret.getInstance().atCameraSetpoint()),*/
+                                                            Turret.getInstance().atCameraSetpoint()),
                 new InstantCommand(() -> System.out.println("Turn on Hopper Magazine " + targetRPM)),
                 new ParallelDeadlineGroup(
-                        //new CountBallsShot(ballsToShoot),
+                        new CountBallsShot(ballsToShoot),
                         new Shoot(targetRPM, true),
                         new RunHMWhileShooting(targetRPM)
                 ).withTimeout(10),

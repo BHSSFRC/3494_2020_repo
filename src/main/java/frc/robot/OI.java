@@ -155,7 +155,7 @@ public class OI {
         shooterHigh.whenActive(new InstantCommand(() -> Shooter.getInstance().setPosition(Shooter.Position.THREE)));
 
         aimAndShoot = new JoystickButton(bb, RobotMap.OI.AIM_AND_SHOOT);
-        aimAndShoot.whenPressed(new AimAndShoot(3).withInterrupt(() -> !this.aimAndShoot.get()));
+        aimAndShoot.whenPressed(new AimAndShoot(5).withInterrupt(() -> !this.aimAndShoot.get()));
         //aimAndShoot.whenPressed(new SixBallAuto());
 
         dumbShoot = new JoystickButton(bb, RobotMap.OI.DUMB_SHOOT);
