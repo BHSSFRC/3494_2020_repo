@@ -29,7 +29,7 @@ public class OI {
     private JoystickButton intakingRoutine;
     private JoystickButton spinHopperMagazine;
     private Trigger stopHopperMagazine;
-    private JoystickButton reverseHopper;
+    private JoystickButton ejectBalls;
     //private JoystickButton shooterHood;
     //private JoystickButton shooterLimit;
     private JoystickButton quickTurretLimits;
@@ -78,25 +78,17 @@ public class OI {
         bb = new ButtonBoard(RobotMap.OI.BUTTON_BOARD);
         boardButtons = new JoystickButton[15];
 
-        reverseHopper = new JoystickButton(bb, RobotMap.OI.REVERSE_HOPPER);
-        //reverseHopper.whenPressed(new ReverseIntake());
-        reverseHopper.whenPressed(new InstantCommand(() -> new ReverseIntake().withInterrupt(() -> !reverseHopper.get()).schedule(false)));
-
-        //runMagazine = new JoystickButton(bb, RobotMap.OI.RUN_MAGAZINE);
-        //runMagazine.whenPressed(new RunMagazine(true, true, true));
-        //runMagazine.whenReleased(new RunMagazine(false, false, false));
+        ejectBalls = new JoystickButton(bb, RobotMap.OI.EJECT_BALLS);
+        ejectBalls.whenPressed(new InstantCommand(() -> new ReverseIntake().withInterrupt(() -> !ejectBalls.get()).schedule(false)));
 
         runShooter = new JoystickButton(secondaryXbox, RobotMap.OI.RUN_SHOOTER);
         runShooter.whileHeld(new Shoot());
 
         floorPickup = new JoystickButton(bb, RobotMap.OI.FLOOR_PICKUP);
         floorPickup.whileHeld(new FloorPickup());
-        //floorPickup.whenPressed(new RunIntake());
 
         quickTurretLimits = new JoystickButton(bb, RobotMap.OI.QUICK_TURRET_LIMITS);
         quickTurretLimits.whenPressed(new QuickTurretLimit());
-
-
 
         aimBot = new JoystickButton(bb, RobotMap.OI.AIM_BOT);
         aimBot.toggleWhenPressed(new AimBot());
@@ -107,11 +99,10 @@ public class OI {
 
         safetyClimber = new JoystickButton(bb, RobotMap.OI.SAFETY_CLIMBER);
         retractClimber = new JoystickButton(bb, RobotMap.OI.REVERSE_CLIMBER).and(safetyClimber);
-        //reverseClimberSlow = new JoystickButton(bb, RobotMap.OI.REVERSE_CLIMBER_SLOW).and(safetyClimber);
+        reverseClimberSlow = new JoystickButton(bb, RobotMap.OI.REVERSE_CLIMBER_SLOW).and(safetyClimber);
         extendClimber = new JoystickButton(bb, RobotMap.OI.DRIVE_CLIMBER).and(safetyClimber);
         releaseClimber = new JoystickButton(bb, RobotMap.OI.RELEASE_CLIMBER).and(safetyClimber);
-        //- = down
-        //+ = up
+        
         releaseClimber.whenActive(new Climb());
         retractClimber.whileActiveContinuous(new DriveClimb(RobotMap.CLIMBER.CLIMB_DOWN_POWER));
         //reverseClimberSlow.whileActiveContinuous(new DriveClimb(RobotMap.CLIMBER.CLIMB_DOWN_SLOW_POWER));
@@ -153,7 +144,7 @@ public class OI {
         shooterHigh.whenActive(new InstantCommand(() -> Shooter.getInstance().setPosition(Shooter.Position.THREE)));
 
         aimAndShoot = new JoystickButton(bb, RobotMap.OI.AIM_AND_SHOOT);
-        aimAndShoot.whenPressed(new AimAndShoot(3));
+        aimAndShoot.whenPressed(new AimAndShoot(5));
         //aimAndShoot.whenPressed(new SixBallAuto());
     }
 
