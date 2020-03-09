@@ -44,8 +44,6 @@ public class OI {
 
     private JoystickButton toggleLED;
 
-    private JoystickButton dumbShoot;
-
     private ButtonBoard bb;
     private JoystickButton[] boardButtons;
 
@@ -157,31 +155,7 @@ public class OI {
         aimAndShoot = new JoystickButton(bb, RobotMap.OI.AIM_AND_SHOOT);
         aimAndShoot.whenPressed(new AimAndShoot(3));
         //aimAndShoot.whenPressed(new SixBallAuto());
-
-        dumbShoot = new JoystickButton(bb, RobotMap.OI.DUMB_SHOOT);
-        dumbShoot.whileHeld(new DumbShoot());
-
-        /**shooterLow = new JoystickButton(bb, RobotMap.OI.SHOOTER_LOW);
-        shooterLow.whenPressed(new InstantCommand(() -> RobotConfig.SHOOTER.SHOOTER_MAX_POWER = .2));
-        //shooterLow.whenPressed(new InstantCommand(() ->
-        //        SmartDashboard.putNumber("Shooter Max Power", SmartDashboard.getNumber("S Low", .2))));
-        shooterMed = new JoystickButton(bb, RobotMap.OI.SHOOTER_MED);
-        shooterMed.whenPressed(new InstantCommand(() -> RobotConfig.SHOOTER.SHOOTER_MAX_POWER = .65));
-        //shooterLow.whenPressed(new InstantCommand(() ->
-        //        SmartDashboard.putNumber("Shooter Max Power", SmartDashboard.getNumber("S Med", .2))));
-        shooterHigh = new JoystickButton(bb, RobotMap.OI.SHOOTER_HIGH);
-        shooterHigh.whenPressed(new InstantCommand(() -> RobotConfig.SHOOTER.SHOOTER_MAX_POWER = .8));
-        //shooterLow.whenPressed(new InstantCommand(() ->
-        //        SmartDashboard.putNumber("Shooter Max Power", SmartDashboard.getNumber("S High", .2))));*/
     }
-
-    /**public double getLeftY(){
-        return removeDeadband(leftFlight.getY(GenericHID.Hand.kLeft));
-    }
-
-    public double getRightY(){
-        return removeDeadband(rightFlight.getY(GenericHID.Hand.kRight));
-    }*/
 
     public double getPrimaryXboxLeftTrigger(){
         return this.primaryXbox.getTriggerAxis(GenericHID.Hand.kLeft);
