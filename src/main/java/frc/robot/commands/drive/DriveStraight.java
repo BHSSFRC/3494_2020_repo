@@ -4,7 +4,6 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.OI;
 import frc.robot.RobotConfig;
-import frc.robot.sensors.IMU;
 import frc.robot.subsystems.DriveTrain;
 import frc.robot.util.QuadTimer;
 import frc.robot.util.SynchronousPIDF;
@@ -64,14 +63,15 @@ public class DriveStraight extends CommandBase {
     @Override
     public void initialize() {
         this.timer.start();
-        this.initialYaw = IMU.getInstance().getYaw();
+        //this.initialYaw = IMU.getInstance().getYaw();
         pidController.setSetpoint(this.initialYaw);
         SmartDashboard.putBoolean("DriveStraight?", true);
     }
 
     @Override
     public void execute() {
-        double input = IMU.getInstance().getYaw();
+        //double input = IMU.getInstance().getYaw();
+        double input = 0;
         if(!this.steadyPower){
             powerCurve(OI.getINSTANCE().getPrimaryXboxRightTrigger() - OI.getINSTANCE().getPrimaryXboxLeftTrigger());
         }

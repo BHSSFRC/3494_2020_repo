@@ -19,7 +19,6 @@ import frc.robot.commands.RunMagazine;
 import frc.robot.commands.Shoot;
 import frc.robot.commands.drive.Drive;
 import frc.robot.commands.turret.SpinTurret;
-import frc.robot.sensors.IMU;
 import frc.robot.sensors.Linebreaker;
 import frc.robot.subsystems.*;
 
@@ -77,8 +76,7 @@ public class Robot extends TimedRobot {
 
         CommandScheduler.getInstance().schedule(new InstantCommand(Pneumatics.getInstance()::startCompressor));
 
-        String[] SDBooleans = {"Calibrate IMU?",
-        "Front Limit", "Back Limit", "Auto Forward?", "LBottom", "LTop"};
+        String[] SDBooleans = {"Front Limit", "Back Limit", "Auto Forward?", "LBottom", "LTop"};
 
         for (String booleanName : SDBooleans) {
             if (!SmartDashboard.containsKey(booleanName)) {
@@ -166,7 +164,6 @@ public class Robot extends TimedRobot {
         // continue until interrupted by another command, remove
         // this line or comment it out.
         CommandScheduler.getInstance().cancelAll();
-        IMU.getInstance().reset();
         if (autonomousCommand != null) {
             autonomousCommand.cancel();
         }
@@ -176,14 +173,10 @@ public class Robot extends TimedRobot {
         //new ScheduleCommand(new Drive());
         //CommandScheduler.getInstance().schedule(new Drive());
         //CommandScheduler.getInstance().schedule(new Drive());
-        /**if (SmartDashboard.getBoolean("Calibrate IMU?", false)) {
-            CommandScheduler.getInstance().schedule(new CalibrateIMU());
-        }*/
     }
 
     @Override
     public void teleopPeriodic() {
-        SmartDashboard.putNumber("Angle", IMU.getInstance().getRawAngle());
         SmartDashboard.putNumber("Shooter RPM", Shooter.getInstance().getRPM());
         SmartDashboard.putNumber("Turret Pos", Turret.getInstance().getPosition());
         SmartDashboard.putNumber("Pos Degrees", Turret.getInstance().getDegreesPosition());
