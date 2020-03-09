@@ -18,13 +18,13 @@ public class CountBallsShot extends CommandBase {
         this.topLinebreakTripped = false;
         this.timer = new QuadTimer();
         this.timer.reset();
-        System.out.println("Timer: " + this.timer.get());
+        //System.out.println("Timer: " + this.timer.get());
         this.timer.stop();
     }
 
     @Override
     public void initialize() {
-
+        this.ballsShotSoFar = 0;
     }
 
     @Override
@@ -39,19 +39,18 @@ public class CountBallsShot extends CommandBase {
         }
         if (this.ballsShotSoFar == this.ballsShotGoal && this.timer.get() == 0.0){
             this.timer.start();
-            System.out.println("Starting Timer");
+            //System.out.println("Starting Timer");
         }
     }
 
     @Override
     public boolean isFinished() {
         // TODO: Make this return true when this Command no longer needs to run execute()
-        System.out.println("Timer: " + this.timer.get());
         return (this.timer.get() > 0.5) && !Robot.getLinebreakTop().lineBroken();
     }
 
     @Override
     public void end(boolean interrupted) {
-
+        System.out.println("All balls shot!");
     }
 }

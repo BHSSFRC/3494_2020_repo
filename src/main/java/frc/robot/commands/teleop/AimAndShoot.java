@@ -18,6 +18,7 @@ public class AimAndShoot extends SequentialCommandGroup {
         super(
                 new InstantCommand(() -> System.out.println("Aim and Shoot--RPM: " + targetRPM)),
                 new InstantCommand(() -> Shooter.getInstance().setPosition(Shooter.Position.TWO)),
+                new StopHopperMagazine(),
                 new ParallelCommandGroup(
                         new AimBot(),
                         new Shoot(targetRPM, true)).withInterrupt(() -> Shooter.getInstance().atTargetSpeed(targetRPM) &&
@@ -26,7 +27,7 @@ public class AimAndShoot extends SequentialCommandGroup {
                 new ParallelDeadlineGroup(
                         new CountBallsShot(ballsToShoot),
                         new Shoot(targetRPM, true),
-                        new RunHopperMagazine()
+                        new RunHMWhileShooting(targetRPM)
                 ).withTimeout(10),
                 new InstantCommand(() -> Shooter.getInstance().setPosition(Shooter.Position.ONE))
         );

@@ -5,10 +5,7 @@ import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
-import frc.robot.commands.Climb;
-import frc.robot.commands.DriveClimb;
-import frc.robot.commands.RollShooterPosition;
-import frc.robot.commands.Shoot;
+import frc.robot.commands.*;
 import frc.robot.commands.teleop.*;
 import frc.robot.commands.turret.AimBot;
 import frc.robot.commands.turret.QuickTurretLimit;
@@ -46,6 +43,8 @@ public class OI {
     private JoystickButton aimAndShoot;
 
     private JoystickButton toggleLED;
+
+    private JoystickButton dumbShoot;
 
     private ButtonBoard bb;
     private JoystickButton[] boardButtons;
@@ -110,14 +109,14 @@ public class OI {
 
         safetyClimber = new JoystickButton(bb, RobotMap.OI.SAFETY_CLIMBER);
         retractClimber = new JoystickButton(bb, RobotMap.OI.REVERSE_CLIMBER).and(safetyClimber);
-        reverseClimberSlow = new JoystickButton(bb, RobotMap.OI.REVERSE_CLIMBER_SLOW).and(safetyClimber);
+        //reverseClimberSlow = new JoystickButton(bb, RobotMap.OI.REVERSE_CLIMBER_SLOW).and(safetyClimber);
         extendClimber = new JoystickButton(bb, RobotMap.OI.DRIVE_CLIMBER).and(safetyClimber);
         releaseClimber = new JoystickButton(bb, RobotMap.OI.RELEASE_CLIMBER).and(safetyClimber);
         //- = down
         //+ = up
         releaseClimber.whenActive(new Climb());
         retractClimber.whileActiveContinuous(new DriveClimb(RobotMap.CLIMBER.CLIMB_DOWN_POWER));
-        reverseClimberSlow.whileActiveContinuous(new DriveClimb(RobotMap.CLIMBER.CLIMB_DOWN_SLOW_POWER));
+        //reverseClimberSlow.whileActiveContinuous(new DriveClimb(RobotMap.CLIMBER.CLIMB_DOWN_SLOW_POWER));
         extendClimber.whileActiveContinuous(new DriveClimb(RobotMap.CLIMBER.CLIMB_UP_POWER));
 
         //intakingRoutine = new Trigger(() -> this.getXboxLeftBumperPressed());
@@ -158,6 +157,9 @@ public class OI {
         aimAndShoot = new JoystickButton(bb, RobotMap.OI.AIM_AND_SHOOT);
         aimAndShoot.whenPressed(new AimAndShoot(3));
         //aimAndShoot.whenPressed(new SixBallAuto());
+
+        dumbShoot = new JoystickButton(bb, RobotMap.OI.DUMB_SHOOT);
+        dumbShoot.whileHeld(new DumbShoot());
 
         /**shooterLow = new JoystickButton(bb, RobotMap.OI.SHOOTER_LOW);
         shooterLow.whenPressed(new InstantCommand(() -> RobotConfig.SHOOTER.SHOOTER_MAX_POWER = .2));

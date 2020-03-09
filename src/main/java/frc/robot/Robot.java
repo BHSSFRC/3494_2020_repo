@@ -55,7 +55,7 @@ public class Robot extends TimedRobot {
             SmartDashboard.delete(key);
         }*/
 
-        String[] SDDoubles = {"Shooter Max Power", "Angle", "Calibrate1", "Calibrate2", "TurnPower",
+        String[] SDDoubles = {"Shooter Max Power", "Angle", "Calibrate1", "Calibrate2",
                 "Encoder Distance", "Inches to Drive", "Rotation(degrees)", "target-x", "target-y", "Turret Pos", "Pos Degrees",
                 "Shooter RPM", "Shooter Power Current", "Drive Max Power", "Gain/FSP", "Hopper Power", "Magazine Power", "Shooter RPM Target",
                 "Preshooter Power", "Shooter Left Power", "Shooter Right Power", "Shooter Left RPM", "Shooter Right RPM"};

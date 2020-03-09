@@ -77,14 +77,14 @@ public class Shoot extends CommandBase {
 
         if (timer.get() > RobotConfig.SHOOTER.PRESHOOTER_DELAY && shootPower > 0.05) {
         //if(shootPower > 0.05){
-            System.out.println("Time: " + timer.get());
+            //System.out.println("Time: " + timer.get());
             PreShooter.getInstance().spin(SmartDashboard.getNumber("Preshooter Power", RobotConfig.SHOOTER.PRESHOOTER_POWER));
         }else if (shootPower < .05 && !this.goToRPM) {
             timer.reset();
             PreShooter.getInstance().stop();
             //System.out.println("stop preshooter");
         }else{
-            System.out.println("powering up shooter: " + timer.get());
+            //System.out.println("powering up shooter: " + timer.get());
             //System.out.println("stop preshooter");
             PreShooter.getInstance().stop();
         }

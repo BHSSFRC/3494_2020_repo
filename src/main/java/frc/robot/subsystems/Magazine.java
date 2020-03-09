@@ -59,6 +59,11 @@ public class Magazine extends SubsystemBase {
         }*/
     }
 
+    public void run(boolean front, boolean bottom){
+        this.runFront(front);
+        this.runBottom(bottom);
+    }
+
     public void stop(){
         this.runFront(false);
         this.runBottom(false);
