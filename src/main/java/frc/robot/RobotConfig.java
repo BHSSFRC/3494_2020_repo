@@ -60,13 +60,15 @@ public final class RobotConfig
     public static class MAGAZINE {
         public static double MOTOR_DEFAULT_POWER = SmartDashboard.getNumber("Magazine Power", 0.7);
         public static double HOPPER_DEFAULT_POWER = SmartDashboard.getNumber("Hopper Power", 0.8);
-        public static double TIME_AFTER_2ND_LINEBREAK_SENSOR = 1.0;
+        public static double INTAKE_DEFAULT_POWER = 0.6;
+        public static double TIME_AFTER_2ND_LINEBREAK_SENSOR = 0;
     }
 
     public static class SHOOTER {
         public static double RPM_PER_POWER = 1000;
         public static double PRESHOOTER_POWER = 0.3;
         public static double SHOOTER_MAX_POWER = .8;
+        public static double PRESHOOTER_DELAY = 2;
         public final double 
             kP = 0.0,
             kI = 0.0,

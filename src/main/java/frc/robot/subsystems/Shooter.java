@@ -93,7 +93,9 @@ public class Shooter extends SubsystemBase {
 
     private Shooter() {
         this.left = new CANSparkMax(RobotMap.SHOOTER.LEFT, CANSparkMaxLowLevel.MotorType.kBrushless);
+        this.left.setSmartCurrentLimit(40);
         this.right= new CANSparkMax(RobotMap.SHOOTER.RIGHT, CANSparkMaxLowLevel.MotorType.kBrushless);
+        this.right.setSmartCurrentLimit(40);
         this.left.setOpenLoopRampRate(0.4);
         this.right.setOpenLoopRampRate(0.4);
         this.left.setClosedLoopRampRate(0.4);
@@ -108,11 +110,11 @@ public class Shooter extends SubsystemBase {
         this.rightEnc = this.right.getEncoder();
         this.rightPID = this.right.getPIDController();
 
-        kP = 0.00008;
+        kP = 0.0004;
         kI = 0.000000;//0.000001;
         kD = 0.00032;
         kIz = 0.0;
-        kFF = 0.000175;
+        kFF = 0.00018;
         kMaxOutput = 1;
         kMinOutput = -1;
         maxRPM = 5700;
@@ -157,11 +159,19 @@ public class Shooter extends SubsystemBase {
     }
 
     public boolean atTargetSpeed(double targetRPM) {
-        return Math.abs(this.getRPM() - targetRPM) < 10;
+        return Math.abs(this.getRPM() - targetRPM) < 150;
     }
 
     public double getRPM() {
         return (Math.abs(this.getLeftRPM()) + Math.abs(this.getRightRPM())) / 2;
+    }
+
+    public double getLeftPower(){
+        return this.left.get();
+    }
+
+    public double getRightPower(){
+        return this.right.get();
     }
 
     public double getLeftRPM() {
@@ -201,9 +211,9 @@ public class Shooter extends SubsystemBase {
 
             switch(position){
                 case TWO:
-                    this.limiter.set(DoubleSolenoid.Value.kForward);
-                    Timer.delay(500E-3);
                     this.hood.set(DoubleSolenoid.Value.kForward);
+                    Timer.delay(100E-3);
+                    this.limiter.set(DoubleSolenoid.Value.kForward);
                     break;
                 case THREE:
                     this.hood.set(DoubleSolenoid.Value.kForward);

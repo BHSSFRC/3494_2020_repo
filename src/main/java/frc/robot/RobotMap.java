@@ -63,7 +63,7 @@ public class RobotMap {
 
         //button board bindings
         //public static int RUN_MAGAZINE = 7;
-        public static int RUN_HOPPER = 8;
+        public static int FLOOR_PICKUP = 8;
         public static int INTAKING_ROUTINE = 7;
 
         public static int REVERSE_HOPPER = 11;
@@ -72,12 +72,15 @@ public class RobotMap {
         public static int DRIVE_CLIMBER = 14;
         public static int REVERSE_CLIMBER = 13;
         public static int REVERSE_CLIMBER_SLOW = 5;
+        public static int DUMB_SHOOT = 5;
         public static int SAFETY_CLIMBER  = 9;
 
         public static int QUICK_TURRET_LIMITS = 2;
         //public static int TURRET_TO_START_POS = 11;
         public static int AIM_BOT = 10;
         //public static int TURN_DEGREES = 10;
+
+        public static int AIM_AND_SHOOT = 4;
 
         public static int SHOOTER_LOW = 1;
         public static int SHOOTER_MED = 3;

@@ -9,6 +9,7 @@ package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.OI;
+import frc.robot.RobotConfig;
 import frc.robot.subsystems.Intake;
 
 public class RunIntake extends CommandBase {
@@ -26,7 +27,7 @@ public class RunIntake extends CommandBase {
     public void execute() {
         boolean deploy = OI.getINSTANCE().getXboxRightBumper();
         if(deploy){
-            Intake.getInstance().runIntake(OI.getINSTANCE().getXboxRightTrigger() * .6);
+            Intake.getInstance().runIntake(OI.getINSTANCE().getXboxRightTrigger() * RobotConfig.MAGAZINE.INTAKE_DEFAULT_POWER);
         }else{
             Intake.getInstance().stop();
         }

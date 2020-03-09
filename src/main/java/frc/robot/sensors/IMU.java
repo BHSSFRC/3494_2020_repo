@@ -13,7 +13,8 @@ public class IMU {
         this.timer = new QuadTimer();
         this.timer.start();
         imu = new ADIS16470_IMU();
-        this.imu.configCalTime(ADIS16470_IMU.ADIS16470CalibrationTime._32ms);
+        imu.setYawAxis(ADIS16470_IMU.IMUAxis.kX);
+        //this.imu.configCalTime(ADIS16470_IMU.ADIS16470CalibrationTime._32ms);
         //this.imu.setYawAxis(ADIS16470_IMU.IMUAxis.kY);
         this.reset();
     }
@@ -29,7 +30,12 @@ public class IMU {
         if (yaw < 0 || yaw > 360){
             yaw -= Math.floor(yaw / 360) * 360;
         }
+        System.out.println(this.imu.getAngle());
         return yaw;
+    }
+
+    public double getRawAngle() {
+        return this.imu.getAngle();
     }
 
     public static IMU getInstance(){
