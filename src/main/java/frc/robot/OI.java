@@ -102,7 +102,7 @@ public class OI {
         reverseClimberSlow = new JoystickButton(bb, RobotMap.OI.REVERSE_CLIMBER_SLOW).and(safetyClimber);
         extendClimber = new JoystickButton(bb, RobotMap.OI.DRIVE_CLIMBER).and(safetyClimber);
         releaseClimber = new JoystickButton(bb, RobotMap.OI.RELEASE_CLIMBER).and(safetyClimber);
-        
+
         releaseClimber.whenActive(new Climb());
         retractClimber.whileActiveContinuous(new DriveClimb(RobotMap.CLIMBER.CLIMB_DOWN_POWER));
         //reverseClimberSlow.whileActiveContinuous(new DriveClimb(RobotMap.CLIMBER.CLIMB_DOWN_SLOW_POWER));
