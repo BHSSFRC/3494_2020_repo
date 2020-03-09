@@ -66,13 +66,12 @@ public class RobotMap {
         public static int FLOOR_PICKUP = 8;
         public static int INTAKING_ROUTINE = 7;
 
-        public static int REVERSE_HOPPER = 11;
+        public static int EJECT_BALLS = 11;
 
         public static int RELEASE_CLIMBER = 12;
         public static int DRIVE_CLIMBER = 14;
         public static int REVERSE_CLIMBER = 13;
         public static int REVERSE_CLIMBER_SLOW = 5;
-        public static int DUMB_SHOOT = 5;
         public static int SAFETY_CLIMBER  = 9;
 
         public static int QUICK_TURRET_LIMITS = 2;
