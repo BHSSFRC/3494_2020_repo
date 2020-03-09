@@ -6,6 +6,8 @@ import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
 import edu.wpi.first.wpilibj2.command.ParallelDeadlineGroup;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import frc.robot.commands.Shoot;
+import frc.robot.subsystems.Hopper;
+import frc.robot.subsystems.Magazine;
 import frc.robot.subsystems.Shooter;
 import frc.robot.subsystems.Turret;
 
@@ -40,5 +42,7 @@ public class AimAndShoot extends SequentialCommandGroup {
     @Override
     public void end(boolean interrupted) {
         Shooter.getInstance().setPosition(Shooter.Position.ONE);
+        Hopper.getInstance().stop();
+        Magazine.getInstance().stop();
     }
 }
