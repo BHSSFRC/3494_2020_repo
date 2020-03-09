@@ -181,8 +181,8 @@ public class Turret extends PIDSubsystem {
     }
 
     public boolean atCameraSetpoint(){
-        return true;
-        //return Math.abs(SmartDashboard.getNumber("target-x", -1)) < .02;
+        //return true;
+        return Math.abs(SmartDashboard.getNumber("target-x", -1)) < .02;
     }
 
     public double getOffset(){

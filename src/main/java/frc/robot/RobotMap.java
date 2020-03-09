@@ -57,8 +57,6 @@ public class RobotMap {
         //xbox bindings
         //public static int INTAKING_ROUTINE = 1;
         public static int RUN_SHOOTER = 6;
-        public static int SHOOTER_FORWARD = 3;
-        public static int SHOOTER_BACKWARD = 4;
         public static int SPIN_HOPPER_MAGAZINE = 5;
 
         //button board bindings

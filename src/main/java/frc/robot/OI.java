@@ -19,7 +19,6 @@ public class OI {
     private JoystickButton runMagazine;
 
     private JoystickButton runShooter;
-    private JoystickButton shooterPositionForward, shooterPositionBackward;
     private JoystickButton floorPickup;
     private Trigger releaseClimber;
     private Trigger retractClimber;
@@ -123,11 +122,6 @@ public class OI {
         //stopHopperMagazine = new Trigger(() -> this.getXboxLeftBumperReleased());
         //stopHopperMagazine.whenActive(new SequentialCommandGroup(new InstantCommand(() -> Magazine.getInstance().stop()),
         //        new InstantCommand(() -> Hopper.getInstance().stop())));
-
-        shooterPositionBackward = new JoystickButton(secondaryXbox, RobotMap.OI.SHOOTER_BACKWARD);
-        shooterPositionBackward.whenPressed(new RollShooterPosition(false));
-        shooterPositionForward = new JoystickButton(secondaryXbox, RobotMap.OI.SHOOTER_FORWARD);
-        shooterPositionForward.whenPressed(new RollShooterPosition(true));
 
         //toggleLED = new JoystickButton(bb, RobotMap.OI.TOGGLE_LED);
         //toggleLED.whenPressed(new InstantCommand(() -> DriveTrain.getInstance().toggleLED()));

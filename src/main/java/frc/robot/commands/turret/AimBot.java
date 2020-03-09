@@ -2,6 +2,7 @@ package frc.robot.commands.turret;
 
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
+import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import frc.robot.RobotConfig;
 import frc.robot.subsystems.Turret;
 
@@ -51,6 +52,6 @@ public class AimBot extends CommandBase {
 
     @Override
     public void end(boolean interrrupted) {
-
+        CommandScheduler.getInstance().schedule(new SpinTurret());
     }
 }
