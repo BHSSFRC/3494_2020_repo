@@ -145,7 +145,7 @@ public class OI {
 
         leftTriggerPressed = new Trigger(() -> getSecondaryXboxLeftTriggerPressed());
         //leftTriggerPressed = new Trigger(() -> true);
-        //leftTriggerPressed.whenInactive(new InstantCommand(() -> Shooter.getInstance().setPosition(Shooter.Position.ONE)));
+        leftTriggerPressed.whenInactive(new InstantCommand(() -> Shooter.getInstance().setPosition(Shooter.Position.ONE)));
         shooterLow = new JoystickButton(bb, RobotMap.OI.SHOOTER_LOW).and(leftTriggerPressed);
         shooterMed = new JoystickButton(bb, RobotMap.OI.SHOOTER_MED).and(leftTriggerPressed);
         shooterHigh = new JoystickButton(bb, RobotMap.OI.SHOOTER_HIGH).and(leftTriggerPressed);
@@ -155,7 +155,7 @@ public class OI {
         shooterHigh.whenActive(new InstantCommand(() -> Shooter.getInstance().setPosition(Shooter.Position.THREE)));
 
         aimAndShoot = new JoystickButton(bb, RobotMap.OI.AIM_AND_SHOOT);
-        aimAndShoot.whenPressed(new AimAndShoot(3));
+        aimAndShoot.whenPressed(new AimAndShoot(3).withInterrupt(() -> !this.aimAndShoot.get()));
         //aimAndShoot.whenPressed(new SixBallAuto());
 
         dumbShoot = new JoystickButton(bb, RobotMap.OI.DUMB_SHOOT);

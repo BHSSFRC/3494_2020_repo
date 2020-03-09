@@ -9,6 +9,7 @@ import frc.robot.commands.Shoot;
 import frc.robot.commands.turret.AimBot;
 import frc.robot.subsystems.Turret;
 import frc.robot.subsystems.Shooter;
+import frc.robot.OI;
 
 public class AimAndShoot extends SequentialCommandGroup {
     public AimAndShoot(double targetRPM, int ballsToShoot) {
@@ -19,13 +20,13 @@ public class AimAndShoot extends SequentialCommandGroup {
                 new InstantCommand(() -> System.out.println("Aim and Shoot--RPM: " + targetRPM)),
                 new InstantCommand(() -> Shooter.getInstance().setPosition(Shooter.Position.TWO)),
                 new StopHopperMagazine(),
-                new ParallelCommandGroup(
-                        new AimBot(),
+                /*new ParallelCommandGroup(
+                        //new AimBot(),
                         new Shoot(targetRPM, true)).withInterrupt(() -> Shooter.getInstance().atTargetSpeed(targetRPM) &&
-                                                            Turret.getInstance().atCameraSetpoint()),
+                                                            Turret.getInstance().atCameraSetpoint()),*/
                 new InstantCommand(() -> System.out.println("Turn on Hopper Magazine " + targetRPM)),
                 new ParallelDeadlineGroup(
-                        new CountBallsShot(ballsToShoot),
+                        //new CountBallsShot(ballsToShoot),
                         new Shoot(targetRPM, true),
                         new RunHMWhileShooting(targetRPM)
                 ).withTimeout(10),
@@ -36,5 +37,10 @@ public class AimAndShoot extends SequentialCommandGroup {
     //runs command with the target RPM specified by the SmartDashboard
     public AimAndShoot(int ballsToShoot){
         this(SmartDashboard.getNumber("Shooter RPM Target", 0), ballsToShoot);
+    }
+
+    @Override
+    public void end(boolean interrupted) {
+        Shooter.getInstance().setPosition(Shooter.Position.ONE);
     }
 }
