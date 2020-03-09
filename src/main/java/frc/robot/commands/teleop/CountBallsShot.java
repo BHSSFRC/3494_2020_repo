@@ -18,13 +18,15 @@ public class CountBallsShot extends CommandBase {
         this.topLinebreakTripped = false;
         this.timer = new QuadTimer();
         this.timer.reset();
-        //System.out.println("Timer: " + this.timer.get());
         this.timer.stop();
     }
 
     @Override
     public void initialize() {
         this.ballsShotSoFar = 0;
+        this.timer.reset();
+        this.timer.stop();
+        System.out.println("Timer init: " + this.timer.get());
     }
 
     @Override

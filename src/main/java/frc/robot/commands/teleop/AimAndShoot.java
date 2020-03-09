@@ -29,8 +29,7 @@ public class AimAndShoot extends SequentialCommandGroup {
                         new CountBallsShot(ballsToShoot),
                         new Shoot(targetRPM, true),
                         new RunHMWhileShooting(targetRPM)
-                ).withTimeout(10),
-                new InstantCommand(() -> Shooter.getInstance().setPosition(Shooter.Position.ONE))
+                ).withTimeout(10)
         );
     }
 
