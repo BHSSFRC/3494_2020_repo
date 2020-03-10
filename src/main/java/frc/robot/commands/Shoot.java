@@ -52,7 +52,6 @@ public class Shoot extends CommandBase {
 
     @Override
     public void initialize() {
-        SmartDashboard.putBoolean("Shoot?", true);
         timer.start();
     }
 
@@ -98,7 +97,6 @@ public class Shoot extends CommandBase {
 
     @Override
     public void end(boolean interrupted){
-        SmartDashboard.putBoolean("Shoot?", false);
         PreShooter.getInstance().stop();
         Shooter.getInstance().stop();
     }

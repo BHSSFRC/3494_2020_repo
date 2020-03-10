@@ -1,6 +1,5 @@
 package frc.robot.commands.drive;
 
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.RobotConfig;
 import frc.robot.subsystems.DriveTrain;
@@ -40,7 +39,7 @@ public class TurnDegrees extends CommandBase {
     public void execute() {
         //this.currentDegrees = IMU.getInstance().getYaw() + 180;
         this.delta = (this.currentDegrees - this.setpoint) % 360;
-        SmartDashboard.putNumber("DriveTurn Offset", delta);
+        //SmartDashboard.putNumber("DriveTurn Offset", delta);
 
         double output = this.delta / 360;
         //should be between -1 and 1
@@ -51,7 +50,6 @@ public class TurnDegrees extends CommandBase {
         }
         output *= RobotConfig.DRIVE_STRAIGHT.TURN_SPEED;
 
-        SmartDashboard.putNumber("Turn Power", output);
         DriveTrain.getInstance().tankDrive(output, -output);
     }
 

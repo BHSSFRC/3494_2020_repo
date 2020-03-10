@@ -65,7 +65,6 @@ public class DriveStraight extends CommandBase {
         this.timer.start();
         //this.initialYaw = IMU.getInstance().getYaw();
         pidController.setSetpoint(this.initialYaw);
-        SmartDashboard.putBoolean("DriveStraight?", true);
     }
 
     @Override
@@ -78,7 +77,7 @@ public class DriveStraight extends CommandBase {
         //double output = this.pidController.calculate(input, this.timer.delta());
         double output = (input - this.initialYaw) * RobotConfig.DRIVE_STRAIGHT.kP_DUMB;
         //double output = this.pidController.calculate(this.initialYaw, this.timer.delta());
-        SmartDashboard.putNumber("DriveStraight Offset", output);
+        //SmartDashboard.putNumber("DriveStraight Offset", output);
         DriveTrain.getInstance().tankDrive(power - output, power + output);
     }
 
@@ -95,7 +94,6 @@ public class DriveStraight extends CommandBase {
 
     @Override
     public void end(boolean interrupted) {
-        SmartDashboard.putBoolean("DriveStraight?", false);
         DriveTrain.getInstance().stop();
     }
 }

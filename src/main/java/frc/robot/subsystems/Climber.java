@@ -53,7 +53,6 @@ public class Climber extends SubsystemBase {
 
 	@Override
 	public void periodic() {
-		//SmartDashboard.putNumber();
 	}
 
 	public static Climber getInstance() {
