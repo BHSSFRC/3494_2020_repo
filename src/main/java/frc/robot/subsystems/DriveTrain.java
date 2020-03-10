@@ -6,7 +6,6 @@ import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.StatorCurrentLimitConfiguration;
 import com.ctre.phoenix.motorcontrol.can.TalonFX;
 import edu.wpi.first.wpilibj.Relay;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.RobotMap;
 
@@ -109,7 +108,6 @@ public class DriveTrain extends SubsystemBase {
             }
         }
         double[] stickSpeeds = normalize(new double[]{leftMotorOutput, rightMotorOutput});
-        SmartDashboard.putNumber("Turn Power", stickSpeeds[0]);
         this.tankDrive(stickSpeeds[0], stickSpeeds[1]);
     }
 

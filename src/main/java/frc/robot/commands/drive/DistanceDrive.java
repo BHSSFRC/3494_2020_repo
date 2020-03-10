@@ -1,6 +1,5 @@
 package frc.robot.commands.drive;
 
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.RobotConfig;
 import frc.robot.subsystems.DriveTrain;
@@ -20,7 +19,6 @@ public class DistanceDrive extends CommandBase {
 
     @Override
     public void initialize() {
-        SmartDashboard.putBoolean("DriveDistance?", true);
         this.distEncoderInitial = DriveTrain.getInstance().getEncoderPosition();
         this.distEncoderGoal = Math.abs(this.dist) * RobotConfig.DRIVE_STRAIGHT.ENCODER_TICKS_PER_INCH;
         if(this.dist > 0){
@@ -54,7 +52,6 @@ public class DistanceDrive extends CommandBase {
         if(interrupted){
             System.out.println("Distance Drive interrupted");
         }
-        SmartDashboard.putBoolean("DriveStraight?", false);
         DriveTrain.getInstance().stop();
     }
 }
