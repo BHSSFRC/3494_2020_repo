@@ -167,6 +167,7 @@ public class Robot extends TimedRobot {
         if (autonomousCommand != null) {
             autonomousCommand.cancel();
         }
+        CommandScheduler.getInstance().schedule(new InstantCommand(() -> Shooter.getInstance().setPosition(Shooter.Position.ONE)));
         //Command teleopCommand = robotContainer.getTeleopCommand();
         //teleopCommand.schedule();
         //new Drive();
@@ -177,7 +178,7 @@ public class Robot extends TimedRobot {
 
     @Override
     public void teleopPeriodic() {
-        SmartDashboard.putNumber("Encoder Distance", DriveTrain.getInstance().getEncoderPosition());
+        /**SmartDashboard.putNumber("Encoder Distance", DriveTrain.getInstance().getEncoderPosition());
         SmartDashboard.putNumber("Shooter RPM", Shooter.getInstance().getRPM());
         SmartDashboard.putNumber("Turret Pos", Turret.getInstance().getPosition());
         SmartDashboard.putNumber("Pos Degrees", Turret.getInstance().getDegreesPosition());
@@ -197,7 +198,7 @@ public class Robot extends TimedRobot {
             SmartDashboard.putNumber("Shooter Right Power", Shooter.getInstance().getRightPower());
             SmartDashboard.putNumber("Shooter Left RPM", Shooter.getInstance().getLeftRPM());
             SmartDashboard.putNumber("Shooter Right RPM", Shooter.getInstance().getRightRPM());
-        }
+        }*/
     }
 
     @Override
