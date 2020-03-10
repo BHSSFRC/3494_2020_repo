@@ -177,6 +177,7 @@ public class Robot extends TimedRobot {
 
     @Override
     public void teleopPeriodic() {
+        SmartDashboard.putNumber("Encoder Distance", DriveTrain.getInstance().getEncoderPosition());
         SmartDashboard.putNumber("Shooter RPM", Shooter.getInstance().getRPM());
         SmartDashboard.putNumber("Turret Pos", Turret.getInstance().getPosition());
         SmartDashboard.putNumber("Pos Degrees", Turret.getInstance().getDegreesPosition());
