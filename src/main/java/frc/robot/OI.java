@@ -6,6 +6,7 @@ import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.commands.*;
+import frc.robot.commands.drive.DistanceDrive;
 import frc.robot.commands.teleop.*;
 import frc.robot.commands.turret.AimBot;
 import frc.robot.commands.turret.QuickTurretLimit;
@@ -40,6 +41,7 @@ public class OI {
     private Trigger leftTriggerPressed;
     private JoystickButton turnDegrees;
     private JoystickButton aimAndShoot;
+    private JoystickButton distanceDrive;
 
     private JoystickButton toggleLED;
 
@@ -95,6 +97,8 @@ public class OI {
         //turnDegrees.whenPressed(new TurnDegrees(80));
         //turretToStartPos = new JoystickButton(bb, RobotMap.OI.TURRET_TO_START_POS);
         //turretToStartPos.whenPressed(new SpinToPosition(0.0));
+        distanceDrive = new JoystickButton(secondaryXbox, RobotMap.OI.DISTANCE_DRIVE);
+        distanceDrive.whenPressed(new DistanceDrive(40));
 
         safetyClimber = new JoystickButton(bb, RobotMap.OI.SAFETY_CLIMBER);
         retractClimber = new JoystickButton(bb, RobotMap.OI.REVERSE_CLIMBER).and(safetyClimber);

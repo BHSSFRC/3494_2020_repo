@@ -34,6 +34,12 @@ public class DistanceDrive extends CommandBase {
     @Override
     public void execute() {
         this.distEncoderTraveled = Math.abs(DriveTrain.getInstance().getEncoderPosition() - this.distEncoderInitial);
+
+        //drive slower once within 12 inches of the target
+        if((distEncoderTraveled > (Math.abs(this.distEncoderGoal) - RobotConfig.DRIVE_STRAIGHT.ENCODER_TICKS_PER_INCH * 12)) &&
+        Math.abs(this.speed) == 0.3){
+            this.speed /= 3;
+        }
         DriveTrain.getInstance().tankDrive(this.speed, this.speed);
     }
 

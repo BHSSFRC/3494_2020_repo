@@ -58,6 +58,7 @@ public class RobotMap {
         //public static int INTAKING_ROUTINE = 1;
         public static int RUN_SHOOTER = 6;
         public static int SPIN_HOPPER_MAGAZINE = 5;
+        public static int DISTANCE_DRIVE = 2;
 
         //button board bindings
         //public static int RUN_MAGAZINE = 7;
