@@ -76,7 +76,7 @@ public class Robot extends TimedRobot {
 
         CommandScheduler.getInstance().schedule(new InstantCommand(Pneumatics.getInstance()::startCompressor));
 
-        String[] SDBooleans = {"Front Limit", "Back Limit", "Auto Forward?", "LBottom", "LTop"};
+        String[] SDBooleans = {"Front Limit", "Back Limit", "Auto Forward?", "LBottom", "LTop", "Enable AimBot"};
 
         for (String booleanName : SDBooleans) {
             if (!SmartDashboard.containsKey(booleanName)) {

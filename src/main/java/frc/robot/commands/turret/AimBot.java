@@ -19,6 +19,9 @@ public class AimBot extends CommandBase {
 
     @Override
     public void initialize() {
+        if(!SmartDashboard.getBoolean("Enable AimBot", false)){
+            this.end(false);
+        }
     }
 
     @Override

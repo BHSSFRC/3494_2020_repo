@@ -181,7 +181,9 @@ public class Turret extends PIDSubsystem {
     }
 
     public boolean atCameraSetpoint(){
-        //return true;
+        if(!SmartDashboard.getBoolean("Enable AimBot", false)){
+            return true;
+        }
         return Math.abs(SmartDashboard.getNumber("target-x", -1)) < .02;
     }
 

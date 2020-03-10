@@ -2,14 +2,16 @@ package frc.robot;
 
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.XboxController;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
-import frc.robot.commands.*;
+import frc.robot.commands.Climb;
+import frc.robot.commands.DriveClimb;
+import frc.robot.commands.Shoot;
 import frc.robot.commands.drive.DistanceDrive;
 import frc.robot.commands.teleop.*;
 import frc.robot.commands.turret.AimBot;
-import frc.robot.commands.turret.QuickTurretLimit;
 import frc.robot.subsystems.Shooter;
 
 public class OI {
@@ -42,6 +44,7 @@ public class OI {
     private JoystickButton turnDegrees;
     private JoystickButton aimAndShoot;
     private JoystickButton distanceDrive;
+    private JoystickButton enableAimbot;
 
     private JoystickButton toggleLED;
 
@@ -88,8 +91,11 @@ public class OI {
         floorPickup = new JoystickButton(bb, RobotMap.OI.FLOOR_PICKUP);
         floorPickup.whileHeld(new FloorPickup());
 
-        quickTurretLimits = new JoystickButton(bb, RobotMap.OI.QUICK_TURRET_LIMITS);
-        quickTurretLimits.whenPressed(new QuickTurretLimit());
+        //quickTurretLimits = new JoystickButton(bb, RobotMap.OI.QUICK_TURRET_LIMITS);
+        //quickTurretLimits.whenPressed(new QuickTurretLimit());
+        enableAimbot = new JoystickButton(bb, RobotMap.OI.ENABLE_AIM_BOT);
+        enableAimbot.whenPressed(new InstantCommand(() ->
+                SmartDashboard.putBoolean("Enable AimBot", !SmartDashboard.getBoolean("Enable AimBot", true))));
 
         aimBot = new JoystickButton(bb, RobotMap.OI.AIM_BOT);
         aimBot.toggleWhenPressed(new AimBot());
