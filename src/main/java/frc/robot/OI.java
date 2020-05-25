@@ -25,15 +25,11 @@ public class OI {
     private JoystickButton floorPickup;
     private Trigger releaseClimber;
     private Trigger retractClimber;
-    private Trigger reverseClimberSlow;
     private Trigger extendClimber;
     private JoystickButton safetyClimber;
     private JoystickButton intakingRoutine;
     private JoystickButton spinHopperMagazine;
-    private Trigger stopHopperMagazine;
     private JoystickButton ejectBalls;
-    //private JoystickButton shooterHood;
-    //private JoystickButton shooterLimit;
     private JoystickButton quickTurretLimits;
     private JoystickButton aimBot;
     private JoystickButton turretToStartPos;
@@ -46,34 +42,8 @@ public class OI {
     private JoystickButton distanceDrive;
     private JoystickButton enableAimbot;
 
-    private JoystickButton toggleLED;
-
     private ButtonBoard bb;
     private JoystickButton[] boardButtons;
-
-    /**
-     * Adam
-     * Intake right trigger
-     * Intake pneumatics: right bumper
-     * shooting power left trigger
-     * Magazine/hopper feed to shooter button b
-     * Climber:
-     * release = 12
-     * climb = 14
-     * retract = 13
-     * shooter speed limit
-     * short = 1
-     * medium = 3
-     * long = 6
-     */
-
-    /**
-     * shooter right trigger analog power
-     * pneumatics
-     * magazine/hopper: manual left bumper
-     * intake: left trigger analog power
-     * climber: button board
-     */
 
     private OI(){
         primaryXbox = new XboxController(RobotMap.OI.PRIMARY_XBOX);
@@ -108,37 +78,22 @@ public class OI {
 
         safetyClimber = new JoystickButton(bb, RobotMap.OI.SAFETY_CLIMBER);
         retractClimber = new JoystickButton(bb, RobotMap.OI.REVERSE_CLIMBER).and(safetyClimber);
-        reverseClimberSlow = new JoystickButton(bb, RobotMap.OI.REVERSE_CLIMBER_SLOW).and(safetyClimber);
         extendClimber = new JoystickButton(bb, RobotMap.OI.DRIVE_CLIMBER).and(safetyClimber);
         releaseClimber = new JoystickButton(bb, RobotMap.OI.RELEASE_CLIMBER).and(safetyClimber);
 
         releaseClimber.whenActive(new ReleaseClimb());
         retractClimber.whileActiveContinuous(new DriveClimb(RobotMap.CLIMBER.CLIMB_DOWN_POWER));
-        //reverseClimberSlow.whileActiveContinuous(new DriveClimb(RobotMap.CLIMBER.CLIMB_DOWN_SLOW_POWER));
         extendClimber.whileActiveContinuous(new DriveClimb(RobotMap.CLIMBER.CLIMB_UP_POWER));
 
-        //intakingRoutine = new Trigger(() -> this.getXboxLeftBumperPressed());
         intakingRoutine = new JoystickButton(bb, RobotMap.OI.INTAKING_ROUTINE);
         intakingRoutine.whenPressed(new IntakingRoutine().withTimeout(10).andThen(
                 new InstantCommand(() -> System.out.println("Finish Intaking Routine"))));
-        //spinHopperMagazine = new JoystickButton(bb, RobotMap.OI.SPIN_HOPPER_MAGAZINE);
-        //spinHopperMagazine = new Trigger(() -> this.getXboxLeftBumperPressed());
+
         spinHopperMagazine = new JoystickButton(secondaryXbox, RobotMap.OI.SPIN_HOPPER_MAGAZINE);
-        //spinHopperMagazine.whenPressed(new RunHopper(), new RunMagazine());
-        //spinHopperMagazine.whenPressed(new ParallelCommandGroup(new RunHopper(), new RunMagazine(true, true, false)));
         spinHopperMagazine.whenPressed(new RunHopperMagazine());
         spinHopperMagazine.whenReleased(new StopHopperMagazine());
 
-        //stopHopperMagazine = new Trigger(() -> this.getXboxLeftBumperReleased());
-        //stopHopperMagazine.whenActive(new SequentialCommandGroup(new InstantCommand(() -> Magazine.getInstance().stop()),
-        //        new InstantCommand(() -> Hopper.getInstance().stop())));
-
-        //toggleLED = new JoystickButton(bb, RobotMap.OI.TOGGLE_LED);
-        //toggleLED.whenPressed(new InstantCommand(() -> DriveTrain.getInstance().toggleLED()));
-
         leftTriggerPressed = new Trigger(() -> getSecondaryXboxLeftTriggerPressed());
-        //leftTriggerPressed = new Trigger(() -> true);
-        //leftTriggerPressed.whenInactive(new InstantCommand(() -> Shooter.getInstance().setPosition(Shooter.Position.ONE)));
         shooterLow = new JoystickButton(bb, RobotMap.OI.SHOOTER_LOW).and(leftTriggerPressed);
         shooterMed = new JoystickButton(bb, RobotMap.OI.SHOOTER_MED).and(leftTriggerPressed);
         shooterHigh = new JoystickButton(bb, RobotMap.OI.SHOOTER_HIGH).and(leftTriggerPressed);
@@ -149,7 +104,6 @@ public class OI {
 
         aimAndShoot = new JoystickButton(bb, RobotMap.OI.AIM_AND_SHOOT);
         aimAndShoot.whileHeld(new AimAndShoot(5).withInterrupt(() -> !this.aimAndShoot.get()));
-        //aimAndShoot.whenPressed(new SixBallAuto());
     }
 
     public double getPrimaryXboxLeftTrigger(){
@@ -222,37 +176,6 @@ public class OI {
 
     public boolean getXboxDpadRight(){
         return this.secondaryXbox.getPOV() == 90;
-    }
-
-    /**
-     * Returns 0.0 if the given value is within the specified range around zero. The remaining range
-     * between the deadband and 1.0 is scaled from 0.0 to 1.0.
-     *
-     * @param value    value to clip
-     * @param deadband range around zero
-     * @author WPI
-     */
-    public static double removeDeadband(double value, double deadband) {
-        if (Math.abs(value) > deadband) {
-            if (value > 0.0) {
-                return (value - deadband) / (1.0 - deadband);
-            } else {
-                return (value + deadband) / (1.0 - deadband);
-            }
-        } else {
-            return 0.0;
-        }
-    }
-    public static double removeDeadband(double value) {
-        if (Math.abs(value) > .05) {
-            if (value > 0.0) {
-                return (value - .05) / (1.0 - .05);
-            } else {
-                return (value + .05) / (1.0 - .05);
-            }
-        } else {
-            return 0.0;
-        }
     }
 
     public static OI getINSTANCE(){
