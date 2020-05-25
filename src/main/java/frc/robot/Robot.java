@@ -48,7 +48,7 @@ public class Robot extends TimedRobot {
 
         this.table = NetworkTableInstance.getDefault().getTable("OpenSight");
 
-        //remove SmartDash keys
+        //remove all SmartDashboard elements from the Driver Station
         /**String[] smartDashKeys = SmartDashboard.getKeys().toArray(new String[0]);
         for (String key : smartDashKeys){
             SmartDashboard.delete(key);
@@ -65,8 +65,6 @@ public class Robot extends TimedRobot {
                 SmartDashboard.setPersistent(doubleName);
             }
         }
-
-        //If either of these lines are uncommented out, the null exception error shows
         CommandScheduler.getInstance().setDefaultCommand(Shooter.getInstance(), new Shoot());
         CommandScheduler.getInstance().setDefaultCommand(Intake.getInstance(), new RunIntake());
         CommandScheduler.getInstance().setDefaultCommand(Turret.getInstance(), new SpinTurret());
@@ -86,50 +84,11 @@ public class Robot extends TimedRobot {
         }
 
         CommandScheduler.getInstance().run();
-        /**UsbCameraInfo[] arr = UsbCamera.enumerateUsbCameras();
-        if (arr.length == 0)
-        {
-            System.out.println("No.");
-        }
-        for (UsbCameraInfo info : arr)
-        {
-            System.out.println(info.dev);
-        }*/
-
-        //UsbCamera camera = CameraServer.getInstance().startAutomaticCapture(0);
-        //camera.setVideoMode(VideoMode.PixelFormat.kMJPEG, 320, 240, 120);
-        //camera.setConnectVerbose(0);
-        /*camera.setResolution(320, 240);
-        new Thread(() -> {
-                CvSink cvSink = CameraServer.getInstance().getVideo();
-                CvSource outputStream = CameraServer.getInstance().putVideo("camera stream", 320, 240);
-                Mat source = new Mat();
-                while(!Thread.interrupted()) {
-                    cvSink.grabFrame(source);
-                    outputStream.putFrame(source);
-                    }
-        }).start();*/
-        //StopHopperMagazine
     }
 
     @Override
     public void robotPeriodic() {
-        // Runs the Scheduler.  This is responsible for polling buttons, adding newly-scheduled
-        // commands, running already-scheduled commands, removing finished or interrupted commands,
-        // and running subsystem periodic() methods.  This must be called from the robot's periodic
-        // block in order for anything in the Command-based framework to work.
         CommandScheduler.getInstance().run();
-        /*UsbCameraInfo[] arr = UsbCamera.enumerateUsbCameras();
-        if (arr.length == 0)
-        {
-            System.out.println("HRM.");
-        }
-        for (UsbCameraInfo info : arr)
-        {
-            System.out.println(info.dev);
-        }*/
-
-        //SmartDashboard.putBoolean("Dist Sensor Error", Dist2m.getInstance().isNotEnabled());
     }
 
     @Override
@@ -159,46 +118,42 @@ public class Robot extends TimedRobot {
 
     @Override
     public void teleopInit() {
-        // This makes sure that the autonomous stops running when
-        // teleop starts running. If you want the autonomous to
-        // continue until interrupted by another command, remove
-        // this line or comment it out.
         CommandScheduler.getInstance().cancelAll();
         if (autonomousCommand != null) {
             autonomousCommand.cancel();
         }
         CommandScheduler.getInstance().schedule(new InstantCommand(() -> Shooter.getInstance().setPosition(Shooter.Position.ONE)));
-        //Command teleopCommand = robotContainer.getTeleopCommand();
-        //teleopCommand.schedule();
-        //new Drive();
-        //new ScheduleCommand(new Drive());
-        //CommandScheduler.getInstance().schedule(new Drive());
-        //CommandScheduler.getInstance().schedule(new Drive());
     }
 
     @Override
     public void teleopPeriodic() {
-        /**SmartDashboard.putNumber("Encoder Distance", DriveTrain.getInstance().getEncoderPosition());
-        SmartDashboard.putNumber("Shooter RPM", Shooter.getInstance().getRPM());
-        SmartDashboard.putNumber("Turret Pos", Turret.getInstance().getPosition());
-        SmartDashboard.putNumber("Pos Degrees", Turret.getInstance().getDegreesPosition());
-        SmartDashboard.putBoolean("Front Limit", Turret.getInstance().atFrontLimit());
-        SmartDashboard.putBoolean("Back Limit", Turret.getInstance().atBackLimit());
+        //Do not show continuously update all Smart Dash variables to avoid
+        //crashing the Driver Station
+        boolean showSmartDashInfo = false;
+        boolean showShooterPowerInfo = false;
+        if (showSmartDashInfo){
+            SmartDashboard.putNumber("Encoder Distance", DriveTrain.getInstance().getEncoderPosition());
+            SmartDashboard.putNumber("Shooter RPM", Shooter.getInstance().getRPM());
+            SmartDashboard.putNumber("Turret Pos", Turret.getInstance().getPosition());
+            SmartDashboard.putNumber("Pos Degrees", Turret.getInstance().getDegreesPosition());
+            SmartDashboard.putBoolean("Front Limit", Turret.getInstance().atFrontLimit());
+            SmartDashboard.putBoolean("Back Limit", Turret.getInstance().atBackLimit());
 
-        SmartDashboard.putBoolean("LBottom", getLinebreakBottom().lineBroken());
-        SmartDashboard.putBoolean("LTop", getLinebreakTop().lineBroken());
+            SmartDashboard.putBoolean("LBottom", getLinebreakBottom().lineBroken());
+            SmartDashboard.putBoolean("LTop", getLinebreakTop().lineBroken());
 
-        SmartDashboard.putNumber("target-x", this.table.getEntry("target-x").getDouble(666));
-        SmartDashboard.putNumber("target-y", this.table.getEntry("target-y").getDouble(666));
-        SmartDashboard.putNumber("Target Area", this.table.getEntry("area").getDouble(0));
-        Shooter.getInstance().updateMotorPID();
+            SmartDashboard.putNumber("target-x", this.table.getEntry("target-x").getDouble(666));
+            SmartDashboard.putNumber("target-y", this.table.getEntry("target-y").getDouble(666));
+            SmartDashboard.putNumber("Target Area", this.table.getEntry("area").getDouble(0));
+            Shooter.getInstance().updateMotorPID();
 
-        if(true){
-            SmartDashboard.putNumber("Shooter Left Power", Shooter.getInstance().getLeftPower());
-            SmartDashboard.putNumber("Shooter Right Power", Shooter.getInstance().getRightPower());
-            SmartDashboard.putNumber("Shooter Left RPM", Shooter.getInstance().getLeftRPM());
-            SmartDashboard.putNumber("Shooter Right RPM", Shooter.getInstance().getRightRPM());
-        }*/
+            if(showShooterPowerInfo){
+                SmartDashboard.putNumber("Shooter Left Power", Shooter.getInstance().getLeftPower());
+                SmartDashboard.putNumber("Shooter Right Power", Shooter.getInstance().getRightPower());
+                SmartDashboard.putNumber("Shooter Left RPM", Shooter.getInstance().getLeftRPM());
+                SmartDashboard.putNumber("Shooter Right RPM", Shooter.getInstance().getRightRPM());
+            }
+        }
     }
 
     @Override

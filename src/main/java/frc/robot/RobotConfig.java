@@ -48,11 +48,7 @@ public final class RobotConfig
 
         public static final double AUTO_LINE_INCHES = 40;
     }
-    public static class SENSORS {
-        public static double IMU_OFFSET_PER_SECOND_PHASE_ONE = -0.794775;
-        public static double IMU_OFFSET_PER_SECOND_PHASE_TWO = 0.985840;
-        public static double IMU_CALIBRATION_TIME = 60;
-    }
+
     public static class TURRET {
         public static double DEFAULT_SPIN_POWER = 0.3;
     }
@@ -65,7 +61,6 @@ public final class RobotConfig
     }
 
     public static class SHOOTER {
-        public static double RPM_PER_POWER = 1000;
         public static double PRESHOOTER_POWER = 0.3;
         public static double SHOOTER_MAX_POWER = .8;
         public static double PRESHOOTER_DELAY = 2;

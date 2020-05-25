@@ -7,9 +7,6 @@ public class RobotMap {
         public static final int LEFT_SLAVE = 1;
         public static final int RIGHT_MASTER = 15;
         public static final int RIGHT_SLAVE = 14;
-        public static final int TEMP_SOLENOID = 6;//random number
-
-        public static final double MAX_TEMP = 60;
     }
 
     public static class SHOOTER {
@@ -55,13 +52,11 @@ public class RobotMap {
         public static int BUTTON_BOARD = 3;
 
         //xbox bindings
-        //public static int INTAKING_ROUTINE = 1;
         public static int RUN_SHOOTER = 6;
         public static int SPIN_HOPPER_MAGAZINE = 5;
         public static int DISTANCE_DRIVE = 2;
 
         //button board bindings
-        //public static int RUN_MAGAZINE = 7;
         public static int FLOOR_PICKUP = 8;
         public static int INTAKING_ROUTINE = 7;
 
@@ -84,8 +79,6 @@ public class RobotMap {
         public static int SHOOTER_LOW = 1;
         public static int SHOOTER_MED = 3;
         public static int SHOOTER_HIGH = 6;
-
-        //public static int TOGGLE_LED = 8;
     }
 
     public static class CLIMBER {

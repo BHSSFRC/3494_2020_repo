@@ -10,13 +10,12 @@ import frc.robot.RobotMap;
 
 public class Shooter extends SubsystemBase {
 
-    //TODO: get method for whether shooter is at target speed yet
     /**
      * Shooter routine
      * 1 Ramp up shooter, turn on AimBot
      * 2 Once RMP = target and Aimright= within range
      * - Fire continuously
-     * 3 Once button released, sleft Shooter
+     * 3 Once button released, stop Shooter
      */
 
     private final static Shooter INSTANCE = new Shooter();
@@ -104,6 +103,12 @@ public class Shooter extends SubsystemBase {
         this.left.setInverted(true);
         this.right.setInverted(true);
 
+        this.initPID();
+
+        this.setPosition(Position.ONE);
+    }
+
+    private void initPID(){
         this.leftEnc = this.left.getEncoder();
         this.leftPID = this.left.getPIDController();
 
@@ -140,22 +145,16 @@ public class Shooter extends SubsystemBase {
         SmartDashboard.putNumber("Feed Forward", kFF);
         SmartDashboard.putNumber("Max Output", kMaxOutput);
         SmartDashboard.putNumber("Min Output", kMinOutput);
-
-        this.setPosition(Position.ONE);
     }
 
     public void shoot(double power) {
         this.left.set(power);
         this.right.set(-power);
-        SmartDashboard.putNumber("Shooter Power Current", power);
     }
 
     public void setRPM(double targetRPM) {
-        //this.left.setRef
-        //targetRPM /= .2743;
         this.leftPID.setReference(targetRPM, ControlType.kVelocity);
         this.rightPID.setReference(-targetRPM, ControlType.kVelocity);
-        //System.out.println("RPM: " + this.getRPM() + "Target: " + targetRPM + " FF: " + this.leftPID.getFF());
     }
 
     public boolean atTargetSpeed(double targetRPM) {
@@ -175,7 +174,6 @@ public class Shooter extends SubsystemBase {
     }
 
     public double getLeftRPM() {
-        //return this.leftEnc.getPosition();
         return this.leftEnc.getVelocity();
     }
     public double getRightRPM() {
@@ -184,7 +182,6 @@ public class Shooter extends SubsystemBase {
 
     public void stop()
     {
-        //this.left.set(0);
         this.right.set(0);
     }
 
@@ -192,12 +189,6 @@ public class Shooter extends SubsystemBase {
     {
         return this.currentPosition;
     }
-
-    /*
-    public double getVelocity() {
-        return ((this.left.getVelocity() + this.left.getVelocity()) / 2);
-    }
-    */
 
     public void setPosition(Position position) {
         // hood = "long piston"
