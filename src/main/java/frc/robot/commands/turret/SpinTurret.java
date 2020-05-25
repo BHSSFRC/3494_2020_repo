@@ -4,7 +4,7 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.OI;
 import frc.robot.subsystems.Turret;
 
-
+//Spin turret with power according to xbox rightX input
 public class SpinTurret extends CommandBase {
 
     public SpinTurret() {
@@ -24,7 +24,6 @@ public class SpinTurret extends CommandBase {
 
     @Override
     public boolean isFinished() {
-        // TODO: Make this return true when this Command no longer needs to run execute()
         return false;
     }
 

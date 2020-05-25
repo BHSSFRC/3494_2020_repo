@@ -8,10 +8,10 @@ import frc.robot.commands.Shoot;
 import frc.robot.commands.drive.DistanceDrive;
 import frc.robot.commands.teleop.RunHopperMagazine;
 
+//Shoot balls and drive forward
+//currently robot does not turn at any point during this command
 public class FireTurnDrive extends SequentialCommandGroup {
     public FireTurnDrive(double distance) {
-        // TODO: Add your sequential commands in the super() call, e.g.
-        //           super(new FooCommand(), new BarCommand());
         super(
                 new Shoot(RobotConfig.FIRE_TURN_DRIVE.SHOOTER_POWER).withTimeout(RobotConfig.FIRE_TURN_DRIVE.SHOOT_TIMEOUT),
                 new ParallelCommandGroup(

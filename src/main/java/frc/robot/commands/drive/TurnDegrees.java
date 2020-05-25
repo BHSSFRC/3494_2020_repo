@@ -18,7 +18,9 @@ public class TurnDegrees extends CommandBase {
         this.turnDegrees = 90.0;
     }
 
-    //should turn between -180 and 180 degrees, no more
+    /**
+     * @param degrees should be between -180 and 180, the number of degrees the robot should rotate
+     */
     public TurnDegrees(double degrees) {
         // If any subsystems are needed, you will need to pass them into the requires() method
         addRequirements(DriveTrain.getInstance());
@@ -55,7 +57,6 @@ public class TurnDegrees extends CommandBase {
 
     @Override
     public boolean isFinished() {
-        // TODO: Make this return true when this Command no longer needs to run execute()
         return Math.abs(this.delta) < 5;
     }
 

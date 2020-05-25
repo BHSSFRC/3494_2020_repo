@@ -10,10 +10,12 @@ import frc.robot.commands.drive.DistanceDrive;
 import frc.robot.commands.teleop.AimAndShoot;
 import frc.robot.subsystems.Intake;
 
+/**
+ * shoot 3 balls, drive forward to pickup 3 more balls,
+ * return to starting position, shoot 3 more balls
+ */
 public class SixBallAuto extends SequentialCommandGroup {
     public SixBallAuto() {
-        // TODO: Add your sequential commands in the super() call, e.g.
-        //           super(new FooCommand(), new BarCommand());
         super(
                 new InstantCommand(() -> Intake.getInstance().setDeployed(true)),
                 new AimAndShoot(3),

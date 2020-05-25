@@ -5,10 +5,13 @@ import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import frc.robot.RobotConfig;
 import frc.robot.subsystems.Turret;
 
+/**
+ * Spin turret to farthest front position, set hard and soft limits,
+ * then rotate turret to face forward
+ */
 public class QuickTurretLimit extends CommandBase {
 
     public QuickTurretLimit() {
-        // If any subsystems are needed, you will need to pass them into the requires() method
         addRequirements(Turret.getInstance());
     }
 
@@ -24,7 +27,6 @@ public class QuickTurretLimit extends CommandBase {
 
     @Override
     public boolean isFinished() {
-        // TODO: Make this return true when this Command no longer needs to run execute()
         return Turret.getInstance().atFrontLimit();
     }
 

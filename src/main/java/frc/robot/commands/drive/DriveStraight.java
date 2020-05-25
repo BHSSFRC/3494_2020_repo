@@ -15,6 +15,7 @@ public class DriveStraight extends CommandBase {
     private double initialYaw;
     private boolean steadyPower;
 
+    //drive robot straight with power determined by xbox right trigger
     public DriveStraight() {
         //super(new PIDController());
         //super(1.0,1.0,1.0);
@@ -26,6 +27,7 @@ public class DriveStraight extends CommandBase {
         this.steadyPower = false;
     }
 
+    //drive robot straight with constant speed
     public DriveStraight(double power) {
         //super(new PIDController());
         //super(1.0,1.0,1.0);

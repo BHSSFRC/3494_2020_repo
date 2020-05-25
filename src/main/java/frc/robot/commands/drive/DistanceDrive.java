@@ -12,6 +12,10 @@ public class DistanceDrive extends CommandBase {
     private double distEncoderTraveled;
     private double speed;
 
+    /**
+     * @param distance- distance in inches for the robot to drive
+     *                can be positive or negative to represent driving backwards or forward
+     */
     public DistanceDrive(double distance) {
         addRequirements(DriveTrain.getInstance());
         this.dist = distance;
