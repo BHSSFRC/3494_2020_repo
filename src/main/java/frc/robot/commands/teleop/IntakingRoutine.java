@@ -12,8 +12,11 @@ import frc.robot.commands.RunMagazine;
 import frc.robot.subsystems.Hopper;
 import frc.robot.subsystems.Magazine;
 
+/**
+ * assuming balls are already inside robot, stage the balls so that they
+ * are ready to enter the shooter but not in the shooter
+ */
 public class IntakingRoutine extends SequentialCommandGroup {
-    //
     public IntakingRoutine() {
         SmartDashboard.putBoolean("Intaking Routine", true);
         System.out.println("Start Intaking Routine");

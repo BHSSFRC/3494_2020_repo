@@ -7,6 +7,16 @@ import frc.robot.subsystems.Hopper;
 import frc.robot.subsystems.Magazine;
 import frc.robot.subsystems.Shooter;
 
+/**Goal: feed balls through hopper and magazine into the shooter while
+ * only actually launching the balls when the shooter is at full RPM
+ *
+ * run hopper and magazine motors to continue moving balls toward launch position if:
+ * there is not already a ball staged to enter the shooter or
+ * the shooter is at target RPM and thus ready to receive a ball to be shot
+ * if there is a ball staged in the magazine and ready to be shot but
+ * the shooter isn't ready to launch balls(not at RPM), then stop the hopper and
+ * magazine motors to avoid launching a ball at too low an RPM
+ */
 
 public class RunHMWhileShooting extends CommandBase {
     private double targetRPM;
@@ -33,7 +43,6 @@ public class RunHMWhileShooting extends CommandBase {
 
     @Override
     public boolean isFinished() {
-        // TODO: Make this return true when this Command no longer needs to run execute()
         return false;
     }
 

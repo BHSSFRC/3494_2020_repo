@@ -1,6 +1,5 @@
 package frc.robot.commands.teleop;
 
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.RobotConfig;
 import frc.robot.subsystems.Hopper;
@@ -8,7 +7,7 @@ import frc.robot.subsystems.Intake;
 import frc.robot.subsystems.Magazine;
 import frc.robot.subsystems.PreShooter;
 
-
+//Eject balls out from the robot back onto the floor
 public class ReverseIntake extends CommandBase {
 
     public ReverseIntake() {
@@ -16,13 +15,10 @@ public class ReverseIntake extends CommandBase {
                 Intake.getInstance(),
                 Hopper.getInstance(),
                 Magazine.getInstance());
-        System.out.println("Construct Reverse Intaking");
     }
 
     @Override
     public void initialize() {
-        SmartDashboard.putBoolean("Reverse Intake", true);
-        System.out.println("Start Reverse Intaking");
     }
 
     @Override
@@ -36,14 +32,11 @@ public class ReverseIntake extends CommandBase {
 
     @Override
     public boolean isFinished() {
-        // TODO: Make this return true when this Command no longer needs to run execute()
         return false;
     }
 
     @Override
     public void end(boolean interrupted) {
-        SmartDashboard.putBoolean("Reverse Intake", false);
-        System.out.println("Stop Reverse Intaking" + interrupted);
         PreShooter.getInstance().stop();
         Magazine.getInstance().stop();
         Hopper.getInstance().stop();

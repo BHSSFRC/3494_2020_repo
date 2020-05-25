@@ -7,6 +7,7 @@ import frc.robot.subsystems.Magazine;
 
 public class StopHopperMagazine extends CommandBase {
 
+    //instant command stops all hopper and magazine motors
     public StopHopperMagazine() {
         addRequirements(Hopper.getInstance(), Magazine.getInstance());
     }

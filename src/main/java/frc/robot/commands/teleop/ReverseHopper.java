@@ -4,7 +4,7 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.RobotConfig;
 import frc.robot.subsystems.Hopper;
 
-
+//Run the Hopper in reverse to prevent jamming
 public class ReverseHopper extends CommandBase {
 
     public ReverseHopper() {

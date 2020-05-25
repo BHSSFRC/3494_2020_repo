@@ -11,10 +11,13 @@ import frc.robot.subsystems.Magazine;
 import frc.robot.subsystems.Shooter;
 import frc.robot.subsystems.Turret;
 
+/**
+ * Set the hood to position two, Aim the shooter, Start the shooter motor
+ * once the shooter is aimed correctly and spinning at target RPM,
+ * run shooter until the given number of balls have all launched
+ */
 public class AimAndShoot extends SequentialCommandGroup {
     public AimAndShoot(double targetRPM, int ballsToShoot) {
-        // TODO: Add your sequential commands in the super() call, e.g.
-        //           super(new FooCommand(), new BarCommand());
         //Preshooter should only start once target RPM is reached
         super(
                 new InstantCommand(() -> System.out.println("Aim and Shoot--RPM: " + targetRPM)),

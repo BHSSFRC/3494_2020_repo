@@ -4,13 +4,16 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.Robot;
 import frc.robot.util.QuadTimer;
 
-
 public class CountBallsShot extends CommandBase {
     private int ballsShotSoFar;
     private int ballsShotGoal;
     private boolean topLinebreakTripped;
     private QuadTimer timer;
 
+    /**
+     * command runs until the given number of balls have all been shot by the shooter
+     * @param goal - number of balls that need to be shot
+     */
     public CountBallsShot(int goal) {
         addRequirements();
         this.ballsShotSoFar = 0;
@@ -41,13 +44,11 @@ public class CountBallsShot extends CommandBase {
         }
         if (this.ballsShotSoFar == this.ballsShotGoal && this.timer.get() == 0.0){
             this.timer.start();
-            //System.out.println("Starting Timer");
         }
     }
 
     @Override
     public boolean isFinished() {
-        // TODO: Make this return true when this Command no longer needs to run execute()
         return (this.timer.get() > 0.5) && !Robot.getLinebreakTop().lineBroken();
     }
 
