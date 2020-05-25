@@ -4,7 +4,7 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.RobotConfig;
 import frc.robot.subsystems.Hopper;
 
-
+//spin hopper at constant speed
 public class RunHopper extends CommandBase {
 
     public RunHopper() {

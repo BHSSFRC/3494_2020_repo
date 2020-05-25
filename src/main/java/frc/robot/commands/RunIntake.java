@@ -12,6 +12,7 @@ import frc.robot.OI;
 import frc.robot.RobotConfig;
 import frc.robot.subsystems.Intake;
 
+//spin intake at speed according to xbox right trigger input
 public class RunIntake extends CommandBase {
 
     public RunIntake() {
