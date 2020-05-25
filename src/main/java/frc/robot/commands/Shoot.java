@@ -9,28 +9,26 @@ import frc.robot.subsystems.Shooter;
 import frc.robot.util.QuadTimer;
 
 public class Shoot extends CommandBase {
-
-    int hoodPosition = 0;
-    boolean releasedUp = true;
-    boolean releasedDown = true;
-    boolean doneMoving = true;
     private double targetRPM;
     private QuadTimer timer;
     private double shootPower;
     private boolean fixedSpeed;
     private boolean goToRPM;
 
+    //Run shooter at the RPM specified by the Smart Dashboard
     public Shoot() {
         addRequirements(Shooter.getInstance(), PreShooter.getInstance());
-        /**this.targetRPM = OI.getINSTANCE().getXboxLeftTrigger() *
-                SmartDashboard.getNumber("Shooter Max Power", 1) *
-                RobotConfig.SHOOTER.RPM_PER_POWER;*/
         this.timer = new QuadTimer();
         this.fixedSpeed = false;
         this.targetRPM = SmartDashboard.getNumber("Shooter RPM Target", -1);
         this.goToRPM = false;
     }
 
+    /**
+     * Shouldn't be used as power is less reliable than RPM
+     * Run shooter at a constant speed
+     * @param fixedPower - the power between 0 and 1 to run the shooter at
+     */
     public Shoot(double fixedPower) {
         addRequirements(Shooter.getInstance(), PreShooter.getInstance());
         this.timer = new QuadTimer();
@@ -40,10 +38,14 @@ public class Shoot extends CommandBase {
         this.goToRPM = false;
     }
 
+    /**
+     * Run shooter at a constant RPM
+     * @param targetRPM - the target RPM
+     * @param RPM - can be either true or false, the variable only exists to allow a second constructor with another double input
+     */
     public Shoot(double targetRPM, boolean RPM){
         addRequirements(Shooter.getInstance(), PreShooter.getInstance());
         this.targetRPM = targetRPM;
-        System.out.println("Shoot at RPM: " + targetRPM);
         this.fixedSpeed = true;
         this.shootPower = 0.5;
         this.timer = new QuadTimer();
@@ -57,6 +59,7 @@ public class Shoot extends CommandBase {
 
     @Override
     public void execute() {
+        //Run shooter at either specified power or RPM
         if(!this.fixedSpeed){
             if(SmartDashboard.getNumber("Shooter Max Power", .8) != -1){
                 shootPower = OI.getINSTANCE().getXboxLeftTrigger() *
@@ -68,24 +71,22 @@ public class Shoot extends CommandBase {
         }
 
         if(this.goToRPM || (shootPower > 0.05 && targetRPM != -1)){
-            //Shooter.getInstance().shoot(shootPower);
             Shooter.getInstance().setRPM(targetRPM);
         }else{
             Shooter.getInstance().shoot(shootPower);
         }
 
+        /**Preshooter only runs if the shooter is active and has been active for a fixed amount of time(and so is running at full power)
+         * this is to avoid having the preshooter send balls into the shooter when the shooter isn't yet at full power
+         * timer tracks consecutive duration that shooter has been active for
+         */
         if (timer.get() > RobotConfig.SHOOTER.PRESHOOTER_DELAY && shootPower > 0.05) {
-        //if(shootPower > 0.05){
-            //System.out.println("Time: " + timer.get());
             PreShooter.getInstance().spin(SmartDashboard.getNumber("Preshooter Power", RobotConfig.SHOOTER.PRESHOOTER_POWER));
-        }else if (shootPower < .05 && !this.goToRPM) {
-            timer.reset();
-            PreShooter.getInstance().stop();
-            //System.out.println("stop preshooter");
         }else{
-            //System.out.println("powering up shooter: " + timer.get());
-            //System.out.println("stop preshooter");
             PreShooter.getInstance().stop();
+            if (shootPower < .05 && !this.goToRPM) {
+                timer.reset();
+            }
         }
     }
 
