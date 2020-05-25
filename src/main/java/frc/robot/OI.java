@@ -6,7 +6,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
-import frc.robot.commands.Climb;
+import frc.robot.commands.ReleaseClimb;
 import frc.robot.commands.DriveClimb;
 import frc.robot.commands.Shoot;
 import frc.robot.commands.drive.DistanceDrive;
@@ -112,7 +112,7 @@ public class OI {
         extendClimber = new JoystickButton(bb, RobotMap.OI.DRIVE_CLIMBER).and(safetyClimber);
         releaseClimber = new JoystickButton(bb, RobotMap.OI.RELEASE_CLIMBER).and(safetyClimber);
 
-        releaseClimber.whenActive(new Climb());
+        releaseClimber.whenActive(new ReleaseClimb());
         retractClimber.whileActiveContinuous(new DriveClimb(RobotMap.CLIMBER.CLIMB_DOWN_POWER));
         //reverseClimberSlow.whileActiveContinuous(new DriveClimb(RobotMap.CLIMBER.CLIMB_DOWN_SLOW_POWER));
         extendClimber.whileActiveContinuous(new DriveClimb(RobotMap.CLIMBER.CLIMB_UP_POWER));

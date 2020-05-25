@@ -8,16 +8,15 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.OI;
 import frc.robot.subsystems.Climber;
 import frc.robot.util.QuadTimer;
 
-public class Climb extends CommandBase {
-	// TODO: refactor Climb -> ReleaseClimb
+//move climber down for 0.1 seconds, then stop and release pancake piston
+public class ReleaseClimb extends CommandBase {
 
 	private QuadTimer timer;
 
-  	public Climb() {
+  	public ReleaseClimb() {
 		addRequirements(Climber.getInstance());
 		timer = new QuadTimer();
   	}
