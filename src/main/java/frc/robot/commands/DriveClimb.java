@@ -10,10 +10,9 @@ package frc.robot.commands;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.Climber;
 
+//run the climber at the given power, retract pancake piston and stop climber
+//once command ends
 public class DriveClimb extends CommandBase {
-	/**
-	 * Creates a new DriveClimb.
-	 */
 	private double power;
 
 	public DriveClimb(double power) {
@@ -21,25 +20,21 @@ public class DriveClimb extends CommandBase {
 		this.power = power;
 	}
 
-	// Called when the command is initially scheduled.
 	@Override
 	public void initialize() {
 	}
 
-	// Called every time the scheduler runs while the command is scheduled.
 	@Override
 	public void execute() {
 		Climber.getInstance().drive(this.power);
 	}
 
-	// Called once the command ends or is interrupted.
 	@Override
 	public void end(boolean interrupted) {
 		Climber.getInstance().pancake(false);
 		Climber.getInstance().stop();
 	}
 
-	// Returns true when the command should end.
 	@Override
 	public boolean isFinished() {
 		return false;
